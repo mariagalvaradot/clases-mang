@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bases & Ejercicios — Funciones</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0d0f;
+  --surface: #141417;
+  --card: #1a1a1f;
+  --border: #2a2a32;
+  --border2: #353540;
+  --text: #e8e6e0;
+  --muted: #6b6875;
+  --accent: #ff5c3a;
+  --green: #3aff8c;
+  --blue: #3a9fff;
+  --yellow: #ffd93a;
+  --purple: #b03aff;
+  --red: #ff3a3a;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 40px 60px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255,92,58,0.08), transparent);
+  pointer-events: none;
+}
+.badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(255,92,58,0.3);
+  padding: 5px 14px;
+  margin-bottom: 24px;
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 6vw, 80px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 16px;
+}
+h1 em { color: var(--accent); font-style: normal; }
+.hero p { color: var(--muted); font-size: 15px; max-width: 500px; margin: 0 auto 36px; }
+
+.tabs-hero {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+.tab-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.tab-btn:hover, .tab-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255,92,58,0.06);
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+/* ── PANELS ── */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── SECTION ── */
+.section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+.section-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(24px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 28px;
+}
+h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 36px 0 14px;
+  color: var(--text);
+}
+p { font-size: 14px; color: #aaa8a0; margin-bottom: 14px; }
+strong { color: var(--text); font-weight: 500; }
+
+/* ── RULE CARD (wrong/right) ── */
+.rule-card {
+  border: 1px solid var(--border);
+  margin: 28px 0;
+  overflow: hidden;
+}
+.rule-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+.rule-header .icon {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.rule-header.bad { border-left: 3px solid var(--red); }
+.rule-header.bad .icon { background: rgba(255,58,58,0.15); color: var(--red); }
+.rule-header.good { border-left: 3px solid var(--green); }
+.rule-header.good .icon { background: rgba(58,255,140,0.1); color: var(--green); }
+.rule-header.info { border-left: 3px solid var(--blue); }
+.rule-header.info .icon { background: rgba(58,159,255,0.1); color: var(--blue); }
+
+.rule-body { padding: 20px 24px; }
+.rule-body p { font-size: 13px; margin-bottom: 10px; }
+
+.wr { display: flex; gap: 16px; margin: 12px 0; flex-wrap: wrap; }
+.wr-box {
+  flex: 1; min-width: 180px;
+  padding: 14px 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  border-radius: 2px;
+}
+.wr-box.wrong { background: rgba(255,58,58,0.08); border: 1px solid rgba(255,58,58,0.25); color: var(--red); }
+.wr-box.right { background: rgba(58,255,140,0.05); border: 1px solid rgba(58,255,140,0.2); color: var(--green); }
+.wr-box .label {
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  opacity: 0.7;
+}
+.wr-box .math { font-size: 14px; }
+.wr-box .reason { font-size: 11px; margin-top: 8px; opacity: 0.8; font-family: 'Epilogue', sans-serif; }
+
+.why-box {
+  background: rgba(255,217,58,0.06);
+  border: 1px solid rgba(255,217,58,0.2);
+  padding: 14px 18px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #ccc;
+}
+.why-box strong { color: var(--yellow); }
+
+/* ── FORMULA ── */
+.formula {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  padding: 14px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--blue);
+  margin: 14px 0;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* ── EXERCISES ── */
+.ex-grid {
+  display: grid;
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.ex-card {
+  border: 1px solid var(--border);
+  background: var(--card);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.ex-card:hover { border-color: var(--border2); }
+
+.ex-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 22px;
+  cursor: pointer;
+  user-select: none;
+}
+.ex-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+.ex-q {
+  flex: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.ex-diff {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.diff-easy { background: rgba(58,255,140,0.1); color: var(--green); }
+.diff-med { background: rgba(255,217,58,0.1); color: var(--yellow); }
+.diff-hard { background: rgba(255,58,58,0.1); color: var(--red); }
+
+.ex-toggle {
+  font-size: 18px;
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: transform 0.3s;
+  padding-top: 1px;
+}
+.ex-card.open .ex-toggle { transform: rotate(180deg); }
+
+.ex-solution {
+  display: none;
+  padding: 0 22px 22px 22px;
+  border-top: 1px solid var(--border);
+}
+.ex-card.open .ex-solution { display: block; }
+
+.sol-step {
+  display: flex;
+  gap: 14px;
+  margin: 12px 0;
+  align-items: flex-start;
+}
+.sol-n {
+  width: 22px; height: 22px;
+  background: var(--accent);
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.sol-text { font-size: 13px; color: #b0ada5; font-family: 'JetBrains Mono', monospace; line-height: 1.6; }
+.sol-text em { color: var(--text); font-style: normal; font-weight: 500; }
+
+.sol-answer {
+  background: rgba(58,255,140,0.05);
+  border: 1px solid rgba(58,255,140,0.2);
+  padding: 12px 18px;
+  margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--green);
+}
+.sol-answer .label {
+  font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(58,255,140,0.5); display: block; margin-bottom: 4px;
+}
+
+.ex-section-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin: 36px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ex-section-title::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* ── WARN BOX ── */
+.warn {
+  background: rgba(255,92,58,0.06);
+  border-left: 3px solid var(--accent);
+  padding: 14px 18px;
+  margin: 20px 0;
+  font-size: 13px;
+  color: #aaa;
+}
+.warn strong { color: var(--accent); }
+
+/* ── DIVIDER ── */
+.divider { width: 40px; height: 2px; background: var(--accent); margin: 28px 0; }
+
+ul { padding-left: 18px; margin-bottom: 14px; }
+li { font-size: 13px; color: #aaa; margin-bottom: 5px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">Cálculo I · Material de apoyo</div>
+  <h1>Bases <em>&</em> Ejercicios</h1>
+  <p>Las reglas que siempre se confunden, por qué no puedes hacerlo, y ejercicios para practicar.</p>
+  <div class="tabs-hero">
+    <button class="tab-btn active" onclick="showPanel('reglas')">Reglas y trampas</button>
+    <button class="tab-btn" onclick="showPanel('ejercicios')">Banco de ejercicios</button>
+  </div>
+</div>
+
+
+<!-- ═══════════ PANEL 1: REGLAS ═══════════ -->
+<div id="panel-reglas" class="panel active">
+<div class="container">
+
+<!-- ── 1. RAÍCES ── -->
+<div class="section">
+  <div class="section-tag">Trampa #1</div>
+  <h2>Raíces cuadradas y valores absolutos</h2>
+
+  <div class="rule-card">
+    <div class="rule-header bad">
+      <div class="icon">✗</div>
+      Si x₁² = x₂², ¿puedo concluir x₁ = x₂?
+    </div>
+    <div class="rule-body">
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error clásico</div>
+          <div class="math">x₁² = x₂² ⟹ x₁ = x₂</div>
+          <div class="reason">Esto es FALSO en general</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">x₁² = x₂² ⟹ |x₁| = |x₂| ⟹ x₁ = ±x₂</div>
+          <div class="reason">Hay dos posibilidades</div>
+        </div>
+      </div>
+      <div class="why-box">
+        <strong>¿Por qué?</strong> La raíz cuadrada de x² no es x, sino <strong>|x|</strong>. Porque (−3)² = 9 y (3)² = 9. Al sacar √ a ambos lados de x² = y² obtienes |x| = |y|, que da x = y o x = −y. En una demostración de inyectividad, si llegas a x₁² = x₂² debes analizar ambos casos, o añadir la hipótesis de que ambos son positivos para concluir x₁ = x₂.
+      </div>
+      <p style="margin-top:12px"><strong>Ejemplo concreto:</strong> (−5)² = (5)² = 25. Si solo dijeras x = 5 pierdes x = −5.</p>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-header info">
+      <div class="icon">!</div>
+      La regla correcta: √(x²) = |x|
+    </div>
+    <div class="rule-body">
+      <div class="formula">√(x²) = |x|, no x</div>
+      <p>Esto se debe a que la función raíz cuadrada siempre da un resultado no negativo. Entonces:</p>
+      <div class="wr">
+        <div class="wr-box right">
+          <div class="label">Si x ≥ 0</div>
+          <div class="math">√(x²) = x</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">Si x &lt; 0</div>
+          <div class="math">√(x²) = −x (positivo)</div>
+        </div>
+      </div>
+      <div class="why-box">
+        <strong>Consecuencia práctica:</strong> Si en una demostración de inyectividad te piden probar que f(x₁) = f(x₂) ⟹ x₁ = x₂, y llegas a x₁² = x₂², necesitas añadir que el dominio tiene x ≥ 0 (o x ≤ 0) para sacar la raíz y concluir x₁ = x₂ directamente.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 2. LOGARITMOS ── -->
+<div class="section">
+  <div class="section-tag">Trampa #2</div>
+  <h2>Errores con logaritmos</h2>
+
+  <div class="rule-card">
+    <div class="rule-header bad">
+      <div class="icon">✗</div>
+      ln(a + b) = ln(a) + ln(b) ?
+    </div>
+    <div class="rule-body">
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error muy común</div>
+          <div class="math">ln(a + b) = ln a + ln b</div>
+          <div class="reason">FALSO. No existe esta propiedad</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Lo que SÍ vale</div>
+          <div class="math">ln(a · b) = ln a + ln b</div>
+          <div class="reason">Solo con multiplicación</div>
+        </div>
+      </div>
+      <div class="why-box">
+        <strong>Contraejemplo:</strong> ln(1 + 1) = ln 2 ≈ 0.693, pero ln 1 + ln 1 = 0 + 0 = 0. Son distintos.
+      </div>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-header bad">
+      <div class="icon">✗</div>
+      Otros errores de logaritmos
+    </div>
+    <div class="rule-body">
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">ln(a/b) = ln(a) / ln(b)</div>
+          <div class="reason">FALSO</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">ln(a/b) = ln a − ln b</div>
+          <div class="reason">Es resta, no división</div>
+        </div>
+      </div>
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">(ln a)² = 2 ln a</div>
+          <div class="reason">FALSO. Confunde con ln(a²)</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">ln(a²) = 2 ln a</div>
+          <div class="reason">El exponente va al frente</div>
+        </div>
+      </div>
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">ln(0) = 0 o ln(−5) = algo</div>
+          <div class="reason">FALSO: no existe</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">ln(1) = 0 y ln(e) = 1</div>
+          <div class="reason">Solo definido para x > 0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Las propiedades correctas de logaritmos</h3>
+  <div class="formula">ln(xy) = ln x + ln y &nbsp;&nbsp; (x>0, y>0)</div>
+  <div class="formula">ln(x/y) = ln x − ln y &nbsp;&nbsp; (x>0, y>0)</div>
+  <div class="formula">ln(xⁿ) = n · ln x &nbsp;&nbsp; (x>0)</div>
+  <div class="formula">ln(eˣ) = x &nbsp;&nbsp; y &nbsp;&nbsp; e^(ln x) = x</div>
+</div>
+
+<!-- ── 3. RAÍCES DE SUMA ── -->
+<div class="section">
+  <div class="section-tag">Trampa #3</div>
+  <h2>Raíz de una suma</h2>
+
+  <div class="rule-card">
+    <div class="rule-header bad">
+      <div class="icon">✗</div>
+      √(a² + b²) = a + b ?
+    </div>
+    <div class="rule-body">
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error clásico</div>
+          <div class="math">√(a² + b²) = a + b</div>
+          <div class="reason">FALSO en casi todos los casos</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Realidad</div>
+          <div class="math">√(a² + b²) ≠ a + b</div>
+          <div class="reason">No se puede simplificar más</div>
+        </div>
+      </div>
+      <div class="why-box">
+        <strong>Contraejemplo:</strong> √(3² + 4²) = √(9+16) = √25 = 5. Pero 3 + 4 = 7 ≠ 5.
+      </div>
+      <p style="margin-top:12px">Lo que sí vale: √(a²) = |a| y √(a·b) = √a · √b (con a,b ≥ 0)</p>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-header good">
+      <div class="icon">✓</div>
+      Lo que SÍ puedes hacer con raíces
+    </div>
+    <div class="rule-body">
+      <div class="wr">
+        <div class="wr-box right">
+          <div class="label">✓ Válido</div>
+          <div class="math">√(a · b) = √a · √b</div>
+          <div class="reason">a ≥ 0 y b ≥ 0</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Válido</div>
+          <div class="math">√(a/b) = √a / √b</div>
+          <div class="reason">a ≥ 0 y b > 0</div>
+        </div>
+      </div>
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Inválido</div>
+          <div class="math">√(a + b) = √a + √b</div>
+        </div>
+        <div class="wr-box wrong">
+          <div class="label">❌ Inválido</div>
+          <div class="math">√(a − b) = √a − √b</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 4. POTENCIAS ── -->
+<div class="section">
+  <div class="section-tag">Trampa #4</div>
+  <h2>Errores con potencias y exponentes</h2>
+
+  <div class="rule-card">
+    <div class="rule-header bad">
+      <div class="icon">✗</div>
+      Errores en álgebra de potencias
+    </div>
+    <div class="rule-body">
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">(a + b)² = a² + b²</div>
+          <div class="reason">FALSO. Falta el término cruzado</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">(a + b)² = a² + 2ab + b²</div>
+        </div>
+      </div>
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">aˣ · aʸ = a^(xy)</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">aˣ · aʸ = a^(x+y)</div>
+          <div class="reason">Misma base: sumas exponentes</div>
+        </div>
+      </div>
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">aˣ · bˣ = (ab)^(2x)</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">aˣ · bˣ = (ab)ˣ</div>
+          <div class="reason">Distinta base, mismo exp.</div>
+        </div>
+      </div>
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">(aˣ)ʸ = aˣ + aʸ</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">(aˣ)ʸ = a^(xy)</div>
+          <div class="reason">Potencia de potencia: multiplica</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 5. DOMINIO ── -->
+<div class="section">
+  <div class="section-tag">Trampa #5</div>
+  <h2>Dominio: lo que la mayoría olvida</h2>
+
+  <div class="rule-card">
+    <div class="rule-header bad">
+      <div class="icon">✗</div>
+      "El denominador que se anule da el dominio"
+    </div>
+    <div class="rule-body">
+      <p>El error es <strong>incluir</strong> el valor que anula el denominador en lugar de excluirlo.</p>
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">f(x) = 1/(x−3)<br>Dom = {3}</div>
+          <div class="reason">3 se EXCLUYE, no se incluye</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">f(x) = 1/(x−3)<br>Dom = ℝ \ {3}</div>
+          <div class="reason">Todo excepto x = 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-header bad">
+      <div class="icon">✗</div>
+      Olvidar que el radicando puede ser CERO
+    </div>
+    <div class="rule-body">
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">√(x − 2): Dom = (2, ∞)</div>
+          <div class="reason">Olvida que x=2 también sirve</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">√(x − 2): Dom = [2, ∞)</div>
+          <div class="reason">√0 = 0, está definida</div>
+        </div>
+      </div>
+      <div class="why-box">
+        <strong>Regla:</strong> Para √(expresión) necesitas expresión <strong>≥ 0</strong> (no estrictamente mayor). Para ln(expresión) necesitas expresión <strong>> 0</strong> (aquí sí estrictamente).
+      </div>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-header bad">
+      <div class="icon">✗</div>
+      Confundir el dominio de f∘g
+    </div>
+    <div class="rule-body">
+      <p>El dominio de (f∘g)(x) = f(g(x)) no es simplemente Dom(g).</p>
+      <div class="why-box">
+        <strong>Regla correcta:</strong> Dom(f∘g) = {x ∈ Dom(g) : g(x) ∈ Dom(f)}<br><br>
+        Es decir: x debe ser válido para g, <strong>Y ADEMÁS</strong> el resultado g(x) debe ser válido para f.
+      </div>
+      <p style="margin-top:10px"><strong>Ejemplo:</strong> f(x) = √x (Dom: [0,∞)), g(x) = x−3 (Dom: ℝ)<br>
+      (f∘g)(x) = √(x−3). Necesitas g(x) ≥ 0, es decir x−3 ≥ 0, entonces Dom = [3, ∞), no ℝ.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── 6. INVERSA ── -->
+<div class="section">
+  <div class="section-tag">Trampa #6</div>
+  <h2>La inversa NO es 1/f(x)</h2>
+
+  <div class="rule-card">
+    <div class="rule-header bad">
+      <div class="icon">✗</div>
+      f⁻¹(x) = 1/f(x) ?
+    </div>
+    <div class="rule-body">
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error gravísimo</div>
+          <div class="math">f⁻¹(x) = 1/f(x)</div>
+          <div class="reason">La notación "−1" no es exponente</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Significado real</div>
+          <div class="math">f⁻¹ es la función INVERSA</div>
+          <div class="reason">La que "deshace" a f</div>
+        </div>
+      </div>
+      <div class="why-box">
+        <strong>Ejemplo:</strong> Si f(x) = 2x + 1, entonces f⁻¹(x) = (x−1)/2, no 1/(2x+1).<br>
+        Verifica: f(f⁻¹(x)) = 2·(x−1)/2 + 1 = x−1+1 = x ✓
+      </div>
+      <p style="margin-top:10px">La reciprocal (1/f) a veces se escribe [f(x)]⁻¹, con los corchetes para distinguir.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── 7. FRACCIONES ── -->
+<div class="section">
+  <div class="section-tag">Trampa #7</div>
+  <h2>Álgebra de fracciones</h2>
+
+  <div class="rule-card">
+    <div class="rule-header bad">
+      <div class="icon">✗</div>
+      Cancelar términos que suman, no que multiplican
+    </div>
+    <div class="rule-body">
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">(x² + 5) / 5 = x²</div>
+          <div class="reason">No puedes "cancelar" el 5</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">(x² + 5) / 5 = x²/5 + 1</div>
+          <div class="reason">Divide cada término por 5</div>
+        </div>
+      </div>
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">(x+3)(x−1) / (x+3) = x−1+3</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">(x+3)(x−1) / (x+3) = x−1</div>
+          <div class="reason">Cancelas el factor (x+3), x≠−3</div>
+        </div>
+      </div>
+      <div class="why-box">
+        <strong>Regla de oro:</strong> Solo puedes cancelar <strong>factores</strong> (cosas que multiplican), nunca <strong>sumandos o términos</strong>.
+      </div>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-header bad">
+      <div class="icon">✗</div>
+      Dividir entre una fracción
+    </div>
+    <div class="rule-body">
+      <div class="wr">
+        <div class="wr-box wrong">
+          <div class="label">❌ Error</div>
+          <div class="math">a / (b/c) = (a·b)/c</div>
+        </div>
+        <div class="wr-box right">
+          <div class="label">✓ Correcto</div>
+          <div class="math">a / (b/c) = a · (c/b) = ac/b</div>
+          <div class="reason">Divides = multiplicas por recíproco</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 8. INYECTIVIDAD ── -->
+<div class="section">
+  <div class="section-tag">Trampa #8</div>
+  <h2>Demostrar inyectividad: el método correcto</h2>
+
+  <div class="rule-card">
+    <div class="rule-header info">
+      <div class="icon">i</div>
+      Estructura de la demostración de inyectividad
+    </div>
+    <div class="rule-body">
+      <p>Para probar que f es inyectiva (1 a 1), debes mostrar que:</p>
+      <div class="formula">f(x₁) = f(x₂) ⟹ x₁ = x₂</div>
+      <p><strong>Pasos:</strong></p>
+      <ul>
+        <li>Supón que f(x₁) = f(x₂) (hipótesis)</li>
+        <li>Trabaja algebraicamente hasta llegar a x₁ = x₂</li>
+        <li>Cada paso debe estar justificado</li>
+      </ul>
+      <div class="why-box">
+        <strong>Ejemplo:</strong> f(x) = 3x − 5. Supón f(x₁) = f(x₂):<br>
+        3x₁ − 5 = 3x₂ − 5 → 3x₁ = 3x₂ → x₁ = x₂ ✓ (es inyectiva)
+      </div>
+      <div class="why-box" style="margin-top:10px; border-color: rgba(255,58,58,0.3)">
+        <strong style="color:var(--red)">Trampa:</strong> f(x) = x². Supón f(x₁) = f(x₂) → x₁² = x₂² → |x₁| = |x₂| → x₁ = ±x₂. No puedes concluir x₁ = x₂. Por eso f(x)=x² NO es inyectiva en ℝ (sí en [0,∞)).
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end container -->
+</div><!-- end panel-reglas -->
+
+
+<!-- ═══════════ PANEL 2: EJERCICIOS ═══════════ -->
+<div id="panel-ejercicios" class="panel">
+<div class="container">
+<div class="section">
+  <div class="section-tag">Practica</div>
+  <h2>Banco de ejercicios</h2>
+  <p>Haz click en cada ejercicio para ver la solución paso a paso. Intenta primero tú sola.</p>
+
+  <!-- DOMINIO -->
+  <div class="ex-section-title">Dominio de funciones</div>
+  <div class="ex-grid">
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 01</div>
+        <div class="ex-q">Halla el dominio de f(x) = √(2x − 6)</div>
+        <div class="ex-diff diff-easy">Fácil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">El radicando debe ser ≥ 0: <em>2x − 6 ≥ 0</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">Suma 6: <em>2x ≥ 6</em></div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Divide entre 2: <em>x ≥ 3</em></div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>Dom(f) = [3, +∞)</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 02</div>
+        <div class="ex-q">Halla el dominio de f(x) = 1/(x² − 5x + 6)</div>
+        <div class="ex-diff diff-easy">Fácil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">El denominador no puede ser cero: <em>x² − 5x + 6 ≠ 0</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">Factoriza: <em>(x−2)(x−3) = 0</em> → x = 2 o x = 3</div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Excluye esos valores del dominio</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>Dom(f) = ℝ \ {2, 3} = (−∞,2) ∪ (2,3) ∪ (3,+∞)</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 03</div>
+        <div class="ex-q">Halla el dominio de f(x) = √(x + 4) / (x − 1)</div>
+        <div class="ex-diff diff-med">Medio</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">Restricción 1 (raíz): <em>x + 4 ≥ 0</em> → x ≥ −4</div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">Restricción 2 (denominador): <em>x − 1 ≠ 0</em> → x ≠ 1</div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Intersección: x ≥ −4 Y x ≠ 1</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>Dom(f) = [−4, 1) ∪ (1, +∞)</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 04</div>
+        <div class="ex-q">Halla el dominio de f(x) = ln(x² − 9)</div>
+        <div class="ex-diff diff-med">Medio</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">Para logaritmo: argumento <em>estrictamente mayor que 0</em>: x² − 9 > 0</div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">Factoriza: <em>(x−3)(x+3) > 0</em></div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Tabla de signos: producto positivo cuando ambos factores tienen el mismo signo.<br>Ambos positivos: x > 3. Ambos negativos: x &lt; −3</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>Dom(f) = (−∞, −3) ∪ (3, +∞)</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 05</div>
+        <div class="ex-q">Halla el dominio de f(x) = √(4 − x²) + 1/(x + 1)</div>
+        <div class="ex-diff diff-hard">Difícil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">Restricción 1 (raíz): <em>4 − x² ≥ 0</em> → x² ≤ 4 → −2 ≤ x ≤ 2, es decir [−2, 2]</div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">Restricción 2 (denominador): <em>x + 1 ≠ 0</em> → x ≠ −1</div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Intersección: [−2, 2] con x ≠ −1</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>Dom(f) = [−2, −1) ∪ (−1, 2]</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COMPOSICIÓN -->
+  <div class="ex-section-title">Composición de funciones</div>
+  <div class="ex-grid">
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 06</div>
+        <div class="ex-q">f(x) = x + 3, g(x) = x². Calcula (f∘g)(x) y (g∘f)(x).</div>
+        <div class="ex-diff diff-easy">Fácil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">(f∘g)(x) = f(g(x)) = f(x²) = <em>x² + 3</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">(g∘f)(x) = g(f(x)) = g(x+3) = (x+3)² = <em>x² + 6x + 9</em></div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Son distintas: f∘g ≠ g∘f. La composición NO es conmutativa.</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>(f∘g)(x) = x² + 3 &nbsp;|&nbsp; (g∘f)(x) = x² + 6x + 9</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 07</div>
+        <div class="ex-q">f(x) = √x, g(x) = x − 5. Halla (f∘g)(x) y su dominio.</div>
+        <div class="ex-diff diff-med">Medio</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">(f∘g)(x) = f(g(x)) = f(x−5) = <em>√(x−5)</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">Dominio: necesitamos que g(x) esté en Dom(f) = [0,∞). Entonces x−5 ≥ 0 → <em>x ≥ 5</em></div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>(f∘g)(x) = √(x−5), Dom = [5, +∞)</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 08</div>
+        <div class="ex-q">Descompón h(x) = (3x − 2)⁵ como f∘g.</div>
+        <div class="ex-diff diff-easy">Fácil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">Identifica la operación "exterior": elevar al cubo → <em>f(x) = x⁵</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">Lo que va "adentro": <em>g(x) = 3x − 2</em></div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Verifica: (f∘g)(x) = f(3x−2) = (3x−2)⁵ ✓</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>g(x) = 3x − 2 &nbsp;|&nbsp; f(x) = x⁵</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FUNCIÓN INVERSA -->
+  <div class="ex-section-title">Función inversa</div>
+  <div class="ex-grid">
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 09</div>
+        <div class="ex-q">Halla f⁻¹(x) de f(x) = 5x + 2</div>
+        <div class="ex-diff diff-easy">Fácil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">Escribe <em>y = 5x + 2</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">Despeja x: y − 2 = 5x → <em>x = (y−2)/5</em></div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Intercambia: <em>y = (x−2)/5</em></div></div>
+        <div class="sol-step"><div class="sol-n">4</div><div class="sol-text">Verifica: f(f⁻¹(x)) = 5·(x−2)/5 + 2 = x−2+2 = x ✓</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>f⁻¹(x) = (x − 2) / 5</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 10</div>
+        <div class="ex-q">Halla f⁻¹(x) de f(x) = (2x + 1)/(x − 3), x ≠ 3</div>
+        <div class="ex-diff diff-hard">Difícil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">y = (2x+1)/(x−3)</div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">Multiplica cruzado: <em>y(x−3) = 2x+1</em></div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Expande: yx − 3y = 2x + 1</div></div>
+        <div class="sol-step"><div class="sol-n">4</div><div class="sol-text">Agrupa x: yx − 2x = 3y + 1 → <em>x(y−2) = 3y+1</em></div></div>
+        <div class="sol-step"><div class="sol-n">5</div><div class="sol-text">Despeja: x = (3y+1)/(y−2). Intercambia x e y.</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>f⁻¹(x) = (3x + 1)/(x − 2), Dom = ℝ \ {2}</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 11</div>
+        <div class="ex-q">Halla f⁻¹(x) de f(x) = √(x − 1) + 2, con x ≥ 1</div>
+        <div class="ex-diff diff-med">Medio</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">y = √(x−1) + 2</div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">y − 2 = √(x−1)</div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Eleva al cuadrado: <em>(y−2)² = x−1</em></div></div>
+        <div class="sol-step"><div class="sol-n">4</div><div class="sol-text">x = (y−2)² + 1. Intercambia: <em>y = (x−2)² + 1</em></div></div>
+        <div class="sol-step"><div class="sol-n">5</div><div class="sol-text">Dom de f⁻¹: Rango de f. Como y = √(x−1)+2 ≥ 2, Dom(f⁻¹) = [2, ∞)</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>f⁻¹(x) = (x−2)² + 1, Dom = [2, +∞)</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PAR/IMPAR -->
+  <div class="ex-section-title">Paridad de funciones</div>
+  <div class="ex-grid">
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 12</div>
+        <div class="ex-q">Determina si f(x) = x⁴ − 3x² + 7 es par, impar o ninguna.</div>
+        <div class="ex-diff diff-easy">Fácil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">Calcula f(−x): (−x)⁴ − 3(−x)² + 7 = <em>x⁴ − 3x² + 7</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">¿f(−x) = f(x)? Sí: x⁴ − 3x² + 7 = x⁴ − 3x² + 7 ✓</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>Función PAR. Simétrica respecto al eje y.</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 13</div>
+        <div class="ex-q">Determina si f(x) = x³ + x es par, impar o ninguna.</div>
+        <div class="ex-diff diff-easy">Fácil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">f(−x) = (−x)³ + (−x) = −x³ − x = <em>−(x³ + x)</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">¿f(−x) = −f(x)? Sí: −(x³+x) = −f(x) ✓</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>Función IMPAR. Simétrica respecto al origen.</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 14</div>
+        <div class="ex-q">Determina si f(x) = x² + x + 1 es par, impar o ninguna.</div>
+        <div class="ex-diff diff-easy">Fácil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">f(−x) = (−x)² + (−x) + 1 = <em>x² − x + 1</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">¿f(−x) = f(x)? x²−x+1 ≠ x²+x+1 (el término en x cambia de signo). No.</div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">¿f(−x) = −f(x)? x²−x+1 ≠ −x²−x−1. No.</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>NINGUNA. No tiene simetría especial.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- INYECTIVIDAD -->
+  <div class="ex-section-title">Inyectividad y demostración</div>
+  <div class="ex-grid">
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 15</div>
+        <div class="ex-q">Demuestra que f(x) = 4x − 7 es inyectiva.</div>
+        <div class="ex-diff diff-easy">Fácil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">Supón que <em>f(x₁) = f(x₂)</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">Entonces: 4x₁ − 7 = 4x₂ − 7</div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Suma 7: 4x₁ = 4x₂</div></div>
+        <div class="sol-step"><div class="sol-n">4</div><div class="sol-text">Divide entre 4: <em>x₁ = x₂</em> ✓</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>f es inyectiva. (Toda función lineal con m≠0 lo es.)</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 16</div>
+        <div class="ex-q">¿Es f(x) = x² inyectiva en ℝ? ¿Y en [0, +∞)?</div>
+        <div class="ex-diff diff-med">Medio</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text"><em>En ℝ:</em> Supón f(x₁) = f(x₂) → x₁² = x₂² → |x₁| = |x₂| → x₁ = ±x₂. No necesariamente igual. Contraejemplo: f(3) = f(−3) = 9 pero 3 ≠ −3.</div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text"><em>En [0,∞):</em> Ahora x₁, x₂ ≥ 0. Si x₁² = x₂² → √(x₁²) = √(x₂²) → x₁ = x₂ (porque ambos son no negativos, la raíz da el valor sin ±).</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>NO inyectiva en ℝ. SÍ inyectiva en [0, +∞).</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 17</div>
+        <div class="ex-q">Demuestra que f(x) = x³ + 2 es inyectiva en ℝ.</div>
+        <div class="ex-diff diff-med">Medio</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">Supón <em>f(x₁) = f(x₂)</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">x₁³ + 2 = x₂³ + 2</div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">x₁³ = x₂³</div></div>
+        <div class="sol-step"><div class="sol-n">4</div><div class="sol-text">La función cúbica es inyectiva en ℝ (la raíz cúbica es única para cualquier real): <em>x₁ = x₂</em> ✓. Nota: ³√(x₁³) = x₁ siempre, sin valor absoluto, porque la raíz cúbica respeta el signo.</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>f(x) = x³ + 2 es inyectiva en ℝ.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LOGARITMOS -->
+  <div class="ex-section-title">Propiedades de logaritmos</div>
+  <div class="ex-grid">
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 18</div>
+        <div class="ex-q">Simplifica: ln(e⁴) − 3·ln(e²) + ln(1)</div>
+        <div class="ex-diff diff-easy">Fácil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">ln(e⁴) = 4, porque ln(eˣ) = x</div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">3·ln(e²) = 3·2 = 6</div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">ln(1) = 0</div></div>
+        <div class="sol-step"><div class="sol-n">4</div><div class="sol-text">4 − 6 + 0 = <em>−2</em></div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>−2</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 19</div>
+        <div class="ex-q">Escribe como un solo logaritmo: 2·ln(x) − ln(x+1) + ln(3)</div>
+        <div class="ex-diff diff-med">Medio</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">2·ln(x) = ln(x²) — el coeficiente pasa como exponente</div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">ln(x²) + ln(3) = ln(3x²) — suma de logaritmos = log del producto</div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">ln(3x²) − ln(x+1) = ln(3x²/(x+1)) — resta de logaritmos = log del cociente</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>ln(3x² / (x+1))</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 20</div>
+        <div class="ex-q">Resuelve: e^(2x) = 7</div>
+        <div class="ex-diff diff-med">Medio</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">Aplica ln a ambos lados: <em>ln(e^(2x)) = ln(7)</em></div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">2x = ln(7)</div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">x = ln(7)/2</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>x = ln(7)/2 ≈ 0.9730</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RANGO -->
+  <div class="ex-section-title">Rango de funciones</div>
+  <div class="ex-grid">
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 21</div>
+        <div class="ex-q">Halla el rango de f(x) = −x² + 4x − 1</div>
+        <div class="ex-diff diff-med">Medio</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">a = −1 &lt; 0 → parábola que abre hacia abajo → tiene máximo</div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">Completa el cuadrado: −(x²−4x) − 1 = −(x²−4x+4) + 4 − 1 = <em>−(x−2)² + 3</em></div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Vértice en (2, 3). Como abre abajo, f(x) ≤ 3 siempre.</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>Rango = (−∞, 3]</div>
+      </div>
+    </div>
+
+    <div class="ex-card" onclick="toggle(this)">
+      <div class="ex-header">
+        <div class="ex-num">EJ 22</div>
+        <div class="ex-q">Halla el rango de f(x) = 2/(x − 1)</div>
+        <div class="ex-diff diff-hard">Difícil</div>
+        <div class="ex-toggle">▾</div>
+      </div>
+      <div class="ex-solution">
+        <div class="sol-step"><div class="sol-n">1</div><div class="sol-text">Sea y = 2/(x−1). Despeja x en función de y.</div></div>
+        <div class="sol-step"><div class="sol-n">2</div><div class="sol-text">y(x−1) = 2 → x−1 = 2/y → x = 2/y + 1</div></div>
+        <div class="sol-step"><div class="sol-n">3</div><div class="sol-text">Para que x exista, necesitamos y ≠ 0. Para cualquier y ≠ 0, existe un x.</div></div>
+        <div class="sol-step"><div class="sol-n">4</div><div class="sol-text">Confirma con asíntota horizontal: lím(x→±∞) 2/(x−1) = 0, entonces y=0 no se alcanza.</div></div>
+        <div class="sol-answer"><span class="label">Respuesta</span>Rango = ℝ \ {0} = (−∞, 0) ∪ (0, +∞)</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div><!-- end container -->
+</div><!-- end panel-ejercicios -->
+
+<div style="text-align:center; padding: 48px 0; border-top: 1px solid var(--border)">
+  <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:3px; color:var(--muted); text-transform:uppercase">Cálculo I · Material de apoyo para CSCA</div>
+</div>
+
+<script>
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggle(card) {
+  card.classList.toggle('open');
+}
+</script>
+</body>
+</html>

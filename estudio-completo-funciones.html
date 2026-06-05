@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudio Completo de Funciones</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f5f0e8;
+  --paper2: #ede8df;
+  --paper3: #e4ddd2;
+  --ink: #1a1510;
+  --ink2: #3d3628;
+  --ink3: #6b6050;
+  --red: #b8321a;
+  --green: #1a6b3c;
+  --blue: #1a3d8a;
+  --gold: #8a6a1a;
+  --border: #c8bfaa;
+  --border2: #b0a590;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.75;
+  min-height: 100vh;
+}
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.5;
+}
+
+/* COVER */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 60px 56px;
+  border-bottom: 2px solid var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cover-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink3);
+}
+
+.cover-index {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  text-align: right;
+  line-height: 2;
+}
+
+.cover-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 0 40px;
+}
+
+.cover-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(120px, 20vw, 240px);
+  font-weight: 300;
+  color: var(--paper3);
+  line-height: 1;
+  letter-spacing: -8px;
+  margin-bottom: -20px;
+  user-select: none;
+}
+
+.cover-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 7vw, 90px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -2px;
+  color: var(--ink);
+  max-width: 700px;
+}
+
+.cover-title em {
+  font-style: italic;
+  color: var(--red);
+}
+
+.cover-sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  color: var(--ink3);
+  margin-top: 24px;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.cover-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+}
+
+.cover-nav {
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.cover-nav a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  margin-right: -1px;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+}
+
+.cover-nav a:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  z-index: 1;
+}
+
+/* FUNCTION PAGES */
+.fn-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 56px;
+  border-bottom: 1px solid var(--border);
+}
+
+@media(max-width: 680px) {
+  .cover { padding: 40px 28px; }
+  .fn-page { padding: 60px 24px; }
+}
+
+/* PAGE HEADER */
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.fn-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  font-weight: 300;
+  color: var(--paper3);
+  line-height: 1;
+  letter-spacing: -3px;
+  flex-shrink: 0;
+  width: 80px;
+  text-align: right;
+}
+
+.page-header-text { flex: 1; }
+
+.fn-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 6px;
+}
+
+.fn-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.fn-subtitle {
+  font-size: 13px;
+  color: var(--ink3);
+  margin-top: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.5px;
+}
+
+/* STEP BLOCKS */
+.steps-container { display: flex; flex-direction: column; gap: 0; }
+
+.step-block {
+  border: 1px solid var(--border);
+  margin-bottom: -1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.step-block.open { z-index: 1; border-color: var(--ink2); }
+
+.step-trigger {
+  display: flex;
+  align-items: stretch;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.step-trigger:hover { background: var(--paper2); }
+.step-block.open .step-trigger { background: var(--ink); }
+
+.step-num-col {
+  width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--border);
+  flex-shrink: 0;
+  padding: 16px 0;
+}
+
+.step-block.open .step-num-col { border-right-color: rgba(255,255,255,0.1); }
+
+.step-num-inner {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink3);
+}
+
+.step-block.open .step-num-inner { color: rgba(255,255,255,0.3); }
+
+.step-header-text {
+  flex: 1;
+  padding: 16px 20px;
+}
+
+.step-name {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 3px;
+}
+
+.step-block.open .step-name { color: rgba(255,255,255,0.4); }
+
+.step-question {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.step-block.open .step-question { color: white; }
+
+.step-arrow {
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--ink3);
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+
+.step-block.open .step-arrow {
+  transform: rotate(180deg);
+  color: rgba(255,255,255,0.4);
+}
+
+/* STEP CONTENT */
+.step-content {
+  display: none;
+  padding: 0;
+  background: var(--paper);
+}
+
+.step-block.open .step-content { display: block; }
+
+.step-inner {
+  padding: 24px 24px 24px 80px;
+  border-top: 1px solid var(--border);
+}
+
+/* ANSWER */
+.answer-final {
+  background: var(--ink);
+  color: white;
+  padding: 14px 20px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  margin-bottom: 16px;
+  border-left: 3px solid var(--red);
+}
+
+.answer-final .ans-label {
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* TRAP BOX */
+.trap {
+  background: rgba(184,50,26,0.06);
+  border: 1px solid rgba(184,50,26,0.25);
+  border-left: 3px solid var(--red);
+  padding: 16px 18px;
+  margin: 14px 0;
+}
+
+.trap-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+
+.trap p { font-size: 13px; color: var(--ink2); margin: 0; }
+.trap strong { color: var(--red); font-weight: 500; }
+
+/* WHY BOX */
+.why {
+  background: rgba(26,61,138,0.04);
+  border-left: 3px solid var(--blue);
+  padding: 14px 18px;
+  margin: 14px 0;
+}
+
+.why-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+
+.why p { font-size: 13px; color: var(--ink2); margin: 0; }
+.why strong { color: var(--blue); font-weight: 500; }
+
+/* NOTE */
+.note {
+  background: rgba(138,106,26,0.06);
+  border-left: 3px solid var(--gold);
+  padding: 14px 18px;
+  margin: 14px 0;
+}
+
+.note p { font-size: 13px; color: var(--ink2); margin: 0; }
+.note strong { color: var(--gold); font-weight: 500; }
+
+/* FORMULA */
+.f {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  background: var(--paper2);
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  margin: 10px 0;
+  color: var(--ink);
+  display: block;
+}
+
+/* SIGN TABLE */
+.sign-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  margin: 12px 0;
+}
+
+.sign-table th {
+  background: var(--ink2);
+  color: var(--paper);
+  padding: 8px 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.sign-table td {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  text-align: center;
+  color: var(--ink2);
+  font-size: 12px;
+}
+
+.pos { color: var(--green); font-weight: 500; }
+.neg { color: var(--red); font-weight: 500; }
+
+/* CONCLUSION ROW */
+.concl {
+  background: var(--paper2);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* MINI CALC */
+.calc-row {
+  display: flex;
+  gap: 0;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.calc-step {
+  flex: 1;
+  min-width: 120px;
+  border: 1px solid var(--border);
+  margin-right: -1px;
+  padding: 10px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--ink2);
+  line-height: 1.5;
+}
+
+.calc-step .cs-label {
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* RESULT SUMMARY */
+.result-summary {
+  background: var(--paper2);
+  border: 2px solid var(--ink);
+  padding: 24px 28px;
+  margin-top: 28px;
+}
+
+.rs-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.rs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.rs-item {
+  background: var(--paper);
+  padding: 12px 14px;
+}
+
+.rs-key {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 4px;
+}
+
+.rs-val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+p { font-size: 14px; color: var(--ink2); margin-bottom: 10px; }
+strong { color: var(--ink); font-weight: 500; }
+
+/* PROGRESS BAR */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--red);
+  z-index: 1000;
+  transition: width 0.1s;
+  width: 0%;
+}
+
+/* STEP complete checkmark */
+.step-block.done .step-num-inner::after {
+  content: ' ✓';
+  font-size: 14px;
+  color: var(--green);
+}
+
+/* difficulty badge */
+.diff-badge {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.diff-1 { background: rgba(26,107,60,0.1); color: var(--green); }
+.diff-2 { background: rgba(138,106,26,0.1); color: var(--gold); }
+.diff-3 { background: rgba(184,50,26,0.1); color: var(--red); }
+
+hr.thin { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<!-- ══════════ COVER ══════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-label">Cálculo I · Ejercicios</div>
+    <div class="cover-index">
+      Función 01 · Racional<br>
+      Función 02 · Polinómica cúbica<br>
+      Función 03 · Irracional<br>
+      Función 04 · Racional con AO<br>
+    </div>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-num">04</div>
+    <div class="cover-title">Estudio <em>completo</em> de funciones</div>
+    <p class="cover-sub">Cuatro funciones resueltas paso a paso. Dominio, intersecciones, simetría, asíntotas, crecimiento, extremos, concavidad e inflexión. Con las trampas explicadas donde aparecen.</p>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-nav">
+      <a href="#fn1">01 · Racional</a>
+      <a href="#fn2">02 · Cúbica</a>
+      <a href="#fn3">03 · Irracional</a>
+      <a href="#fn4">04 · Racional AO</a>
+    </div>
+    <div class="cover-label">Click en cada paso para desplegarlo →</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     FUNCIÓN 01 — RACIONAL SIMPLE
+══════════════════════════════════════════ -->
+<div class="fn-page" id="fn1">
+  <div class="page-header">
+    <div class="fn-number">01</div>
+    <div class="page-header-text">
+      <div class="fn-tag">Función racional · Dificultad <span class="diff-badge diff-1">básica</span></div>
+      <div class="fn-title">f(x) = (x² − 1) / (x − 2)</div>
+      <div class="fn-subtitle">Asíntota vertical · Asíntota oblicua · Extremos locales</div>
+    </div>
+  </div>
+
+  <div class="steps-container">
+
+    <!-- PASO 1 -->
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">1</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 1</div>
+          <div class="step-question">Dominio</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>El único problema es el denominador. Igualamos a cero:</p>
+        <span class="f">x − 2 = 0  →  x = 2</span>
+        <div class="answer-final"><span class="ans-label">Dominio</span>Dom(f) = ℝ \ {2} = (−∞, 2) ∪ (2, +∞)</div>
+        <div class="trap">
+          <div class="trap-label">⚠ Trampa frecuente</div>
+          <p>Algunos escriben Dom = {2}, incluyendo el valor problemático. <strong>Es al revés</strong>: x = 2 es el valor que se EXCLUYE porque hace que el denominador sea cero, y dividir entre cero no está definido.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">2</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 2</div>
+          <div class="step-question">Intersecciones con los ejes</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p><strong>Con eje y</strong> (x = 0):</p>
+        <span class="f">f(0) = (0 − 1)/(0 − 2) = (−1)/(−2) = 1/2</span>
+        <div class="answer-final"><span class="ans-label">Eje y</span>Punto (0 , 1/2)</div>
+
+        <p style="margin-top:14px"><strong>Con eje x</strong> (f(x) = 0):</p>
+        <p>Una fracción es cero solo cuando el numerador es cero (y el denominador ≠ 0).</p>
+        <span class="f">x² − 1 = 0  →  (x−1)(x+1) = 0  →  x = 1 o x = −1</span>
+        <p>Ambos valores están en el dominio (ninguno es x = 2). ✓</p>
+        <div class="answer-final"><span class="ans-label">Eje x</span>Puntos (−1 , 0) y (1 , 0)</div>
+        <div class="why">
+          <div class="why-label">¿Por qué?</div>
+          <p>f(x) = A/B = 0 únicamente si A = 0. No importa cuánto valga B (siempre que B ≠ 0). El denominador por sí solo no puede hacer que la fracción sea cero.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- PASO 3 -->
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">3</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 3</div>
+          <div class="step-question">Simetría — ¿es par o impar?</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <span class="f">f(−x) = ((−x)² − 1) / (−x − 2) = (x² − 1) / (−x − 2)</span>
+        <p>¿Es esto igual a f(x) = (x²−1)/(x−2)? No, los denominadores difieren.</p>
+        <p>¿Es igual a −f(x) = −(x²−1)/(x−2)? Tampoco (los denominadores aún difieren).</p>
+        <div class="answer-final"><span class="ans-label">Simetría</span>Ninguna. No es par ni impar.</div>
+        <div class="note"><p><strong>Nota:</strong> Que el numerador sea par (x²−1 solo tiene potencias pares) no alcanza. El denominador (x−2) rompe la simetría porque no es simétrico.</p></div>
+      </div></div>
+    </div>
+
+    <!-- PASO 4 -->
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">4</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 4</div>
+          <div class="step-question">Asíntotas</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p><strong>Asíntota Vertical (AV):</strong></p>
+        <span class="f">x = 2 (el denominador se anula y el numerador = 2²−1 = 3 ≠ 0)</span>
+
+        <div class="trap">
+          <div class="trap-label">⚠ Trampa</div>
+          <p>Si el numerador también fuera cero en x = 2, <strong>no habría asíntota vertical sino un agujero (discontinuidad evitable)</strong>. Siempre verifica que el numerador sea distinto de cero donde el denominador se anula.</p>
+        </div>
+
+        <p style="margin-top:16px"><strong>Asíntota Oblicua (AO):</strong></p>
+        <p>El grado del numerador (2) = grado del denominador (1) + 1 → hay asíntota oblicua. Dividimos:</p>
+        <span class="f">x² − 1  ÷  (x − 2)</span>
+        <div class="calc-row">
+          <div class="calc-step"><span class="cs-label">División</span>x² ÷ x = x<br>x·(x−2) = x²−2x<br>Resto: 2x−1</div>
+          <div class="calc-step"><span class="cs-label">Segunda</span>2x ÷ x = 2<br>2·(x−2) = 2x−4<br>Resto: 3</div>
+          <div class="calc-step"><span class="cs-label">Resultado</span>f(x) = x + 2 + 3/(x−2)</div>
+        </div>
+        <p>Cuando x → ±∞, el término 3/(x−2) → 0. La curva se acerca a la recta y = x + 2.</p>
+        <div class="answer-final"><span class="ans-label">Asíntotas</span>AV: x = 2   |   AO: y = x + 2</div>
+        <div class="why">
+          <div class="why-label">¿Por qué no hay asíntota horizontal?</div>
+          <p>La regla: si grado(numerador) = grado(denominador) + 1, hay <strong>asíntota oblicua</strong>, no horizontal. La horizontal solo existe cuando el grado del numerador es ≤ grado del denominador.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- PASO 5 -->
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">5</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 5</div>
+          <div class="step-question">Crecimiento y decrecimiento — f'(x)</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>Usamos la regla del cociente: (u/v)' = (u'v − uv') / v²</p>
+        <span class="f">u = x²−1,  u' = 2x     |     v = x−2,  v' = 1</span>
+        <span class="f">f'(x) = [2x(x−2) − (x²−1)·1] / (x−2)²</span>
+        <span class="f">     = [2x² − 4x − x² + 1] / (x−2)²</span>
+        <span class="f">     = (x² − 4x + 1) / (x−2)²</span>
+
+        <p style="margin-top:14px">Puntos críticos: f'(x) = 0 → numerador = 0 (el denominador (x−2)² > 0 siempre, salvo x=2 donde no está definida):</p>
+        <span class="f">x² − 4x + 1 = 0  →  x = (4 ± √12) / 2 = 2 ± √3</span>
+        <span class="f">x₁ = 2 − √3 ≈ 0.27     x₂ = 2 + √3 ≈ 3.73</span>
+
+        <p style="margin-top:14px"><strong>Tabla de signos de f':</strong></p>
+        <p>Puntos clave en orden: x₁ = 2−√3, x = 2 (no pertenece al dom.), x₂ = 2+√3</p>
+        <table class="sign-table">
+          <tr><th>Intervalo</th><th>Punto prueba</th><th>Numerador x²−4x+1</th><th>Denominador (x−2)²</th><th>f'</th></tr>
+          <tr><td>(−∞, 2−√3)</td><td>x = 0</td><td>0−0+1 = <span class="pos">+</span></td><td><span class="pos">+</span></td><td class="pos">+ → crece</td></tr>
+          <tr><td>(2−√3, 2)</td><td>x = 1</td><td>1−4+1 = <span class="neg">−</span></td><td><span class="pos">+</span></td><td class="neg">− → decrece</td></tr>
+          <tr><td>(2, 2+√3)</td><td>x = 3</td><td>9−12+1 = <span class="neg">−</span></td><td><span class="pos">+</span></td><td class="neg">− → decrece</td></tr>
+          <tr><td>(2+√3, +∞)</td><td>x = 5</td><td>25−20+1 = <span class="pos">+</span></td><td><span class="pos">+</span></td><td class="pos">+ → crece</td></tr>
+        </table>
+
+        <div class="why">
+          <div class="why-label">¿Por qué (x−2)² siempre es positivo?</div>
+          <p>Cualquier número real al cuadrado es ≥ 0. Y en x = 2 no está definida la función, así que en todo el dominio (x−2)² > 0. El signo de f' lo determina únicamente el numerador.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- PASO 6 -->
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">6</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 6</div>
+          <div class="step-question">Extremos locales</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>Criterio de la primera derivada: analizamos el cambio de signo en los puntos críticos.</p>
+
+        <p><strong>En x₁ = 2 − √3 ≈ 0.27:</strong> f' cambia de <span class="pos">+</span> a <span class="neg">−</span> → <strong>máximo local</strong></p>
+        <span class="f">f(2−√3) = ((2−√3)² − 1) / (2−√3 − 2) = (4 − 4√3 + 3 − 1) / (−√3) = (6 − 4√3) / (−√3)</span>
+        <span class="f">        = (4√3 − 6) / √3 = 4 − 6/√3 = 4 − 2√3 ≈ 0.54</span>
+
+        <p style="margin-top:12px"><strong>En x₂ = 2 + √3 ≈ 3.73:</strong> f' cambia de <span class="neg">−</span> a <span class="pos">+</span> → <strong>mínimo local</strong></p>
+        <span class="f">f(2+√3) = 4 + 2√3 ≈ 7.46</span>
+
+        <div class="answer-final"><span class="ans-label">Extremos</span>Máx. local: (2−√3, 4−2√3) ≈ (0.27, 0.54)   |   Mín. local: (2+√3, 4+2√3) ≈ (3.73, 7.46)</div>
+        <div class="note"><p><strong>Paradoja visual:</strong> El mínimo local (≈7.46) está más arriba que el máximo local (≈0.54). Esto es posible porque hay una asíntota vertical en x=2 que "separa" los dos extremos. Un extremo local es relativo a su entorno inmediato, no un mínimo global.</p></div>
+      </div></div>
+    </div>
+
+    <!-- PASO 7 -->
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">7</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 7</div>
+          <div class="step-question">Concavidad y puntos de inflexión — f''(x)</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>Derivamos f'(x) = (x²−4x+1)/(x−2)²  de nuevo con regla del cociente:</p>
+        <span class="f">u = x²−4x+1, u' = 2x−4     |     v = (x−2)², v' = 2(x−2)</span>
+        <span class="f">f''(x) = [(2x−4)(x−2)² − (x²−4x+1)·2(x−2)] / (x−2)⁴</span>
+        <span class="f">       = (x−2)[(2x−4)(x−2) − 2(x²−4x+1)] / (x−2)⁴</span>
+        <span class="f">       = [(2(x−2)² − 2(x²−4x+1)] / (x−2)³</span>
+        <span class="f">       = [2x²−8x+8 − 2x²+8x−2] / (x−2)³  =  6 / (x−2)³</span>
+
+        <p style="margin-top:14px">Como el numerador es la constante 6 > 0, el signo de f'' depende únicamente de (x−2)³:</p>
+        <table class="sign-table">
+          <tr><th>Intervalo</th><th>(x−2)³</th><th>f'' = 6/(x−2)³</th><th>Concavidad</th></tr>
+          <tr><td>x &lt; 2</td><td class="neg">negativo</td><td class="neg">negativo</td><td>∩ (cóncava abajo)</td></tr>
+          <tr><td>x &gt; 2</td><td class="pos">positivo</td><td class="pos">positivo</td><td>∪ (cóncava arriba)</td></tr>
+        </table>
+
+        <p>La concavidad cambia en x = 2, pero x = 2 <strong>no pertenece al dominio</strong> → no es punto de inflexión, es la asíntota vertical.</p>
+        <div class="answer-final"><span class="ans-label">Concavidad</span>Cóncava ↓ en (−∞,2) · Cóncava ↑ en (2,+∞) · Sin puntos de inflexión</div>
+        <div class="trap">
+          <div class="trap-label">⚠ Trampa clásica</div>
+          <p>Muchos declaran x = 2 como punto de inflexión porque f'' cambia de signo ahí. <strong>Pero un punto de inflexión debe estar en el dominio de f.</strong> Como x = 2 no pertenece al dominio, no puede ser punto de inflexión.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- RESUMEN -->
+    <div class="result-summary">
+      <div class="rs-title">Resumen — f(x) = (x²−1)/(x−2)</div>
+      <div class="rs-grid">
+        <div class="rs-item"><div class="rs-key">Dominio</div><div class="rs-val">ℝ \ {2}</div></div>
+        <div class="rs-item"><div class="rs-key">Eje y</div><div class="rs-val">(0, 1/2)</div></div>
+        <div class="rs-item"><div class="rs-key">Eje x</div><div class="rs-val">(−1,0) y (1,0)</div></div>
+        <div class="rs-item"><div class="rs-key">Simetría</div><div class="rs-val">Ninguna</div></div>
+        <div class="rs-item"><div class="rs-key">Asíntota vertical</div><div class="rs-val">x = 2</div></div>
+        <div class="rs-item"><div class="rs-key">Asíntota oblicua</div><div class="rs-val">y = x + 2</div></div>
+        <div class="rs-item"><div class="rs-key">Crece</div><div class="rs-val">(−∞,2−√3) ∪ (2+√3,∞)</div></div>
+        <div class="rs-item"><div class="rs-key">Decrece</div><div class="rs-val">(2−√3,2) ∪ (2,2+√3)</div></div>
+        <div class="rs-item"><div class="rs-key">Máximo local</div><div class="rs-val">(2−√3, 4−2√3)</div></div>
+        <div class="rs-item"><div class="rs-key">Mínimo local</div><div class="rs-val">(2+√3, 4+2√3)</div></div>
+        <div class="rs-item"><div class="rs-key">Cóncava abajo</div><div class="rs-val">(−∞, 2)</div></div>
+        <div class="rs-item"><div class="rs-key">Cóncava arriba</div><div class="rs-val">(2, +∞)</div></div>
+        <div class="rs-item"><div class="rs-key">Inflexión</div><div class="rs-val">Ninguna</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     FUNCIÓN 02 — POLINÓMICA CÚBICA
+══════════════════════════════════════════ -->
+<div class="fn-page" id="fn2">
+  <div class="page-header">
+    <div class="fn-number">02</div>
+    <div class="page-header-text">
+      <div class="fn-tag">Función polinómica cúbica · Dificultad <span class="diff-badge diff-2">media</span></div>
+      <div class="fn-title">f(x) = x³ − 6x² + 9x − 2</div>
+      <div class="fn-subtitle">Sin asíntotas · Múltiples extremos · Punto de inflexión real</div>
+    </div>
+  </div>
+
+  <div class="steps-container">
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">1</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 1</div>
+          <div class="step-question">Dominio</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>Es un polinomio. Los polinomios están definidos para todo número real: no hay denominadores, raíces ni logaritmos.</p>
+        <div class="answer-final"><span class="ans-label">Dominio</span>Dom(f) = ℝ = (−∞, +∞)</div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">2</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 2</div>
+          <div class="step-question">Intersecciones con los ejes</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p><strong>Eje y:</strong></p>
+        <span class="f">f(0) = 0 − 0 + 0 − 2 = −2   →   Punto (0, −2)</span>
+
+        <p style="margin-top:14px"><strong>Eje x:</strong> resolvemos x³ − 6x² + 9x − 2 = 0</p>
+        <p>Probamos x = 1 (Teorema del factor racional, raíces posibles ±1, ±2):</p>
+        <span class="f">f(1) = 1 − 6 + 9 − 2 = 2 ≠ 0</span>
+        <p>Probamos x = 2:</p>
+        <span class="f">f(2) = 8 − 24 + 18 − 2 = 0 ✓   →   (x−2) es factor</span>
+        <p>Dividimos x³ − 6x² + 9x − 2 ÷ (x−2):</p>
+        <span class="f">Cociente: x² − 4x + 1</span>
+        <p>Raíces del cociente: x = (4 ± √12)/2 = 2 ± √3</p>
+        <div class="answer-final"><span class="ans-label">Eje x</span>x = 2,   x = 2−√3 ≈ 0.27,   x = 2+√3 ≈ 3.73</div>
+        <div class="why">
+          <div class="why-label">Estrategia para cúbicas</div>
+          <p>Prueba siempre los divisores del término independiente como posibles raíces racionales. Una vez hallada una raíz, divide y reduce el grado del polinomio para encontrar las demás.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">3</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 3</div>
+          <div class="step-question">Simetría</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <span class="f">f(−x) = (−x)³ − 6(−x)² + 9(−x) − 2 = −x³ − 6x² − 9x − 2</span>
+        <p>¿Igual a f(x)? No. ¿Igual a −f(x) = −x³+6x²−9x+2? Tampoco.</p>
+        <div class="answer-final"><span class="ans-label">Simetría</span>Ninguna. No es par ni impar.</div>
+        <div class="note"><p><strong>Nota:</strong> Las funciones cúbicas puras (x³) son impares. Pero en cuanto se añaden términos como −6x² o −2, la simetría se rompe porque esos términos tienen paridad distinta.</p></div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">4</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 4</div>
+          <div class="step-question">Asíntotas</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>Los polinomios no tienen asíntotas. Cuando x → ±∞, f(x) → ±∞ (el término de mayor grado domina).</p>
+        <span class="f">Término dominante: x³.   Si x→+∞: f→+∞.   Si x→−∞: f→−∞.</span>
+        <div class="answer-final"><span class="ans-label">Asíntotas</span>Ninguna.</div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">5</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 5</div>
+          <div class="step-question">Crecimiento y decrecimiento — f'(x)</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <span class="f">f'(x) = 3x² − 12x + 9 = 3(x² − 4x + 3) = 3(x−1)(x−3)</span>
+        <p>Puntos críticos: <strong>x = 1</strong> y <strong>x = 3</strong></p>
+
+        <table class="sign-table">
+          <tr><th>Intervalo</th><th>(x−1)</th><th>(x−3)</th><th>f' = 3(x−1)(x−3)</th></tr>
+          <tr><td>x &lt; 1</td><td class="neg">−</td><td class="neg">−</td><td class="pos">+ → crece</td></tr>
+          <tr><td>1 &lt; x &lt; 3</td><td class="pos">+</td><td class="neg">−</td><td class="neg">− → decrece</td></tr>
+          <tr><td>x &gt; 3</td><td class="pos">+</td><td class="pos">+</td><td class="pos">+ → crece</td></tr>
+        </table>
+
+        <div class="why">
+          <div class="why-label">¿Por qué la tabla de signos funciona así?</div>
+          <p>Cuando x &lt; 1, ambos factores son negativos → su producto es positivo (negativo × negativo = positivo). Entre 1 y 3, el primer factor es positivo y el segundo negativo → producto negativo. Esta lógica de signos es la herramienta clave.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">6</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 6</div>
+          <div class="step-question">Extremos locales</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p><strong>x = 1:</strong> f' cambia <span class="pos">+</span> → <span class="neg">−</span> → <strong>máximo local</strong></p>
+        <span class="f">f(1) = 1 − 6 + 9 − 2 = 2   →   Máx. local en (1, 2)</span>
+
+        <p style="margin-top:12px"><strong>x = 3:</strong> f' cambia <span class="neg">−</span> → <span class="pos">+</span> → <strong>mínimo local</strong></p>
+        <span class="f">f(3) = 27 − 54 + 27 − 2 = −2   →   Mín. local en (3, −2)</span>
+
+        <div class="answer-final"><span class="ans-label">Extremos</span>Máximo local (1, 2)   |   Mínimo local (3, −2)</div>
+
+        <div class="trap">
+          <div class="trap-label">⚠ Trampa</div>
+          <p>Aquí f(0) = −2 y f(3) = −2, el mismo valor. Algunos concluyen que (0,−2) también es mínimo. <strong>No</strong>: x = 0 no es punto crítico (f'(0) = 3(−1)(−3) = 9 ≠ 0), así que no es extremo. Solo son extremos los puntos donde f' = 0 o no existe, y además f' cambia de signo.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">7</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 7</div>
+          <div class="step-question">Concavidad e inflexión — f''(x)</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <span class="f">f''(x) = 6x − 12 = 6(x − 2)</span>
+        <p>f''(x) = 0 en <strong>x = 2</strong>. Analizamos signos:</p>
+        <table class="sign-table">
+          <tr><th>Intervalo</th><th>f'' = 6(x−2)</th><th>Concavidad</th></tr>
+          <tr><td>x &lt; 2</td><td class="neg">negativo</td><td>∩ cóncava abajo</td></tr>
+          <tr><td>x &gt; 2</td><td class="pos">positivo</td><td>∪ cóncava arriba</td></tr>
+        </table>
+        <p>La concavidad cambia en x = 2 y este valor <strong>sí pertenece al dominio</strong> (es un polinomio, Dom = ℝ).</p>
+        <span class="f">f(2) = 8 − 24 + 18 − 2 = 0   →   Punto de inflexión en (2, 0)</span>
+        <div class="answer-final"><span class="ans-label">Inflexión</span>Punto (2, 0) — la curva cambia de cóncava abajo a cóncava arriba</div>
+        <div class="note"><p><strong>Observación interesante:</strong> El punto de inflexión (2, 0) coincide con una de las raíces de f. La curva cruza el eje x y cambia de concavidad en el mismo punto.</p></div>
+      </div></div>
+    </div>
+
+    <div class="result-summary">
+      <div class="rs-title">Resumen — f(x) = x³ − 6x² + 9x − 2</div>
+      <div class="rs-grid">
+        <div class="rs-item"><div class="rs-key">Dominio</div><div class="rs-val">ℝ</div></div>
+        <div class="rs-item"><div class="rs-key">Eje y</div><div class="rs-val">(0, −2)</div></div>
+        <div class="rs-item"><div class="rs-key">Eje x</div><div class="rs-val">x = 2−√3, 2, 2+√3</div></div>
+        <div class="rs-item"><div class="rs-key">Simetría</div><div class="rs-val">Ninguna</div></div>
+        <div class="rs-item"><div class="rs-key">Asíntotas</div><div class="rs-val">Ninguna</div></div>
+        <div class="rs-item"><div class="rs-key">Crece</div><div class="rs-val">(−∞,1) ∪ (3,+∞)</div></div>
+        <div class="rs-item"><div class="rs-key">Decrece</div><div class="rs-val">(1, 3)</div></div>
+        <div class="rs-item"><div class="rs-key">Máximo local</div><div class="rs-val">(1, 2)</div></div>
+        <div class="rs-item"><div class="rs-key">Mínimo local</div><div class="rs-val">(3, −2)</div></div>
+        <div class="rs-item"><div class="rs-key">Cóncava abajo</div><div class="rs-val">(−∞, 2)</div></div>
+        <div class="rs-item"><div class="rs-key">Cóncava arriba</div><div class="rs-val">(2, +∞)</div></div>
+        <div class="rs-item"><div class="rs-key">Inflexión</div><div class="rs-val">(2, 0)</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     FUNCIÓN 03 — IRRACIONAL
+══════════════════════════════════════════ -->
+<div class="fn-page" id="fn3">
+  <div class="page-header">
+    <div class="fn-number">03</div>
+    <div class="page-header-text">
+      <div class="fn-tag">Función irracional · Dificultad <span class="diff-badge diff-2">media</span></div>
+      <div class="fn-title">f(x) = x · √(4 − x²)</div>
+      <div class="fn-subtitle">Dominio acotado · Función par o impar · Extremos en dominio cerrado</div>
+    </div>
+  </div>
+
+  <div class="steps-container">
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">1</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 1</div>
+          <div class="step-question">Dominio</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>La raíz cuadrada exige que el radicando sea ≥ 0:</p>
+        <span class="f">4 − x² ≥ 0   →   x² ≤ 4   →   |x| ≤ 2   →   −2 ≤ x ≤ 2</span>
+        <div class="answer-final"><span class="ans-label">Dominio</span>Dom(f) = [−2, 2]</div>
+        <div class="trap">
+          <div class="trap-label">⚠ Trampa: el radicando puede ser cero</div>
+          <p>El dominio incluye los extremos x = −2 y x = 2 porque √0 = 0 está perfectamente definido. <strong>El corchete [ ] significa que el extremo se incluye.</strong> Solo cuando hay logaritmo o denominador se excluye estrictamente.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">2</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 2</div>
+          <div class="step-question">Intersecciones con los ejes</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p><strong>Eje y:</strong>  f(0) = 0 · √4 = 0 → Punto (0, 0)</p>
+        <p><strong>Eje x:</strong>  f(x) = 0 cuando x = 0 o √(4−x²) = 0</p>
+        <span class="f">√(4−x²) = 0  →  4−x² = 0  →  x = ±2</span>
+        <div class="answer-final"><span class="ans-label">Intersecciones eje x</span>(−2, 0),  (0, 0),  (2, 0)</div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">3</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 3</div>
+          <div class="step-question">Simetría — ¡sorpresa!</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <span class="f">f(−x) = (−x) · √(4 − (−x)²) = (−x) · √(4 − x²) = −f(x)</span>
+        <div class="answer-final"><span class="ans-label">Simetría</span>Función IMPAR. Simétrica respecto al origen.</div>
+        <div class="why">
+          <div class="why-label">¿Por qué esto ayuda?</div>
+          <p>Al ser impar, basta estudiar f en [0, 2] y luego reflejar respecto al origen para obtener el comportamiento en [−2, 0]. <strong>Reduce el trabajo a la mitad.</strong></p>
+        </div>
+        <div class="trap">
+          <div class="trap-label">⚠ Trampa: verificar el dominio antes de clasificar paridad</div>
+          <p>Para que f sea par o impar, el dominio debe ser <strong>simétrico respecto al origen</strong> (si x está en el dominio, −x también debe estarlo). Aquí Dom = [−2,2] sí es simétrico. Si el dominio no fuera simétrico, f no podría ser ni par ni impar.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">4</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 4</div>
+          <div class="step-question">Asíntotas</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>El dominio es el intervalo acotado [−2, 2]. No hay x que tienda a ±∞ dentro del dominio, y no hay denominadores que se anulen.</p>
+        <div class="answer-final"><span class="ans-label">Asíntotas</span>Ninguna.</div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">5</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 5</div>
+          <div class="step-question">Crecimiento y decrecimiento — f'(x)</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>Aplicamos la regla del producto: (uv)' = u'v + uv'</p>
+        <span class="f">u = x,   u' = 1     |     v = √(4−x²) = (4−x²)^(1/2),   v' = (1/2)(4−x²)^(−1/2)·(−2x) = −x/√(4−x²)</span>
+        <span class="f">f'(x) = 1·√(4−x²) + x·(−x/√(4−x²))</span>
+        <span class="f">      = √(4−x²) − x²/√(4−x²)</span>
+        <span class="f">      = [(4−x²) − x²] / √(4−x²)   =   (4 − 2x²) / √(4−x²)</span>
+
+        <p style="margin-top:14px">f'(x) = 0 cuando el numerador = 0 (el denominador > 0 en el interior del dominio):</p>
+        <span class="f">4 − 2x² = 0   →   x² = 2   →   x = ±√2</span>
+
+        <div class="trap">
+          <div class="trap-label">⚠ Trampa: f' no existe en los extremos del dominio</div>
+          <p>En x = ±2 el denominador √(4−x²) = 0, así que f' no está definida ahí. <strong>No confundas</strong> "f' no existe" con "hay asíntota". En extremos del dominio, simplemente la derivada lateral no existe o es infinita. Los extremos x = ±2 son puntos del dominio de f pero no de f'.</p>
+        </div>
+
+        <p style="margin-top:12px">Como f es impar, estudiamos solo x ∈ [0, 2]:</p>
+        <table class="sign-table">
+          <tr><th>Intervalo</th><th>4−2x²</th><th>√(4−x²)</th><th>f'</th></tr>
+          <tr><td>(0, √2)</td><td class="pos">positivo</td><td class="pos">positivo</td><td class="pos">+ → crece</td></tr>
+          <tr><td>(√2, 2)</td><td class="neg">negativo</td><td class="pos">positivo</td><td class="neg">− → decrece</td></tr>
+        </table>
+
+        <p>Por simetría impar: en (−2, −√2) crece, en (−√2, 0) decrece.</p>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">6</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 6</div>
+          <div class="step-question">Extremos locales y globales</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p><strong>x = √2:</strong> f' cambia <span class="pos">+</span> → <span class="neg">−</span> → máximo local</p>
+        <span class="f">f(√2) = √2 · √(4−2) = √2 · √2 = 2   →   Máx. local en (√2, 2)</span>
+        <p><strong>x = −√2:</strong> por simetría impar → f(−√2) = −f(√2) = −2 → mínimo local</p>
+        <div class="answer-final"><span class="ans-label">Extremos locales</span>Máximo: (√2, 2)   |   Mínimo: (−√2, −2)</div>
+        <div class="note"><p><strong>Extremos globales:</strong> Como el dominio es un intervalo cerrado [−2, 2], por el Teorema del Valor Extremo f alcanza un máximo y un mínimo absolutos. El máximo absoluto es 2 en x = √2, y el mínimo absoluto es −2 en x = −√2 (los extremos del dominio dan f(±2) = 0).</p></div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">7</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 7</div>
+          <div class="step-question">Concavidad e inflexión — f''(x)</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>f'(x) = (4−2x²)/√(4−x²). Aplicamos regla del cociente:</p>
+        <span class="f">u = 4−2x², u' = −4x     |     v = √(4−x²), v' = −x/√(4−x²)</span>
+        <span class="f">f''(x) = [−4x·√(4−x²) − (4−2x²)·(−x/√(4−x²))] / (4−x²)</span>
+        <span class="f">       = [−4x(4−x²) + x(4−2x²)] / (4−x²)^(3/2)</span>
+        <span class="f">       = x[−16+4x²+4−2x²] / (4−x²)^(3/2)</span>
+        <span class="f">       = x(2x²−12) / (4−x²)^(3/2)   =   2x(x²−6) / (4−x²)^(3/2)</span>
+
+        <p style="margin-top:12px">Candidatos a inflexión: f'' = 0 → x = 0 o x² = 6 → x = ±√6. Pero √6 ≈ 2.45 > 2, fuera del dominio. Solo x = 0 aplica.</p>
+
+        <table class="sign-table">
+          <tr><th>Intervalo</th><th>x</th><th>x²−6 (&lt;0 en dom.)</th><th>Denominador</th><th>f''</th></tr>
+          <tr><td>(−2, 0)</td><td class="neg">−</td><td class="neg">−</td><td class="pos">+</td><td class="pos">+ → cóncava ↑</td></tr>
+          <tr><td>(0, 2)</td><td class="pos">+</td><td class="neg">−</td><td class="pos">+</td><td class="neg">− → cóncava ↓</td></tr>
+        </table>
+
+        <span class="f">f(0) = 0   →   Punto de inflexión en (0, 0)</span>
+        <div class="answer-final"><span class="ans-label">Inflexión</span>(0, 0) — coincide con el origen, que también es intersección con ambos ejes</div>
+      </div></div>
+    </div>
+
+    <div class="result-summary">
+      <div class="rs-title">Resumen — f(x) = x·√(4−x²)</div>
+      <div class="rs-grid">
+        <div class="rs-item"><div class="rs-key">Dominio</div><div class="rs-val">[−2, 2]</div></div>
+        <div class="rs-item"><div class="rs-key">Eje y</div><div class="rs-val">(0, 0)</div></div>
+        <div class="rs-item"><div class="rs-key">Eje x</div><div class="rs-val">(−2,0), (0,0), (2,0)</div></div>
+        <div class="rs-item"><div class="rs-key">Simetría</div><div class="rs-val">Impar (origen)</div></div>
+        <div class="rs-item"><div class="rs-key">Asíntotas</div><div class="rs-val">Ninguna</div></div>
+        <div class="rs-item"><div class="rs-key">Crece</div><div class="rs-val">(−2,−√2) ∪ (0,√2)</div></div>
+        <div class="rs-item"><div class="rs-key">Decrece</div><div class="rs-val">(−√2,0) ∪ (√2,2)</div></div>
+        <div class="rs-item"><div class="rs-key">Máximo local</div><div class="rs-val">(√2, 2)</div></div>
+        <div class="rs-item"><div class="rs-key">Mínimo local</div><div class="rs-val">(−√2, −2)</div></div>
+        <div class="rs-item"><div class="rs-key">Cóncava arriba</div><div class="rs-val">(−2, 0)</div></div>
+        <div class="rs-item"><div class="rs-key">Cóncava abajo</div><div class="rs-val">(0, 2)</div></div>
+        <div class="rs-item"><div class="rs-key">Inflexión</div><div class="rs-val">(0, 0)</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     FUNCIÓN 04 — RACIONAL CON AO
+══════════════════════════════════════════ -->
+<div class="fn-page" id="fn4">
+  <div class="page-header">
+    <div class="fn-number">04</div>
+    <div class="page-header-text">
+      <div class="fn-tag">Función racional · Dificultad <span class="diff-badge diff-3">alta</span></div>
+      <div class="fn-title">f(x) = (x³) / (x² − 1)</div>
+      <div class="fn-subtitle">Dos asíntotas verticales · Asíntota oblicua · Función impar</div>
+    </div>
+  </div>
+
+  <div class="steps-container">
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">1</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 1</div>
+          <div class="step-question">Dominio</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <span class="f">x² − 1 ≠ 0   →   (x−1)(x+1) ≠ 0   →   x ≠ 1 y x ≠ −1</span>
+        <div class="answer-final"><span class="ans-label">Dominio</span>ℝ \ {−1, 1} = (−∞,−1) ∪ (−1,1) ∪ (1,+∞)</div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">2</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 2</div>
+          <div class="step-question">Intersecciones con los ejes</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p><strong>Eje y:</strong>  f(0) = 0/(0−1) = 0 → Punto (0, 0)</p>
+        <p><strong>Eje x:</strong>  x³ = 0 → x = 0 (único cero, con multiplicidad 3)</p>
+        <div class="answer-final"><span class="ans-label">Intersecciones</span>Solo el origen (0, 0) — es a la vez intersección con eje x y con eje y</div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">3</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 3</div>
+          <div class="step-question">Simetría</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <span class="f">f(−x) = (−x)³ / ((−x)²−1) = −x³ / (x²−1) = −f(x)</span>
+        <div class="answer-final"><span class="ans-label">Simetría</span>Función IMPAR. Simétrica respecto al origen.</div>
+        <div class="why">
+          <div class="why-label">Cómo reconocer funciones impares rápido</div>
+          <p>En cocientes racionales: si el numerador tiene solo potencias impares de x y el denominador solo potencias pares (o viceversa con signo consistente), la función es impar. Aquí: numerador x³ (impar) y denominador x²−1 (par). Esto garantiza f(−x) = −f(x).</p>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">4</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 4</div>
+          <div class="step-question">Asíntotas — verticales, oblicua</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p><strong>Asíntotas Verticales:</strong></p>
+        <span class="f">En x = 1: numerador = 1³ = 1 ≠ 0  →  AV: x = 1</span>
+        <span class="f">En x = −1: numerador = (−1)³ = −1 ≠ 0  →  AV: x = −1</span>
+
+        <p style="margin-top:14px"><strong>Asíntota Oblicua:</strong> grado(num) = 3, grado(den) = 2. Como 3 = 2 + 1 → hay AO.</p>
+        <span class="f">x³ ÷ (x²−1):</span>
+        <div class="calc-row">
+          <div class="calc-step"><span class="cs-label">Paso 1</span>x³ ÷ x² = x<br>x·(x²−1) = x³ − x<br>Resto: x</div>
+          <div class="calc-step"><span class="cs-label">Resultado</span>f(x) = x + x/(x²−1)<br><br>Cuando x→±∞, x/(x²−1)→0</div>
+        </div>
+        <div class="answer-final"><span class="ans-label">Asíntotas</span>AV: x = 1 y x = −1   |   AO: y = x</div>
+        <div class="note"><p><strong>Comprobación con la simetría:</strong> La AO es y = x, que también es impar (pasa por el origen y f(−x)=−f(x)). Coherente con que la función sea impar.</p></div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">5</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 5</div>
+          <div class="step-question">Crecimiento y decrecimiento — f'(x)</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>Regla del cociente:</p>
+        <span class="f">f'(x) = [3x²(x²−1) − x³·2x] / (x²−1)²</span>
+        <span class="f">      = [3x⁴ − 3x² − 2x⁴] / (x²−1)²</span>
+        <span class="f">      = (x⁴ − 3x²) / (x²−1)²</span>
+        <span class="f">      = x²(x² − 3) / (x²−1)²</span>
+
+        <p style="margin-top:12px">f'(x) = 0 cuando: x² = 0 → x = 0, o x²−3 = 0 → x = ±√3</p>
+
+        <div class="trap">
+          <div class="trap-label">⚠ Trampa: x = 0 es un punto crítico especial</div>
+          <p>f'(0) = 0, pero ¿cambia de signo? Analicemos: el factor x² es <strong>siempre ≥ 0</strong>. Y (x²−1)² también es siempre ≥ 0. Entonces el signo de f' depende solo del signo de x²−3. En x = 0: x²−3 = −3 < 0. A ambos lados de 0 el signo de x²−3 sigue siendo negativo (para x cercano a 0). <strong>f' no cambia de signo en x = 0 → no es extremo, sino punto de inflexión con tangente horizontal.</strong></p>
+        </div>
+
+        <table class="sign-table">
+          <tr><th>Intervalo</th><th>x²</th><th>x²−3</th><th>(x²−1)²</th><th>f'</th></tr>
+          <tr><td>(−∞,−√3)</td><td class="pos">+</td><td class="pos">+</td><td class="pos">+</td><td class="pos">+ → crece</td></tr>
+          <tr><td>(−√3,−1)</td><td class="pos">+</td><td class="neg">−</td><td class="pos">+</td><td class="neg">− → decrece</td></tr>
+          <tr><td>(−1,0)</td><td class="pos">+</td><td class="neg">−</td><td class="pos">+</td><td class="neg">− → decrece</td></tr>
+          <tr><td>(0,1)</td><td class="pos">+</td><td class="neg">−</td><td class="pos">+</td><td class="neg">− → decrece</td></tr>
+          <tr><td>(1,√3)</td><td class="pos">+</td><td class="neg">−</td><td class="pos">+</td><td class="neg">− → decrece</td></tr>
+          <tr><td>(√3,+∞)</td><td class="pos">+</td><td class="pos">+</td><td class="pos">+</td><td class="pos">+ → crece</td></tr>
+        </table>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">6</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 6</div>
+          <div class="step-question">Extremos locales</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p><strong>x = −√3:</strong> f' cambia <span class="pos">+</span>→<span class="neg">−</span> → <strong>máximo local</strong></p>
+        <span class="f">f(−√3) = (−√3)³ / ((−√3)²−1) = −3√3 / (3−1) = −3√3/2 ≈ −2.60</span>
+
+        <p style="margin-top:10px"><strong>x = 0:</strong> f' <strong>no cambia de signo</strong> (sigue negativa a ambos lados) → <strong>no es extremo</strong></p>
+
+        <p style="margin-top:10px"><strong>x = √3:</strong> f' cambia <span class="neg">−</span>→<span class="pos">+</span> → <strong>mínimo local</strong></p>
+        <span class="f">f(√3) = (√3)³ / ((√3)²−1) = 3√3/2 ≈ 2.60</span>
+
+        <div class="answer-final"><span class="ans-label">Extremos</span>Máx. local: (−√3, −3√3/2)   |   Mín. local: (√3, 3√3/2)</div>
+        <div class="trap">
+          <div class="trap-label">⚠ Trampa: el máximo local está por debajo del mínimo local</div>
+          <p>Sí, f(−√3) ≈ −2.60 (máximo local) y f(√3) ≈ 2.60 (mínimo local). Esto parece contradictorio pero tiene sentido: están en partes <strong>desconectadas</strong> del dominio (separadas por las asíntotas verticales). Los extremos locales son relativos a su rama, no al total de la función.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="step-block" onclick="toggleStep(this)">
+      <div class="step-trigger">
+        <div class="step-num-col"><div class="step-num-inner">7</div></div>
+        <div class="step-header-text">
+          <div class="step-name">Paso 7</div>
+          <div class="step-question">Concavidad e inflexión — f''(x)</div>
+        </div>
+        <div class="step-arrow">▾</div>
+      </div>
+      <div class="step-content"><div class="step-inner">
+        <p>f'(x) = x²(x²−3)/(x²−1)². Derivamos (es largo; expandimos primero):</p>
+        <p>Usando que f(x) = x + x/(x²−1), es más fácil derivar esto:</p>
+        <span class="f">f'(x) = 1 + (x²−1−2x²)/(x²−1)² = 1 + (−x²−1)/(x²−1)² = 1 − (x²+1)/(x²−1)²</span>
+        <span class="f">f''(x) = − [(2x(x²−1)² − (x²+1)·2(x²−1)·2x] / (x²−1)⁴</span>
+        <span class="f">       = −2x[(x²−1) − 2(x²+1)] / (x²−1)³</span>
+        <span class="f">       = −2x[x²−1−2x²−2] / (x²−1)³</span>
+        <span class="f">       = −2x(−x²−3) / (x²−1)³  =  2x(x²+3) / (x²−1)³</span>
+
+        <p style="margin-top:12px">Nota: x²+3 > 0 siempre. El signo de f'' depende de x y (x²−1)³:</p>
+        <table class="sign-table">
+          <tr><th>Intervalo</th><th>2x</th><th>x²+3</th><th>(x²−1)³</th><th>f''</th></tr>
+          <tr><td>(−∞,−1)</td><td class="neg">−</td><td class="pos">+</td><td class="neg">−</td><td class="pos">+ → cóncava ↑</td></tr>
+          <tr><td>(−1,0)</td><td class="neg">−</td><td class="pos">+</td><td class="neg">−(|x|&lt;1 → x²&lt;1)</td><td class="pos">+ → cóncava ↑</td></tr>
+          <tr><td>(0,1)</td><td class="pos">+</td><td class="pos">+</td><td class="neg">−</td><td class="neg">− → cóncava ↓</td></tr>
+          <tr><td>(1,+∞)</td><td class="pos">+</td><td class="pos">+</td><td class="pos">+</td><td class="pos">+ → cóncava ↑</td></tr>
+        </table>
+
+        <p>Candidatos a inflexión: f''=0 → x=0 (en dominio). La concavidad cambia de ↑ a ↓ en x=0.</p>
+        <span class="f">f(0) = 0   →   Punto de inflexión en (0, 0)</span>
+        <div class="answer-final"><span class="ans-label">Inflexión</span>(0, 0) — único punto de inflexión</div>
+        <div class="note"><p><strong>Recuerda:</strong> x = ±1 cambian el signo de f'' pero no son puntos de inflexión porque no están en el dominio (son las asíntotas verticales).</p></div>
+      </div></div>
+    </div>
+
+    <div class="result-summary">
+      <div class="rs-title">Resumen — f(x) = x³/(x²−1)</div>
+      <div class="rs-grid">
+        <div class="rs-item"><div class="rs-key">Dominio</div><div class="rs-val">ℝ \ {−1, 1}</div></div>
+        <div class="rs-item"><div class="rs-key">Origen</div><div class="rs-val">(0, 0) — eje x e y</div></div>
+        <div class="rs-item"><div class="rs-key">Simetría</div><div class="rs-val">Impar (origen)</div></div>
+        <div class="rs-item"><div class="rs-key">Asíntotas verticales</div><div class="rs-val">x = −1 y x = 1</div></div>
+        <div class="rs-item"><div class="rs-key">Asíntota oblicua</div><div class="rs-val">y = x</div></div>
+        <div class="rs-item"><div class="rs-key">Crece</div><div class="rs-val">(−∞,−√3) ∪ (√3,+∞)</div></div>
+        <div class="rs-item"><div class="rs-key">Decrece</div><div class="rs-val">(−√3,−1)∪(−1,1)∪(1,√3)</div></div>
+        <div class="rs-item"><div class="rs-key">Máximo local</div><div class="rs-val">(−√3, −3√3/2)</div></div>
+        <div class="rs-item"><div class="rs-key">Mínimo local</div><div class="rs-val">(√3, 3√3/2)</div></div>
+        <div class="rs-item"><div class="rs-key">Concavidad ↑</div><div class="rs-val">(−∞,−1)∪(−1,0)∪(1,∞)</div></div>
+        <div class="rs-item"><div class="rs-key">Concavidad ↓</div><div class="rs-val">(0, 1)</div></div>
+        <div class="rs-item"><div class="rs-key">Inflexión</div><div class="rs-val">(0, 0)</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center; padding:56px 24px; border-top:1px solid var(--border)">
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ink3)">Cálculo I · Estudio completo de funciones · Material CSCA</div>
+</div>
+
+<script>
+function toggleStep(block) {
+  block.classList.toggle('open');
+}
+
+// Progress bar
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const progress = (scrollTop / scrollHeight) * 100;
+  document.getElementById('progress').style.width = progress + '%';
+});
+</script>
+</body>
+</html>

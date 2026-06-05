@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funciones — Guía Completa Cálculo I</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0b;
+    --cream: #faf7f0;
+    --warm: #f0ebe0;
+    --accent: #c8522a;
+    --accent2: #2a6cc8;
+    --accent3: #2a8c52;
+    --gold: #c8962a;
+    --border: #d4cebe;
+    --soft: #7a7060;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+    background: var(--ink);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: 'f(x)';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(200px, 35vw, 500px);
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+    letter-spacing: -20px;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    border: 1px solid rgba(200,82,42,0.3);
+    padding: 6px 16px;
+    display: inline-block;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 8vw, 120px);
+    font-weight: 900;
+    color: white;
+    line-height: 0.9;
+    letter-spacing: -3px;
+    margin-bottom: 32px;
+  }
+
+  .hero h1 span { color: var(--accent); font-style: italic; }
+
+  .hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    max-width: 480px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+  }
+
+  .hero-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .hero-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 10px 20px;
+    transition: all 0.3s;
+  }
+
+  .hero-nav a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 60px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 32px;
+    color: var(--ink);
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 40px 0 16px;
+    color: var(--ink);
+  }
+
+  h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 28px 0 10px;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  p { margin-bottom: 16px; color: #3a3530; font-size: 15px; }
+
+  /* DEFINITION BOXES */
+  .def-box {
+    background: var(--ink);
+    color: white;
+    padding: 32px 36px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .def-box::before {
+    content: '«DEF»';
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .def-box p {
+    color: rgba(255,255,255,0.85);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .def-box strong { color: var(--accent); }
+
+  /* THEOREM BOX */
+  .thm-box {
+    border-left: 3px solid var(--accent2);
+    padding: 24px 28px;
+    margin: 28px 0;
+    background: rgba(42,108,200,0.04);
+  }
+
+  .thm-box::before {
+    content: 'TEOREMA / PROPIEDAD';
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--accent2);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  /* FORMULA */
+  .formula {
+    background: var(--warm);
+    border: 1px solid var(--border);
+    padding: 20px 28px;
+    margin: 20px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    color: var(--ink);
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  /* EXAMPLE */
+  .example {
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    margin: 28px 0;
+    position: relative;
+  }
+
+  .example::before {
+    content: 'EJEMPLO';
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--accent3);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .example p { font-size: 14px; }
+
+  /* NOTE */
+  .note {
+    background: rgba(200,150,42,0.08);
+    border-left: 3px solid var(--gold);
+    padding: 18px 24px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--soft);
+  }
+
+  .note strong { color: var(--gold); }
+
+  /* GRID */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 28px 0;
+  }
+
+  @media(max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .card {
+    border: 1px solid var(--border);
+    padding: 24px;
+  }
+
+  .card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .card p { font-size: 14px; margin: 0; }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 14px;
+  }
+
+  th {
+    background: var(--ink);
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: #3a3530;
+  }
+
+  tr:hover td { background: var(--warm); }
+
+  /* STEP */
+  .steps { counter-reset: step; margin: 24px 0; }
+
+  .step {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    counter-increment: step;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    background: var(--accent);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .step-content { font-size: 15px; padding-top: 6px; }
+
+  /* CHAPTER MARKER */
+  .chapter-marker {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .chapter-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    letter-spacing: -4px;
+  }
+
+  /* FUNCTION TYPE CARDS */
+  .fn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 28px 0;
+  }
+
+  .fn-card {
+    border: 1px solid var(--border);
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: default;
+  }
+
+  .fn-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .fn-card .fn-expr {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .fn-card .fn-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+
+  /* HIGHLIGHT */
+  .hl { color: var(--accent); font-weight: 600; }
+  .hl2 { color: var(--accent2); font-weight: 600; }
+  .hl3 { color: var(--accent3); font-weight: 600; }
+
+  /* DIVIDER */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--accent);
+    margin: 32px 0;
+  }
+
+  /* CANVAS */
+  canvas {
+    display: block;
+    margin: 24px auto;
+    border: 1px solid var(--border);
+    background: white;
+  }
+
+  /* INTERACTIVE */
+  .interactive-box {
+    background: var(--warm);
+    border: 1px solid var(--border);
+    padding: 32px;
+    margin: 32px 0;
+  }
+
+  .interactive-box label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--soft);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .interactive-box input[type=range] {
+    width: 100%;
+    accent-color: var(--accent);
+  }
+
+  .interactive-box .output {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    margin-top: 8px;
+  }
+
+  /* SUMMARY TABLE */
+  .summary {
+    background: var(--ink);
+    color: white;
+    padding: 48px;
+    margin: 48px 0 0;
+  }
+
+  .summary h3 {
+    color: white;
+    font-family: 'Playfair Display', serif;
+    margin-top: 0;
+  }
+
+  .summary table th { background: rgba(255,255,255,0.1); }
+  .summary table td { color: rgba(255,255,255,0.75); border-bottom-color: rgba(255,255,255,0.1); }
+  .summary table tr:hover td { background: rgba(255,255,255,0.05); }
+
+  /* BACK TO TOP */
+  .back-top {
+    text-align: center;
+    padding: 60px 0;
+  }
+
+  .back-top a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px;
+    transition: all 0.3s;
+  }
+
+  .back-top a:hover { color: var(--accent); border-color: var(--accent); }
+
+  ul, ol { padding-left: 20px; margin-bottom: 16px; }
+  li { font-size: 15px; margin-bottom: 6px; color: #3a3530; }
+
+  strong { font-weight: 600; color: var(--ink); }
+
+  .mono { font-family: 'DM Mono', monospace; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Cálculo I · Guía Completa</div>
+  <h1>Fun<span>cio</span>nes</h1>
+  <p>De la definición más básica hasta el análisis completo. Todo lo que necesitas para dominar las funciones y conquistar el CSCA.</p>
+  <nav class="hero-nav">
+    <a href="#conceptos">1. Conceptos</a>
+    <a href="#dominio">2. Dominio y Rango</a>
+    <a href="#tipos">3. Tipos</a>
+    <a href="#operaciones">4. Operaciones</a>
+    <a href="#estudio">5. Estudio Completo</a>
+    <a href="#trascendentes">6. Trascendentes</a>
+    <a href="#resumen">Resumen</a>
+  </nav>
+</div>
+
+
+<!-- ═══════════════════ 1. CONCEPTOS BÁSICOS ═══════════════════ -->
+<section id="conceptos">
+<div class="container">
+  <div class="chapter-marker">
+    <div class="chapter-num">01</div>
+    <div>
+      <div class="section-label">Fundamentos</div>
+      <h2>¿Qué es una función?</h2>
+    </div>
+  </div>
+
+  <div class="def-box">
+    <p>Una <strong>función</strong> f de un conjunto A en un conjunto B es una regla que asigna a <strong>cada elemento x ∈ A</strong> exactamente <strong>un único elemento y ∈ B</strong>. Se escribe <strong>y = f(x)</strong>, donde x es la <strong>variable independiente</strong> e y es la <strong>variable dependiente</strong>.</p>
+  </div>
+
+  <p>Piénsalo así: una función es como una <strong>máquina</strong>. Le metes un número (input = x), le aplica una regla, y te da un resultado (output = y). La condición esencial es que <em>por cada entrada, solo puede haber una salida</em>.</p>
+
+  <div class="divider"></div>
+
+  <h3>Notación y terminología esencial</h3>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Notación estándar</div>
+      <p><strong>f : A → B</strong> se lee "f va de A en B"<br><br>
+      <strong>f(x) = expresión</strong> define la regla<br><br>
+      <strong>f(a)</strong> es el valor de f cuando x = a</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Vocabulario clave</div>
+      <p><strong>Dominio (Dom f):</strong> conjunto de todos los x válidos<br><br>
+      <strong>Codominio:</strong> conjunto B (donde pueden caer los valores)<br><br>
+      <strong>Rango / Imagen:</strong> valores que f realmente toma</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <p>Sea f(x) = x² + 1. Calcula f(3), f(−2) y f(0).</p>
+    <p><strong>f(3)</strong> = (3)² + 1 = 9 + 1 = <span class="hl">10</span></p>
+    <p><strong>f(−2)</strong> = (−2)² + 1 = 4 + 1 = <span class="hl">5</span></p>
+    <p><strong>f(0)</strong> = (0)² + 1 = 0 + 1 = <span class="hl">1</span></p>
+    <p>Nota que f(3) ≠ f(−3) no es necesario, pero f siempre da UN solo valor por cada x.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>¿Cuándo NO es función? — Prueba de la recta vertical</h3>
+
+  <div class="thm-box">
+    <p><strong>Prueba de la Recta Vertical:</strong> Una curva en el plano cartesiano es la gráfica de una función si y solo si ninguna recta vertical la corta en más de un punto.</p>
+  </div>
+
+  <p>Si una recta vertical x = a corta la gráfica en dos puntos (a, y₁) y (a, y₂) con y₁ ≠ y₂, entonces a ese valor de x le corresponden dos salidas distintas → <strong>NO es función</strong>.</p>
+
+  <div class="example">
+    <p><strong>¿Es función x² + y² = 9?</strong> (círculo de radio 3)</p>
+    <p>Para x = 0: y² = 9 → y = 3 o y = −3. Dos valores para un mismo x. ❌ NO es función.</p>
+    <p><strong>¿Es función y = √(9 − x²)?</strong> (semicírculo superior) → solo da valores positivos → ✅ SÍ es función.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Relación vs Función</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Relación (caso general)</div>
+      <p>Cualquier conjunto de pares ordenados (x, y). Un x puede tener varios y. Ejemplo: {(1,2), (1,5), (3,4)} — el 1 aparece dos veces con distintos y. No es función.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Función (caso especial)</div>
+      <p>Relación donde cada x tiene exactamente un y. Ejemplo: {(1,2), (2,5), (3,4)} — cada x aparece una sola vez. SÍ es función.</p>
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- ═══════════════════ 2. DOMINIO Y RANGO ═══════════════════ -->
+<section id="dominio">
+<div class="container">
+  <div class="chapter-marker">
+    <div class="chapter-num">02</div>
+    <div>
+      <div class="section-label">Conjuntos clave</div>
+      <h2>Dominio, Rango y Codominio</h2>
+    </div>
+  </div>
+
+  <h3>Dominio Natural (o Dominio Implícito)</h3>
+  <p>Es el <strong>conjunto más grande de valores reales</strong> para los que f(x) está definida. Para encontrarlo, hay que identificar qué valores de x causan problemas.</p>
+
+  <div class="thm-box">
+    <p><strong>Restricciones del dominio:</strong><br><br>
+    1. <strong>Denominadores:</strong> el denominador ≠ 0<br>
+    2. <strong>Raíces pares:</strong> el radicando ≥ 0 (raíces cuadradas, de cuarto, etc.)<br>
+    3. <strong>Logaritmos:</strong> el argumento > 0<br>
+    4. <strong>Combinaciones:</strong> aplica todas las restricciones simultáneamente</p>
+  </div>
+
+  <h4>Método paso a paso para hallar el dominio</h4>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content">Identifica qué operaciones "problemáticas" hay en la función (divisiones, raíces, logaritmos).</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content">Escribe las restricciones correspondientes como desigualdades o inequaciones.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content">Resuelve cada restricción para obtener los valores de x excluidos.</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content">Expresa el dominio en notación de intervalo o de conjunto.</div></div>
+  </div>
+
+  <div class="example">
+    <p><strong>Ejemplo 1:</strong> f(x) = 1 / (x − 3)</p>
+    <p>Restricción: x − 3 ≠ 0 → x ≠ 3</p>
+    <p>Dom(f) = ℝ \ {3} = (−∞, 3) ∪ (3, +∞)</p>
+  </div>
+
+  <div class="example">
+    <p><strong>Ejemplo 2:</strong> f(x) = √(x − 2)</p>
+    <p>Restricción: x − 2 ≥ 0 → x ≥ 2</p>
+    <p>Dom(f) = [2, +∞)</p>
+  </div>
+
+  <div class="example">
+    <p><strong>Ejemplo 3:</strong> f(x) = √(x + 1) / (x − 4)</p>
+    <p>Restricción 1 (raíz): x + 1 ≥ 0 → x ≥ −1<br>
+    Restricción 2 (denominador): x − 4 ≠ 0 → x ≠ 4</p>
+    <p>Dom(f) = [−1, 4) ∪ (4, +∞)</p>
+  </div>
+
+  <div class="example">
+    <p><strong>Ejemplo 4:</strong> f(x) = ln(x² − 4)</p>
+    <p>Restricción: x² − 4 > 0 → (x−2)(x+2) > 0 → x < −2 o x > 2</p>
+    <p>Dom(f) = (−∞, −2) ∪ (2, +∞)</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Rango o Imagen de una Función</h3>
+  <p>El <strong>rango</strong> (o imagen) es el conjunto de <em>todos los valores que efectivamente toma</em> f(x). Es distinto del codominio, que es el conjunto donde "podrían" caer los valores.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Rango de funciones comunes</div>
+      <p>f(x) = x² → Rango = [0, +∞)<br><br>
+      f(x) = x³ → Rango = (−∞, +∞)<br><br>
+      f(x) = √x → Rango = [0, +∞)<br><br>
+      f(x) = |x| → Rango = [0, +∞)</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Estrategia para hallar el rango</div>
+      <p>1. Despeja x en función de y<br>
+      2. Aplica las restricciones a y<br>
+      3. Verifica con la gráfica<br>
+      4. Usa análisis (máx/mín) si es posible</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <p><strong>Halla el rango de f(x) = x² − 4x + 5</strong></p>
+    <p>Completa el cuadrado: f(x) = (x−2)² + 1</p>
+    <p>Como (x−2)² ≥ 0 siempre, entonces f(x) ≥ 1 siempre.</p>
+    <p>El mínimo es 1 (cuando x = 2). Rango = <span class="hl">[1, +∞)</span></p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Notación de Intervalos</h3>
+  <table>
+    <thead><tr><th>Notación</th><th>Significado</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">[a, b]</td><td>a ≤ x ≤ b (cerrado)</td><td>[2, 5]: incluye 2 y 5</td></tr>
+      <tr><td class="mono">(a, b)</td><td>a < x < b (abierto)</td><td>(2, 5): excluye 2 y 5</td></tr>
+      <tr><td class="mono">[a, b)</td><td>a ≤ x < b (semiabierto)</td><td>[2, 5): incluye 2, excluye 5</td></tr>
+      <tr><td class="mono">(a, +∞)</td><td>x > a</td><td>Dom de √(x−3): [3,+∞)</td></tr>
+      <tr><td class="mono">ℝ o (−∞, +∞)</td><td>Todos los reales</td><td>Dom de x³</td></tr>
+    </tbody>
+  </table>
+
+</div>
+</section>
+
+
+<!-- ═══════════════════ 3. TIPOS DE FUNCIONES ═══════════════════ -->
+<section id="tipos">
+<div class="container">
+  <div class="chapter-marker">
+    <div class="chapter-num">03</div>
+    <div>
+      <div class="section-label">Clasificación</div>
+      <h2>Tipos de Funciones</h2>
+    </div>
+  </div>
+
+  <!-- 3.1 Según su regla algebraica -->
+  <h3>A · Por su expresión algebraica</h3>
+
+  <div class="fn-grid">
+    <div class="fn-card"><div class="fn-expr">ax + b</div><div class="fn-name">Lineal</div></div>
+    <div class="fn-card"><div class="fn-expr">ax² + bx + c</div><div class="fn-name">Cuadrática</div></div>
+    <div class="fn-card"><div class="fn-expr">axⁿ</div><div class="fn-name">Potencia</div></div>
+    <div class="fn-card"><div class="fn-expr">p(x)/q(x)</div><div class="fn-name">Racional</div></div>
+    <div class="fn-card"><div class="fn-expr">√f(x)</div><div class="fn-name">Irracional</div></div>
+    <div class="fn-card"><div class="fn-expr">|x|</div><div class="fn-name">Valor absoluto</div></div>
+  </div>
+
+  <h4>Función Constante: f(x) = c</h4>
+  <p>Dominio: ℝ · Rango: {c} · Gráfica: recta horizontal · Pendiente = 0</p>
+
+  <h4>Función Lineal: f(x) = mx + b</h4>
+  <p>m = pendiente (inclinación), b = intercepto en y. Gráfica: recta. Dom y Rango = ℝ.</p>
+  <div class="formula">m = (y₂ − y₁) / (x₂ − x₁) = Δy / Δx</div>
+  <p>La pendiente indica cuánto sube (o baja) y por cada unidad que avanza x.</p>
+
+  <h4>Función Cuadrática: f(x) = ax² + bx + c</h4>
+  <p>Gráfica: parábola. Si a > 0 abre hacia arriba (mínimo); si a < 0 abre hacia abajo (máximo).</p>
+  <div class="formula">Vértice: x_v = −b/(2a) , y_v = f(x_v)</div>
+  <div class="formula">Discriminante: Δ = b² − 4ac</div>
+
+  <table>
+    <thead><tr><th>Discriminante Δ</th><th>Raíces reales</th><th>Intersecciones con eje x</th></tr></thead>
+    <tbody>
+      <tr><td>Δ > 0</td><td>Dos raíces reales distintas</td><td>Dos puntos</td></tr>
+      <tr><td>Δ = 0</td><td>Una raíz real doble</td><td>Un punto (toca el eje)</td></tr>
+      <tr><td>Δ < 0</td><td>No hay raíces reales</td><td>No corta el eje x</td></tr>
+    </tbody>
+  </table>
+
+  <div class="example">
+    <p><strong>Analizar f(x) = x² − 4x + 3</strong></p>
+    <p>a = 1 > 0 → parábola abre arriba. Vértice: x_v = 4/2 = 2, y_v = 4 − 8 + 3 = −1. Vértice: (2, −1)</p>
+    <p>Δ = 16 − 12 = 4 > 0. Raíces: x = (4 ± 2)/2 → x = 1 y x = 3.</p>
+    <p>Rango = [−1, +∞)</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 3.2 Según comportamiento -->
+  <h3>B · Por su comportamiento</h3>
+
+  <h4>Función Par</h4>
+  <div class="def-box">
+    <p>f es <strong>par</strong> si f(−x) = f(x) para todo x en su dominio. Gráfica: simétrica respecto al <strong>eje Y</strong>.</p>
+  </div>
+  <p>Ejemplos: f(x) = x², f(x) = |x|, f(x) = cos(x), f(x) = x⁴ − 3x² + 1</p>
+
+  <h4>Función Impar</h4>
+  <div class="def-box">
+    <p>f es <strong>impar</strong> si f(−x) = −f(x) para todo x en su dominio. Gráfica: simétrica respecto al <strong>origen</strong>.</p>
+  </div>
+  <p>Ejemplos: f(x) = x³, f(x) = x, f(x) = sen(x), f(x) = x⁵ − x</p>
+
+  <div class="example">
+    <p><strong>Determinar si f(x) = x³ − 4x es par, impar o ninguna.</strong></p>
+    <p>f(−x) = (−x)³ − 4(−x) = −x³ + 4x = −(x³ − 4x) = −f(x)</p>
+    <p>Como f(−x) = −f(x) → <span class="hl">función IMPAR</span></p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h4>Función Monótona</h4>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Creciente en (a, b)</div>
+      <p>Si x₁ < x₂ → f(x₁) < f(x₂). A medida que x aumenta, y también aumenta.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Decreciente en (a, b)</div>
+      <p>Si x₁ < x₂ → f(x₁) > f(x₂). A medida que x aumenta, y disminuye.</p>
+    </div>
+  </div>
+
+  <div class="note"><strong>Nota:</strong> Con Cálculo I podemos determinar los intervalos de crecimiento y decrecimiento usando la derivada: f'(x) > 0 → creciente; f'(x) < 0 → decreciente.</div>
+
+  <div class="divider"></div>
+
+  <!-- 3.3 Función por partes -->
+  <h3>C · Función Definida por Partes (o a Trozos)</h3>
+
+  <p>Una función que tiene <strong>diferentes fórmulas en diferentes partes de su dominio</strong>.</p>
+
+  <div class="example">
+    <p><strong>Ejemplo: Valor absoluto definido por partes</strong></p>
+    <p>|x| = { x, si x ≥ 0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { −x, si x < 0</p>
+    <p>Para evaluar: si x = 3 → usas la primera parte: |3| = 3<br>
+    Si x = −5 → usas la segunda parte: |−5| = −(−5) = 5</p>
+  </div>
+
+  <div class="example">
+    <p><strong>Sea:</strong> f(x) = { x² si x < 0 | 2x + 1 si x ≥ 0</p>
+    <p>f(−3) = (−3)² = 9 (usa primera parte, ya que −3 < 0)</p>
+    <p>f(2) = 2(2)+1 = 5 (usa segunda parte, ya que 2 ≥ 0)</p>
+    <p>f(0) = 2(0)+1 = 1 (usa segunda parte, ya que 0 ≥ 0)</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 3.4 Función biyectiva -->
+  <h3>D · Inyectiva, Sobreyectiva y Biyectiva</h3>
+
+  <table>
+    <thead><tr><th>Tipo</th><th>Condición</th><th>Prueba gráfica</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Inyectiva (1-1)</strong></td><td>x₁ ≠ x₂ ⟹ f(x₁) ≠ f(x₂)</td><td>Recta horizontal corta la gráfica máximo 1 vez</td></tr>
+      <tr><td><strong>Sobreyectiva (sobre)</strong></td><td>Rango = Codominio</td><td>Todo y en B tiene al menos un x</td></tr>
+      <tr><td><strong>Biyectiva</strong></td><td>Inyectiva Y Sobreyectiva</td><td>Tiene función inversa</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note"><strong>Importante:</strong> Una función tiene inversa si y solo si es <strong>biyectiva</strong> (o al menos inyectiva en su dominio).</div>
+
+</div>
+</section>
+
+
+<!-- ═══════════════════ 4. OPERACIONES CON FUNCIONES ═══════════════════ -->
+<section id="operaciones">
+<div class="container">
+  <div class="chapter-marker">
+    <div class="chapter-num">04</div>
+    <div>
+      <div class="section-label">Álgebra de funciones</div>
+      <h2>Operaciones con Funciones</h2>
+    </div>
+  </div>
+
+  <h3>Operaciones Básicas</h3>
+  <p>Dadas f y g con dominios Df y Dg:</p>
+
+  <table>
+    <thead><tr><th>Operación</th><th>Fórmula</th><th>Dominio</th></tr></thead>
+    <tbody>
+      <tr><td>(f + g)(x)</td><td>f(x) + g(x)</td><td>Df ∩ Dg</td></tr>
+      <tr><td>(f − g)(x)</td><td>f(x) − g(x)</td><td>Df ∩ Dg</td></tr>
+      <tr><td>(f · g)(x)</td><td>f(x) · g(x)</td><td>Df ∩ Dg</td></tr>
+      <tr><td>(f / g)(x)</td><td>f(x) / g(x)</td><td>Df ∩ Dg, con g(x) ≠ 0</td></tr>
+    </tbody>
+  </table>
+
+  <div class="example">
+    <p>Sea f(x) = x + 2, Dom f = ℝ; y g(x) = √x, Dom g = [0,+∞)</p>
+    <p>(f+g)(x) = x + 2 + √x → Dom = [0,+∞)</p>
+    <p>(f/g)(x) = (x+2)/√x → Dom = (0,+∞) [excluye x=0 pues g(0)=0]</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Composición de Funciones</h3>
+
+  <div class="def-box">
+    <p>La <strong>composición</strong> de f y g se denota <strong>(f ∘ g)(x) = f(g(x))</strong>. Primero se aplica g, luego f. El dominio de f∘g es {x ∈ Dom(g) : g(x) ∈ Dom(f)}.</p>
+  </div>
+
+  <div class="note"><strong>¡Ojo!</strong> En general f ∘ g ≠ g ∘ f. La composición <strong>no es conmutativa</strong>.</div>
+
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content">Evalúa la función interior g(x).</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content">Sustituye ese resultado como argumento de la función exterior f.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content">Simplifica la expresión resultante.</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content">Determina el dominio aplicando las restricciones de ambas funciones.</div></div>
+  </div>
+
+  <div class="example">
+    <p>f(x) = x² + 1, g(x) = 2x − 3</p>
+    <p><strong>(f ∘ g)(x)</strong> = f(g(x)) = f(2x−3) = (2x−3)² + 1 = 4x² − 12x + 9 + 1 = <span class="hl">4x² − 12x + 10</span></p>
+    <p><strong>(g ∘ f)(x)</strong> = g(f(x)) = g(x²+1) = 2(x²+1) − 3 = <span class="hl">2x² − 1</span></p>
+    <p>Claramente son distintas. ✓</p>
+  </div>
+
+  <div class="example">
+    <p><strong>Descomposición:</strong> Si h(x) = √(x² + 5), exprésala como composición.</p>
+    <p>Solución: g(x) = x² + 5 (función interior), f(x) = √x (función exterior)</p>
+    <p>h(x) = (f ∘ g)(x) = f(g(x)) = √(x²+5) ✓</p>
+    <p>(Útil para la regla de la cadena en derivadas)</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Función Inversa</h3>
+
+  <div class="def-box">
+    <p>Si f es biyectiva, su <strong>inversa f⁻¹</strong> es la función tal que: <strong>f⁻¹(f(x)) = x</strong> y <strong>f(f⁻¹(y)) = y</strong>. La gráfica de f⁻¹ es el <strong>reflejo de la gráfica de f respecto a la recta y = x</strong>.</p>
+  </div>
+
+  <h4>Cómo hallar f⁻¹ algebraicamente</h4>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content">Escribe y = f(x).</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content">Despeja x en términos de y.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content">Intercambia x e y (renombra x como y).</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content">La expresión resultante es f⁻¹(x). Determina su dominio.</div></div>
+  </div>
+
+  <div class="example">
+    <p><strong>Halla f⁻¹ de f(x) = 3x − 6</strong></p>
+    <p>1) y = 3x − 6</p>
+    <p>2) y + 6 = 3x → x = (y+6)/3</p>
+    <p>3) Intercambio: y = (x+6)/3</p>
+    <p>4) f⁻¹(x) = (x+6)/3 = x/3 + 2</p>
+    <p>Verificación: f(f⁻¹(x)) = 3(x/3+2) − 6 = x + 6 − 6 = x ✓</p>
+  </div>
+
+  <div class="example">
+    <p><strong>Halla f⁻¹ de f(x) = (x+1)/(x−2), x ≠ 2</strong></p>
+    <p>y = (x+1)/(x−2)<br>
+    y(x−2) = x+1<br>
+    xy − 2y = x + 1<br>
+    xy − x = 2y + 1<br>
+    x(y−1) = 2y+1<br>
+    x = (2y+1)/(y−1)</p>
+    <p>f⁻¹(x) = <span class="hl">(2x+1)/(x−1)</span>, Dom = ℝ \ {1}</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Transformaciones de Funciones</h3>
+  <p>Partiendo de una función base f(x), podemos transformar su gráfica de manera predecible:</p>
+
+  <table>
+    <thead><tr><th>Transformación</th><th>Expresión</th><th>Efecto en la gráfica</th></tr></thead>
+    <tbody>
+      <tr><td>Traslación vertical</td><td>f(x) + k</td><td>Sube k unidades (k>0) o baja |k| unidades (k<0)</td></tr>
+      <tr><td>Traslación horizontal</td><td>f(x − h)</td><td>Se desplaza h unidades a la derecha (h>0)</td></tr>
+      <tr><td>Reflexión eje x</td><td>−f(x)</td><td>Reflejo respecto al eje x</td></tr>
+      <tr><td>Reflexión eje y</td><td>f(−x)</td><td>Reflejo respecto al eje y</td></tr>
+      <tr><td>Estiramiento vertical</td><td>a·f(x), a>1</td><td>Estira verticalmente (más alto)</td></tr>
+      <tr><td>Compresión vertical</td><td>a·f(x), 0<a<1</td><td>Comprime verticalmente</td></tr>
+      <tr><td>Compresión horizontal</td><td>f(bx), b>1</td><td>Comprime horizontalmente</td></tr>
+      <tr><td>Combinación general</td><td>a·f(b(x−h))+k</td><td>Aplica todo en orden</td></tr>
+    </tbody>
+  </table>
+
+</div>
+</section>
+
+
+<!-- ═══════════════════ 5. ESTUDIO COMPLETO DE UNA FUNCIÓN ═══════════════════ -->
+<section id="estudio">
+<div class="container">
+  <div class="chapter-marker">
+    <div class="chapter-num">05</div>
+    <div>
+      <div class="section-label">Análisis completo</div>
+      <h2>Estudio Completo de una Función</h2>
+    </div>
+  </div>
+
+  <p>Este es el análisis sistemático que se hace en Cálculo I para entender completamente el comportamiento de una función. Sigue este orden siempre:</p>
+
+  <div class="def-box">
+    <p><strong>Pasos del estudio completo:</strong><br><br>
+    1. Dominio · 2. Intersecciones con ejes · 3. Simetría · 4. Asíntotas · 5. Crecimiento / Decrecimiento · 6. Extremos · 7. Concavidad e Inflexión · 8. Rango · 9. Gráfica</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>1 · Dominio</h3>
+  <p>Ya visto. Hallar todos los x para los que f está definida.</p>
+
+  <h3>2 · Intersecciones con los ejes</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Con el eje x (raíces/ceros)</div>
+      <p>Resolver f(x) = 0. Los puntos son (x₀, 0) donde la curva toca o cruza el eje horizontal.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Con el eje y (intercepto)</div>
+      <p>Evaluar f(0), si 0 está en el dominio. El punto es (0, f(0)).</p>
+    </div>
+  </div>
+
+  <h3>3 · Simetría</h3>
+  <p>Verificar si es par (f(−x) = f(x)) o impar (f(−x) = −f(x)). Si no es ninguna, no hay simetría especial.</p>
+
+  <h3>4 · Asíntotas</h3>
+
+  <h4>Asíntota Vertical (AV)</h4>
+  <div class="def-box">
+    <p>La recta x = a es <strong>asíntota vertical</strong> si lím<sub>x→a</sub> f(x) = ±∞. Ocurre típicamente donde el denominador se anula y el numerador no.</p>
+  </div>
+
+  <h4>Asíntota Horizontal (AH)</h4>
+  <div class="def-box">
+    <p>La recta y = L es <strong>asíntota horizontal</strong> si lím<sub>x→+∞</sub> f(x) = L o lím<sub>x→−∞</sub> f(x) = L.</p>
+  </div>
+
+  <p>Para funciones racionales f(x) = p(x)/q(x), con grado n de p y grado m de q:</p>
+  <table>
+    <thead><tr><th>Comparación de grados</th><th>Asíntota horizontal</th></tr></thead>
+    <tbody>
+      <tr><td>n < m</td><td>y = 0</td></tr>
+      <tr><td>n = m</td><td>y = coef. líder de p / coef. líder de q</td></tr>
+      <tr><td>n > m</td><td>No hay AH (hay asíntota oblicua)</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Asíntota Oblicua (AO)</h4>
+  <p>Cuando el grado del numerador es exactamente 1 más que el del denominador. Se halla dividiendo: f(x) = (cociente lineal) + (resto/q(x)). La asíntota es y = cociente lineal.</p>
+
+  <div class="divider"></div>
+
+  <h3>5 · Crecimiento y Decrecimiento (usando f')</h3>
+
+  <div class="thm-box">
+    <p><strong>Criterio de la primera derivada:</strong><br>
+    · Si f'(x) > 0 en (a,b) → f es <strong>creciente</strong> en (a,b)<br>
+    · Si f'(x) < 0 en (a,b) → f es <strong>decreciente</strong> en (a,b)<br>
+    · Si f'(x) = 0 en x = c → c es un <strong>punto crítico</strong></p>
+  </div>
+
+  <h4>Procedimiento</h4>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content">Calcula f'(x).</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content">Halla los puntos críticos: f'(x) = 0 y donde f'(x) no existe.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content">Haz una tabla de signos: divide la recta real con los puntos críticos y analiza el signo de f' en cada intervalo.</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content">Concluye dónde crece y dónde decrece.</div></div>
+  </div>
+
+  <h3>6 · Extremos Locales</h3>
+
+  <div class="thm-box">
+    <p><strong>Criterio de la primera derivada para extremos:</strong><br>
+    En un punto crítico x = c:<br>
+    · Si f' cambia de + a − → <strong>máximo local</strong> en (c, f(c))<br>
+    · Si f' cambia de − a + → <strong>mínimo local</strong> en (c, f(c))<br>
+    · Si f' no cambia de signo → no es extremo (punto de inflexión con tangente horizontal)</p>
+  </div>
+
+  <div class="thm-box">
+    <p><strong>Criterio de la segunda derivada (alternativo):</strong><br>
+    En un punto crítico c donde f'(c) = 0:<br>
+    · Si f''(c) > 0 → <strong>mínimo local</strong><br>
+    · Si f''(c) < 0 → <strong>máximo local</strong><br>
+    · Si f''(c) = 0 → el criterio no decide (vuelve al criterio de la 1ª derivada)</p>
+  </div>
+
+  <h3>7 · Concavidad y Puntos de Inflexión</h3>
+
+  <div class="thm-box">
+    <p><strong>Criterio de la segunda derivada para concavidad:</strong><br>
+    · Si f''(x) > 0 en (a,b) → f es <strong>cóncava hacia arriba</strong> (forma de ∪) en (a,b)<br>
+    · Si f''(x) < 0 en (a,b) → f es <strong>cóncava hacia abajo</strong> (forma de ∩) en (a,b)</p>
+  </div>
+
+  <div class="def-box">
+    <p>Un <strong>punto de inflexión</strong> es un punto donde la concavidad cambia. Para hallarlo: f''(x) = 0 o f''(x) no existe, y verificar que la concavidad efectivamente cambia.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Ejemplo completo: f(x) = x³ − 3x² − 9x + 5</h3>
+
+  <div class="example">
+    <p><strong>1. Dominio:</strong> ℝ (polinomio, siempre definida)</p>
+    <p><strong>2. Intersección eje y:</strong> f(0) = 5 → punto (0, 5)</p>
+    <p><strong>3. Simetría:</strong> f(−x) ≠ f(x) y ≠ −f(x) → ninguna simetría especial</p>
+    <p><strong>4. Asíntotas:</strong> ninguna (es polinomio)</p>
+    <p><strong>5. f'(x)</strong> = 3x² − 6x − 9 = 3(x² − 2x − 3) = 3(x−3)(x+1)</p>
+    <p>Puntos críticos: x = −1 y x = 3</p>
+    <p>Tabla de signos de f':
+      <br>· x < −1: prueba x = −2: 3(−5)(−3) = + → <span class="hl3">creciente</span>
+      <br>· −1 < x < 3: prueba x = 0: 3(−3)(1) = − → <span class="hl" style="color:var(--accent)">decreciente</span>
+      <br>· x > 3: prueba x = 4: 3(1)(5) = + → <span class="hl3">creciente</span>
+    </p>
+    <p><strong>6. Extremos:</strong>
+      <br>x = −1: f' cambia de + a − → <strong>máximo local</strong>. f(−1) = −1−3+9+5 = 10 → Máx. local en (−1, 10)
+      <br>x = 3: f' cambia de − a + → <strong>mínimo local</strong>. f(3) = 27−27−27+5 = −22 → Mín. local en (3, −22)
+    </p>
+    <p><strong>7. f''(x)</strong> = 6x − 6 = 6(x−1)</p>
+    <p>f''(x) = 0 → x = 1 (posible inflexión)
+      <br>· x < 1: f'' < 0 → <strong>cóncava abajo (∩)</strong>
+      <br>· x > 1: f'' > 0 → <strong>cóncava arriba (∪)</strong>
+      <br>Cambia → x = 1 es punto de inflexión. f(1) = 1−3−9+5 = −6 → Inflexión en (1, −6)
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Límites — La herramienta fundamental</h3>
+
+  <div class="def-box">
+    <p>El <strong>límite</strong> de f(x) cuando x → a es L si los valores de f(x) se acercan tanto como queramos a L a medida que x se acerca a a (sin necesariamente llegar a a). Se escribe: <strong>lím<sub>x→a</sub> f(x) = L</strong></p>
+  </div>
+
+  <table>
+    <thead><tr><th>Tipo de límite</th><th>Qué significa</th></tr></thead>
+    <tbody>
+      <tr><td>lím<sub>x→a</sub> f(x) = L</td><td>Límite bilateral: se acerca por ambos lados</td></tr>
+      <tr><td>lím<sub>x→a⁺</sub> f(x) = L</td><td>Límite lateral derecho: x se acerca desde la derecha</td></tr>
+      <tr><td>lím<sub>x→a⁻</sub> f(x) = L</td><td>Límite lateral izquierdo: x se acerca desde la izquierda</td></tr>
+      <tr><td>lím<sub>x→+∞</sub> f(x) = L</td><td>Comportamiento cuando x crece sin límite</td></tr>
+      <tr><td>lím<sub>x→a</sub> f(x) = ±∞</td><td>Asíntota vertical en x = a</td></tr>
+    </tbody>
+  </table>
+
+  <div class="thm-box">
+    <p><strong>El límite bilateral existe si y solo si</strong> los dos límites laterales existen y son iguales:<br>
+    lím<sub>x→a</sub> f(x) = L ⟺ lím<sub>x→a⁻</sub> f(x) = L = lím<sub>x→a⁺</sub> f(x)</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Continuidad</h3>
+
+  <div class="def-box">
+    <p>f es <strong>continua en x = a</strong> si se cumplen las tres condiciones:<br><br>
+    1. f(a) está definida<br>
+    2. lím<sub>x→a</sub> f(x) existe<br>
+    3. lím<sub>x→a</sub> f(x) = f(a)</p>
+  </div>
+
+  <p>Intuitivamente: puedes trazar la gráfica <strong>sin levantar el lápiz</strong> del papel en x = a.</p>
+
+  <h4>Tipos de discontinuidad</h4>
+  <table>
+    <thead><tr><th>Tipo</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Evitable</strong></td><td>El límite existe pero ≠ f(a) o f no está definida</td><td>f(x)=(x²−1)/(x−1) en x=1</td></tr>
+      <tr><td><strong>De salto</strong></td><td>Los límites laterales existen pero son distintos</td><td>Función escalón, valor absoluto partido</td></tr>
+      <tr><td><strong>Esencial/Infinita</strong></td><td>Al menos un límite lateral es ±∞</td><td>f(x) = 1/x en x = 0</td></tr>
+    </tbody>
+  </table>
+
+</div>
+</section>
+
+
+<!-- ═══════════════════ 6. FUNCIONES TRASCENDENTES ═══════════════════ -->
+<section id="trascendentes">
+<div class="container">
+  <div class="chapter-marker">
+    <div class="chapter-num">06</div>
+    <div>
+      <div class="section-label">Más allá de los polinomios</div>
+      <h2>Funciones Trascendentes</h2>
+    </div>
+  </div>
+
+  <h3>Funciones Exponenciales: f(x) = aˣ</h3>
+
+  <div class="def-box">
+    <p>f(x) = aˣ donde a > 0 y a ≠ 1. La base más importante es <strong>e ≈ 2.71828...</strong> (el número de Euler). f(x) = eˣ se llama la <strong>exponencial natural</strong>.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Si a > 1 (crecimiento)</div>
+      <p>Función estrictamente creciente. Cruza el eje y en (0,1). Asíntota horizontal: y = 0. Dom = ℝ, Rango = (0, +∞)</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Si 0 < a < 1 (decaimiento)</div>
+      <p>Función estrictamente decreciente. Cruza el eje y en (0,1). Asíntota horizontal: y = 0. Dom = ℝ, Rango = (0, +∞)</p>
+    </div>
+  </div>
+
+  <h4>Propiedades de las Exponenciales</h4>
+  <table>
+    <thead><tr><th>Propiedad</th><th>Fórmula</th></tr></thead>
+    <tbody>
+      <tr><td>Producto</td><td>aˣ · aʸ = aˣ⁺ʸ</td></tr>
+      <tr><td>Cociente</td><td>aˣ / aʸ = aˣ⁻ʸ</td></tr>
+      <tr><td>Potencia de potencia</td><td>(aˣ)ʸ = aˣʸ</td></tr>
+      <tr><td>Producto de bases</td><td>(ab)ˣ = aˣ · bˣ</td></tr>
+      <tr><td>Exponente cero</td><td>a⁰ = 1</td></tr>
+      <tr><td>Exponente negativo</td><td>a⁻ˣ = 1/aˣ</td></tr>
+    </tbody>
+  </table>
+
+  <div class="divider"></div>
+
+  <h3>Funciones Logarítmicas: f(x) = log_a(x)</h3>
+
+  <div class="def-box">
+    <p>El logaritmo es la <strong>inversa de la exponencial</strong>. log_a(x) = y significa que aʸ = x. El más importante es el <strong>logaritmo natural ln(x) = log_e(x)</strong>.</p>
+  </div>
+
+  <p><strong>Dominio:</strong> (0, +∞) · <strong>Rango:</strong> ℝ · <strong>Pasa por</strong> (1, 0) siempre · <strong>Asíntota vertical:</strong> x = 0</p>
+
+  <h4>Propiedades de los Logaritmos (fundamentales)</h4>
+  <div class="formula">ln(xy) = ln x + ln y</div>
+  <div class="formula">ln(x/y) = ln x − ln y</div>
+  <div class="formula">ln(xⁿ) = n · ln x</div>
+  <div class="formula">ln(eˣ) = x   y   e^(ln x) = x   (son inversas)</div>
+  <div class="formula">Cambio de base: log_a(x) = ln(x) / ln(a)</div>
+
+  <div class="example">
+    <p><strong>Simplifica:</strong> ln(e³) + ln(1/e) − 2·ln(e²)</p>
+    <p>= 3 + (−1) − 2(2) = 3 − 1 − 4 = <span class="hl">−2</span></p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Funciones Trigonométricas</h3>
+
+  <table>
+    <thead><tr><th>Función</th><th>Dominio</th><th>Rango</th><th>Periodo</th></tr></thead>
+    <tbody>
+      <tr><td>sen(x)</td><td>ℝ</td><td>[−1, 1]</td><td>2π</td></tr>
+      <tr><td>cos(x)</td><td>ℝ</td><td>[−1, 1]</td><td>2π</td></tr>
+      <tr><td>tan(x)</td><td>ℝ \ {π/2 + nπ}</td><td>ℝ</td><td>π</td></tr>
+      <tr><td>csc(x) = 1/sen(x)</td><td>ℝ \ {nπ}</td><td>(−∞,−1]∪[1,+∞)</td><td>2π</td></tr>
+      <tr><td>sec(x) = 1/cos(x)</td><td>ℝ \ {π/2+nπ}</td><td>(−∞,−1]∪[1,+∞)</td><td>2π</td></tr>
+      <tr><td>cot(x) = cos/sen</td><td>ℝ \ {nπ}</td><td>ℝ</td><td>π</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Identidades Trigonométricas Esenciales</h4>
+  <div class="formula">sen²(x) + cos²(x) = 1</div>
+  <div class="formula">1 + tan²(x) = sec²(x)</div>
+  <div class="formula">1 + cot²(x) = csc²(x)</div>
+  <div class="formula">sen(2x) = 2 sen(x) cos(x)</div>
+  <div class="formula">cos(2x) = cos²(x) − sen²(x) = 2cos²(x) − 1 = 1 − 2sen²(x)</div>
+
+  <div class="divider"></div>
+
+  <h3>Funciones Trigonométricas Inversas</h3>
+
+  <table>
+    <thead><tr><th>Función</th><th>Dominio</th><th>Rango</th></tr></thead>
+    <tbody>
+      <tr><td>arcsen(x) = sen⁻¹(x)</td><td>[−1, 1]</td><td>[−π/2, π/2]</td></tr>
+      <tr><td>arccos(x) = cos⁻¹(x)</td><td>[−1, 1]</td><td>[0, π]</td></tr>
+      <tr><td>arctan(x) = tan⁻¹(x)</td><td>ℝ</td><td>(−π/2, π/2)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note"><strong>Nota CSCA:</strong> Estas funciones tienen dominio restringido porque sen, cos, tan no son inyectivas en todo ℝ — hay que restringir su dominio para que tengan inversa.</div>
+
+  <div class="divider"></div>
+
+  <h3>Tabla de Valores Notables</h3>
+  <table>
+    <thead><tr><th>Ángulo</th><th>Radianes</th><th>sen</th><th>cos</th><th>tan</th></tr></thead>
+    <tbody>
+      <tr><td>0°</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+      <tr><td>30°</td><td>π/6</td><td>1/2</td><td>√3/2</td><td>√3/3</td></tr>
+      <tr><td>45°</td><td>π/4</td><td>√2/2</td><td>√2/2</td><td>1</td></tr>
+      <tr><td>60°</td><td>π/3</td><td>√3/2</td><td>1/2</td><td>√3</td></tr>
+      <tr><td>90°</td><td>π/2</td><td>1</td><td>0</td><td>∞</td></tr>
+      <tr><td>180°</td><td>π</td><td>0</td><td>−1</td><td>0</td></tr>
+      <tr><td>270°</td><td>3π/2</td><td>−1</td><td>0</td><td>∞</td></tr>
+      <tr><td>360°</td><td>2π</td><td>0</td><td>1</td><td>0</td></tr>
+    </tbody>
+  </table>
+
+</div>
+</section>
+
+
+<!-- ═══════════════════ RESUMEN ═══════════════════ -->
+<section id="resumen">
+<div class="container">
+  <div class="chapter-marker">
+    <div class="chapter-num">07</div>
+    <div>
+      <div class="section-label">Para repasar</div>
+      <h2>Guía de Repaso Rápido</h2>
+    </div>
+  </div>
+
+  <div class="summary">
+    <h3>Fórmulas y Resultados Clave — Funciones Cálculo I</h3>
+    <table>
+      <thead><tr><th>Concepto</th><th>Fórmula / Regla</th></tr></thead>
+      <tbody>
+        <tr><td>Función par</td><td>f(−x) = f(x), simétrica al eje y</td></tr>
+        <tr><td>Función impar</td><td>f(−x) = −f(x), simétrica al origen</td></tr>
+        <tr><td>Composición</td><td>(f∘g)(x) = f(g(x))</td></tr>
+        <tr><td>Inversa: cómo hallarla</td><td>Despejar x en y=f(x), luego intercambiar x e y</td></tr>
+        <tr><td>Vértice parábola</td><td>x_v = −b/2a, y_v = f(x_v)</td></tr>
+        <tr><td>Discriminante</td><td>Δ = b²−4ac: +→2 raíces, 0→1, −→ninguna real</td></tr>
+        <tr><td>AH función racional</td><td>n<m: y=0; n=m: y=a_n/b_m; n>m: ninguna</td></tr>
+        <tr><td>Creciente/decreciente</td><td>f'>0 crece; f'<0 decrece</td></tr>
+        <tr><td>Máximo/mínimo local</td><td>f'=0 y f'' <0 → máx; f''>0 → mín</td></tr>
+        <tr><td>Concavidad</td><td>f''>0 → cóncava arriba (∪); f''<0 → cóncava abajo (∩)</td></tr>
+        <tr><td>Inflexión</td><td>f''=0 y cambia de signo</td></tr>
+        <tr><td>Continuidad en a</td><td>Definida, límite existe y lím = f(a)</td></tr>
+        <tr><td>ln(xy)</td><td>ln x + ln y</td></tr>
+        <tr><td>ln(xⁿ)</td><td>n·ln x</td></tr>
+        <tr><td>Periodo de sen/cos</td><td>2π</td></tr>
+        <tr><td>Identidad fundamental</td><td>sen²x + cos²x = 1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Checklist de Estudio Completo</h3>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Dominio:</strong> ¿Dónde está definida f? (denominadores ≠ 0, radicandos ≥ 0, logaritmos > 0)</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Intersecciones:</strong> Con eje x → f(x)=0; con eje y → f(0)</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Simetría:</strong> ¿Es par, impar o ninguna?</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Asíntotas:</strong> Verticales (denominador=0), horizontales (límite en ±∞), oblicuas (div. polinómica)</div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><strong>Derivada f':</strong> Puntos críticos, intervalos de crecimiento/decrecimiento, extremos locales</div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><strong>Segunda derivada f'':</strong> Concavidad, puntos de inflexión</div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><strong>Rango:</strong> Determinar el conjunto de valores que toma f</div></div>
+    <div class="step"><div class="step-num">8</div><div class="step-content"><strong>Gráfica:</strong> Con toda la información anterior, trazar la curva con precisión</div></div>
+  </div>
+
+  <div class="note" style="margin-top:40px">
+    <strong>Para el CSCA:</strong> Practica el estudio completo con funciones racionales, irracionales y trascendentes. Los examinadores suelen combinar varios tipos. Siempre justifica cada paso con el criterio correspondiente. Dominar las identidades trigonométricas y las propiedades de logaritmos es esencial.
+  </div>
+
+</div>
+</section>
+
+<div class="back-top"><a href="#top">↑ Volver al inicio</a></div>
+
+<script>
+// Simple smooth reveal on scroll
+const observer = new IntersectionObserver(
+  (entries) => entries.forEach(e => { if(e.isIntersecting) e.target.style.opacity = 1; }),
+  { threshold: 0.1 }
+);
+document.querySelectorAll('section').forEach(s => {
+  s.style.opacity = 0;
+  s.style.transition = 'opacity 0.6s ease';
+  observer.observe(s);
+});
+</script>
+
+</body>
+</html>
