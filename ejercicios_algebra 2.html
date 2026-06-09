@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejercicios de Álgebra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;1,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #faf7f2;
+    --paper: #ffffff;
+    --ink: #1a1814;
+    --muted: #7a7570;
+    --border: #e2ddd6;
+    --easy: #2d6a4f;
+    --easy-bg: #eaf4ee;
+    --easy-border: #b7dfc8;
+    --mid: #b5630a;
+    --mid-bg: #fef3e6;
+    --mid-border: #f5cc96;
+    --hard: #9b2335;
+    --hard-bg: #fdeef0;
+    --hard-border: #f0b8c0;
+    --accent: #4a3f8a;
+    --accent-bg: #f0eefa;
+  }
+
+  html { background: var(--bg); }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .header-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .header-sub {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .header-name {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    background: var(--paper);
+  }
+
+  .name-input {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--ink);
+    width: 160px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .level-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .level-easy .level-badge { background: var(--easy-bg); color: var(--easy); border: 1px solid var(--easy-border); }
+  .level-mid .level-badge  { background: var(--mid-bg);  color: var(--mid);  border: 1px solid var(--mid-border); }
+  .level-hard .level-badge { background: var(--hard-bg); color: var(--hard); border: 1px solid var(--hard-border); }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--ink);
+  }
+
+  .section-desc {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* Exercise grid */
+  .ex-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .ex-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 22px;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+
+  .ex-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+  .ex-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .ex-formula {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+
+  .ex-ask {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* Answer area */
+  .answer-area {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .answer-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .answer-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .answer-line {
+    height: 1px;
+    background: var(--border);
+    width: 100%;
+  }
+
+  /* Solution toggle */
+  .sol-toggle {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .sol-toggle-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-bg);
+    border: 1px solid #c8bff0;
+    border-radius: 2px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .sol-toggle-btn:hover { background: #e0d9f7; }
+
+  .solution {
+    display: none;
+    margin-top: 12px;
+    background: var(--accent-bg);
+    border: 1px solid #c8bff0;
+    border-radius: 3px;
+    padding: 14px 16px;
+  }
+
+  .solution.open { display: block; }
+
+  .solution-step {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 2;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .solution-step strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .solution-result {
+    margin-top: 8px;
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* Left accent bar per level */
+  .level-easy .ex-card { border-left: 3px solid var(--easy-border); }
+  .level-mid  .ex-card { border-left: 3px solid var(--mid-border); }
+  .level-hard .ex-card { border-left: 3px solid var(--hard-border); }
+
+  /* Progress bar */
+  .progress-wrap {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .progress-bar-bg {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progress-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* Checkbox done */
+  .done-check {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: transparent;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+
+  .done-check.checked {
+    background: var(--easy);
+    border-color: var(--easy);
+    color: white;
+  }
+
+  /* Tips box */
+  .tips-box {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin-bottom: 40px;
+  }
+
+  .tips-title {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+
+  .tips-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tips-list li {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .tip-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  @media print {
+    .sol-toggle, .solution, .done-check { display: none !important; }
+    .progress-wrap { display: none; }
+    body { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">Álgebra · Despeje de variables</div>
+  <h1>Practica <em>paso a paso</em></h1>
+  <p class="header-sub">Ejercicios ordenados de menor a mayor dificultad. Haz clic en "ver solución" solo cuando hayas intentado el ejercicio primero.</p>
+  <div class="header-name">
+    Nombre: <input class="name-input" type="text" placeholder="escribe tu nombre...">
+  </div>
+</div>
+
+<!-- Progress -->
+<div class="progress-wrap">
+  <span class="progress-label">Progreso</span>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+  <span class="progress-count" id="progressCount">0 / 15</span>
+</div>
+
+<!-- Tips -->
+<div class="tips-box">
+  <p class="tips-title">Cómo despejar x — recordatorio rápido</p>
+  <ul class="tips-list">
+    <li><span class="tip-num">01</span>Identifica dónde está la x y qué operaciones la rodean.</li>
+    <li><span class="tip-num">02</span>Aplica la operación inversa en ambos lados: si suma, resta; si multiplica, divide.</li>
+    <li><span class="tip-num">03</span>Si la x está dentro de un denominador, multiplica por ese denominador en ambos lados primero.</li>
+    <li><span class="tip-num">04</span>Si la x aparece en varios términos, agrúpalos en un lado y saca factor común.</li>
+    <li><span class="tip-num">05</span>Comprueba siempre tu resultado sustituyendo x en la ecuación original.</li>
+  </ul>
+</div>
+
+
+<!-- ════════════════════ NIVEL 1 ════════════════════ -->
+<div class="section level-easy">
+  <div class="section-header">
+    <span class="level-badge">Nivel 1 — Fácil</span>
+    <span class="section-title">Operaciones directas</span>
+    <span class="section-desc">5 ejercicios</span>
+  </div>
+  <div class="ex-grid">
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">01 / 15</div>
+      <div class="ex-formula">y = 3x + 2</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y = 3x + 2<br>
+          y − 2 = 3x &nbsp;&nbsp;<strong>← restamos 2</strong><br>
+          x = (y − 2) / 3 &nbsp;&nbsp;<strong>← dividimos por 3</strong>
+        </div>
+        <div class="solution-result">x = (y − 2) / 3</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">02 / 15</div>
+      <div class="ex-formula">y = 5x − 7</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y = 5x − 7<br>
+          y + 7 = 5x &nbsp;&nbsp;<strong>← sumamos 7</strong><br>
+          x = (y + 7) / 5 &nbsp;&nbsp;<strong>← dividimos por 5</strong>
+        </div>
+        <div class="solution-result">x = (y + 7) / 5</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">03 / 15</div>
+      <div class="ex-formula">y = x/4 + 1</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y = x/4 + 1<br>
+          y − 1 = x/4 &nbsp;&nbsp;<strong>← restamos 1</strong><br>
+          x = 4(y − 1) &nbsp;&nbsp;<strong>← multiplicamos por 4</strong>
+        </div>
+        <div class="solution-result">x = 4(y − 1) = 4y − 4</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">04 / 15</div>
+      <div class="ex-formula">2y = 6x − 10</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          2y = 6x − 10<br>
+          2y + 10 = 6x &nbsp;&nbsp;<strong>← sumamos 10</strong><br>
+          x = (2y + 10) / 6 &nbsp;&nbsp;<strong>← dividimos por 6</strong><br>
+          x = (y + 5) / 3 &nbsp;&nbsp;<strong>← simplificamos</strong>
+        </div>
+        <div class="solution-result">x = (y + 5) / 3</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">05 / 15</div>
+      <div class="ex-formula">y = −2x + 8</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y = −2x + 8<br>
+          y − 8 = −2x &nbsp;&nbsp;<strong>← restamos 8</strong><br>
+          x = (y − 8) / −2 &nbsp;&nbsp;<strong>← dividimos por −2</strong><br>
+          x = (8 − y) / 2 &nbsp;&nbsp;<strong>← reordenamos signos</strong>
+        </div>
+        <div class="solution-result">x = (8 − y) / 2</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════ NIVEL 2 ════════════════════ -->
+<div class="section level-mid">
+  <div class="section-header">
+    <span class="level-badge">Nivel 2 — Medio</span>
+    <span class="section-title">Con fracciones y factor común</span>
+    <span class="section-desc">5 ejercicios</span>
+  </div>
+  <div class="ex-grid">
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">06 / 15</div>
+      <div class="ex-formula">y = (x + 3) / 2</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y = (x + 3) / 2<br>
+          2y = x + 3 &nbsp;&nbsp;<strong>← multiplicamos por 2</strong><br>
+          x = 2y − 3 &nbsp;&nbsp;<strong>← restamos 3</strong>
+        </div>
+        <div class="solution-result">x = 2y − 3</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">07 / 15</div>
+      <div class="ex-formula">y = (2x − 1) / (x + 3)</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y(x + 3) = 2x − 1 &nbsp;&nbsp;<strong>← multiplicamos por (x+3)</strong><br>
+          xy + 3y = 2x − 1 &nbsp;&nbsp;<strong>← distribuimos</strong><br>
+          xy − 2x = −1 − 3y &nbsp;&nbsp;<strong>← agrupamos x</strong><br>
+          x(y − 2) = −1 − 3y &nbsp;&nbsp;<strong>← factor común</strong><br>
+          x = (−1 − 3y) / (y − 2)
+        </div>
+        <div class="solution-result">x = (−1 − 3y) / (y − 2)</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">08 / 15</div>
+      <div class="ex-formula">y = (x + 5) / (x − 1)</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y(x − 1) = x + 5 &nbsp;&nbsp;<strong>← multiplicamos por (x−1)</strong><br>
+          xy − y = x + 5 &nbsp;&nbsp;<strong>← distribuimos</strong><br>
+          xy − x = 5 + y &nbsp;&nbsp;<strong>← agrupamos x</strong><br>
+          x(y − 1) = 5 + y &nbsp;&nbsp;<strong>← factor común</strong>
+        </div>
+        <div class="solution-result">x = (5 + y) / (y − 1)</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">09 / 15</div>
+      <div class="ex-formula">3y + x = xy + 4</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          3y + x = xy + 4<br>
+          x − xy = 4 − 3y &nbsp;&nbsp;<strong>← agrupamos x a la izquierda</strong><br>
+          x(1 − y) = 4 − 3y &nbsp;&nbsp;<strong>← factor común</strong>
+        </div>
+        <div class="solution-result">x = (4 − 3y) / (1 − y)</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">10 / 15</div>
+      <div class="ex-formula">y = 3/(x − 2)</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y(x − 2) = 3 &nbsp;&nbsp;<strong>← multiplicamos por (x−2)</strong><br>
+          x − 2 = 3/y &nbsp;&nbsp;<strong>← dividimos por y</strong><br>
+          x = 3/y + 2
+        </div>
+        <div class="solution-result">x = 3/y + 2 = (3 + 2y) / y</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════ NIVEL 3 ════════════════════ -->
+<div class="section level-hard">
+  <div class="section-header">
+    <span class="level-badge">Nivel 3 — Difícil</span>
+    <span class="section-title">Raíces, potencias y combinados</span>
+    <span class="section-desc">5 ejercicios</span>
+  </div>
+  <div class="ex-grid">
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">11 / 15</div>
+      <div class="ex-formula">y = √(x + 4)</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y = √(x + 4)<br>
+          y² = x + 4 &nbsp;&nbsp;<strong>← elevamos al cuadrado ambos lados</strong><br>
+          x = y² − 4
+        </div>
+        <div class="solution-result">x = y² − 4 &nbsp;&nbsp;(con y ≥ 0)</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">12 / 15</div>
+      <div class="ex-formula">y = (x² − 1) / 3</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          3y = x² − 1 &nbsp;&nbsp;<strong>← multiplicamos por 3</strong><br>
+          x² = 3y + 1 &nbsp;&nbsp;<strong>← sumamos 1</strong><br>
+          x = ±√(3y + 1) &nbsp;&nbsp;<strong>← raíz cuadrada (±)</strong>
+        </div>
+        <div class="solution-result">x = ±√(3y + 1)</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">13 / 15</div>
+      <div class="ex-formula">y = (3x + 2) / (5x − 1)</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y(5x − 1) = 3x + 2 &nbsp;&nbsp;<strong>← multiplicamos</strong><br>
+          5xy − y = 3x + 2 &nbsp;&nbsp;<strong>← distribuimos</strong><br>
+          5xy − 3x = 2 + y &nbsp;&nbsp;<strong>← agrupamos x</strong><br>
+          x(5y − 3) = 2 + y &nbsp;&nbsp;<strong>← factor común</strong>
+        </div>
+        <div class="solution-result">x = (2 + y) / (5y − 3)</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">14 / 15</div>
+      <div class="ex-formula">y = 2√x − x/3</div>
+      <div class="ex-ask">Despeja x. Pista: llama u = √x</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          Llamamos u = √x, entonces x = u²<br>
+          y = 2u − u²/3 &nbsp;&nbsp;<strong>← sustituimos</strong><br>
+          3y = 6u − u² &nbsp;&nbsp;<strong>← mult. por 3</strong><br>
+          u² − 6u + 3y = 0 &nbsp;&nbsp;<strong>← ecuación cuadrática en u</strong><br>
+          u = (6 ± √(36 − 12y)) / 2 = 3 ± √(9 − 3y)<br>
+          x = u² = (3 ± √(9 − 3y))²
+        </div>
+        <div class="solution-result">x = (3 ± √(9 − 3y))²</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">15 / 15</div>
+      <div class="ex-formula">y = (x + 1/x) / 2</div>
+      <div class="ex-ask">Despeja x en función de y</div>
+      <div class="answer-area">
+        <div class="answer-label">Tu respuesta</div>
+        <div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div><div class="answer-line"></div></div>
+      </div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          2y = x + 1/x &nbsp;&nbsp;<strong>← mult. por 2</strong><br>
+          2xy = x² + 1 &nbsp;&nbsp;<strong>← mult. por x</strong><br>
+          x² − 2yx + 1 = 0 &nbsp;&nbsp;<strong>← ecuación cuadrática</strong><br>
+          x = (2y ± √(4y² − 4)) / 2<br>
+          x = y ± √(y² − 1)
+        </div>
+        <div class="solution-result">x = y ± √(y² − 1) &nbsp;&nbsp;(con |y| ≥ 1)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════ PARTE 2 ════════════════════ -->
+<div style="text-align:center; margin: 60px 0 40px; padding-top: 40px; border-top: 2px solid var(--border);">
+  <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:10px;">Parte 2 — Casos que no se olvidan</div>
+  <div style="font-family:'Fraunces',serif; font-size:clamp(24px,4vw,38px); font-weight:300; color:var(--ink); margin-bottom:8px;">De todo un poco. <em>Piensa antes de mirar.</em></div>
+  <p style="font-size:13px; font-weight:300; color:var(--muted); max-width:500px; margin:0 auto; line-height:1.7;">Excepciones, trampas, casos especiales y situaciones que cuando las ves una vez ya no las olvidas. Sin nivel fijo — algunas sorprenden más de lo que parecen.</p>
+</div>
+
+<!-- Bloque: La trampa del denominador cero -->
+<div class="section level-mid">
+  <div class="section-header">
+    <span class="level-badge">Trampa clásica</span>
+    <span class="section-title">Cuando la solución no existe o tiene restricción</span>
+  </div>
+  <div class="ex-grid">
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">16 / 30</div>
+      <div class="ex-formula">y = x / (x − y)</div>
+      <div class="ex-ask">Despeja x. ¿Hay algo raro?</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y(x − y) = x &nbsp;&nbsp;<strong>← multiplicamos por (x−y)</strong><br>
+          xy − y² = x &nbsp;&nbsp;<strong>← distribuimos</strong><br>
+          xy − x = y² &nbsp;&nbsp;<strong>← agrupamos x</strong><br>
+          x(y − 1) = y² &nbsp;&nbsp;<strong>← factor común</strong><br>
+          x = y² / (y − 1)<br><br>
+          ⚠️ <strong>Restricción:</strong> y ≠ 1 (denominador = 0)<br>
+          ⚠️ <strong>Trampa:</strong> la y aparece en ambos lados de la original — hay que despejar con cuidado.
+        </div>
+        <div class="solution-result">x = y² / (y − 1) &nbsp;&nbsp;con y ≠ 1</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">17 / 30</div>
+      <div class="ex-formula">y = (x + y) / x</div>
+      <div class="ex-ask">Despeja x. Ojo con los términos.</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          xy = x + y &nbsp;&nbsp;<strong>← multiplicamos por x</strong><br>
+          xy − x = y &nbsp;&nbsp;<strong>← pasamos x al lado izquierdo</strong><br>
+          x(y − 1) = y &nbsp;&nbsp;<strong>← factor común</strong><br>
+          x = y / (y − 1)<br><br>
+          ⚠️ <strong>Trampa:</strong> el y del numerador no es la misma incógnita que despejas — es un parámetro. No lo muevas por error.
+        </div>
+        <div class="solution-result">x = y / (y − 1) &nbsp;&nbsp;con y ≠ 1</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">18 / 30</div>
+      <div class="ex-formula">y = 1 / (1 + 1/x)</div>
+      <div class="ex-ask">Despeja x. Simplifica primero la fracción compuesta.</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          Primero simplificamos: 1 + 1/x = (x + 1)/x<br>
+          y = 1 / ((x+1)/x) = x / (x+1) &nbsp;&nbsp;<strong>← fracción compuesta resuelta</strong><br>
+          y(x + 1) = x<br>
+          xy + y = x<br>
+          y = x − xy = x(1 − y)<br>
+          x = y / (1 − y)<br><br>
+          ⚠️ <strong>Clave:</strong> simplificar la fracción compuesta antes de despejar.
+        </div>
+        <div class="solution-result">x = y / (1 − y) &nbsp;&nbsp;con y ≠ 1</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bloque: Ecuaciones con raíces -->
+<div class="section level-hard">
+  <div class="section-header">
+    <span class="level-badge">Raíces con trampa</span>
+    <span class="section-title">Elevar al cuadrado cambia las reglas</span>
+  </div>
+  <div class="ex-grid">
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">19 / 30</div>
+      <div class="ex-formula">y = √(2x + 1) − 3</div>
+      <div class="ex-ask">Despeja x. ¿Para qué valores existe?</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y + 3 = √(2x + 1) &nbsp;&nbsp;<strong>← aislamos la raíz primero</strong><br>
+          (y + 3)² = 2x + 1 &nbsp;&nbsp;<strong>← elevamos al cuadrado</strong><br>
+          2x = (y + 3)² − 1<br>
+          x = [(y + 3)² − 1] / 2<br><br>
+          ⚠️ <strong>Restricción:</strong> y + 3 ≥ 0, es decir y ≥ −3<br>
+          ⚠️ <strong>Error típico:</strong> elevar al cuadrado sin aislar la raíz antes.
+        </div>
+        <div class="solution-result">x = [(y + 3)² − 1] / 2 &nbsp;&nbsp;con y ≥ −3</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">20 / 30</div>
+      <div class="ex-formula">√x + √(x−1) = y</div>
+      <div class="ex-ask">Despeja x. Hay que elevar al cuadrado dos veces.</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          √x = y − √(x−1) &nbsp;&nbsp;<strong>← aislamos una raíz</strong><br>
+          x = y² − 2y√(x−1) + (x−1) &nbsp;&nbsp;<strong>← elevamos al cuadrado</strong><br>
+          x − x + 1 = y² − 2y√(x−1)<br>
+          1 − y² = −2y√(x−1)<br>
+          √(x−1) = (y²−1) / 2y &nbsp;&nbsp;<strong>← aislamos la raíz restante</strong><br>
+          x − 1 = [(y²−1)/2y]²<br>
+          x = 1 + (y²−1)²/(4y²)
+        </div>
+        <div class="solution-result">x = 1 + (y²−1)² / (4y²)</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">21 / 30</div>
+      <div class="ex-formula">y = ∛(x − 5)</div>
+      <div class="ex-ask">Despeja x. Raíz cúbica, no cuadrada.</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y³ = x − 5 &nbsp;&nbsp;<strong>← elevamos al cubo (no al cuadrado)</strong><br>
+          x = y³ + 5<br><br>
+          ✅ <strong>Diferencia clave:</strong> la raíz cúbica no tiene restricción de dominio — funciona para cualquier valor real de y, incluso negativos. No hay ± aquí.
+        </div>
+        <div class="solution-result">x = y³ + 5 &nbsp;&nbsp;(para todo y ∈ ℝ)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bloque: Factor común y agrupación -->
+<div class="section level-mid">
+  <div class="section-header">
+    <span class="level-badge">Factor común</span>
+    <span class="section-title">Ver la x donde no parece estar</span>
+  </div>
+  <div class="ex-grid">
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">22 / 30</div>
+      <div class="ex-formula">ax + bx = c</div>
+      <div class="ex-ask">Despeja x. El caso más puro de factor común.</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          x(a + b) = c &nbsp;&nbsp;<strong>← factor común de x</strong><br>
+          x = c / (a + b)<br><br>
+          ✅ <strong>Por qué importa:</strong> este es el patrón detrás de todos los despejes con x en varios términos. Si lo tienes claro aquí, lo tienes claro en todos los demás.
+        </div>
+        <div class="solution-result">x = c / (a + b) &nbsp;&nbsp;con a + b ≠ 0</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">23 / 30</div>
+      <div class="ex-formula">xy + 2y = 3x + 6</div>
+      <div class="ex-ask">Despeja x. Pista: agrupa por factor.</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          xy − 3x = 6 − 2y &nbsp;&nbsp;<strong>← agrupamos x a la izquierda</strong><br>
+          x(y − 3) = 6 − 2y &nbsp;&nbsp;<strong>← factor común</strong><br>
+          x = (6 − 2y) / (y − 3)<br>
+          x = 2(3 − y) / (y − 3) = −2 &nbsp;&nbsp;<strong>← simplificamos: (3−y) = −(y−3)</strong><br><br>
+          ⚠️ <strong>Sorpresa:</strong> la solución es x = −2 para todo y ≠ 3. No depende de y. Eso no es un error — verifica sustituyendo.
+        </div>
+        <div class="solution-result">x = −2 &nbsp;&nbsp;(para todo y ≠ 3)</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">24 / 30</div>
+      <div class="ex-formula">y(x + 1) = x(y + 1)</div>
+      <div class="ex-ask">Despeja x. Parece que se cancela todo…</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          xy + y = xy + x &nbsp;&nbsp;<strong>← distribuimos ambos lados</strong><br>
+          y = x &nbsp;&nbsp;<strong>← los xy se cancelan</strong><br><br>
+          ⚠️ <strong>Resultado inesperado:</strong> la ecuación solo es válida cuando x = y. No hay una expresión para x en función de y — son iguales. Esto pasa cuando la ecuación tiene infinitas soluciones sobre la recta x = y.
+        </div>
+        <div class="solution-result">x = y &nbsp;&nbsp;(la ecuación implica x = y siempre)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bloque: Casos especiales y trampas conceptuales -->
+<div class="section level-hard">
+  <div class="section-header">
+    <span class="level-badge">Casos que engañan</span>
+    <span class="section-title">Potencias, módulos y soluciones dobles</span>
+  </div>
+  <div class="ex-grid">
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">25 / 30</div>
+      <div class="ex-formula">y = |x − 3|</div>
+      <div class="ex-ask">Despeja x. El valor absoluto da dos casos.</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          El valor absoluto significa: x − 3 puede ser positivo o negativo.<br><br>
+          <strong>Caso 1:</strong> x − 3 ≥ 0 → y = x − 3 → x = y + 3<br>
+          <strong>Caso 2:</strong> x − 3 &lt; 0 → y = −(x − 3) = −x + 3 → x = 3 − y<br><br>
+          ⚠️ <strong>Restricción:</strong> como y = |x−3|, siempre y ≥ 0<br>
+          ⚠️ <strong>Clave:</strong> con valor absoluto siempre hay dos soluciones posibles.
+        </div>
+        <div class="solution-result">x = y + 3 &nbsp;ó&nbsp; x = 3 − y &nbsp;&nbsp;(con y ≥ 0)</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">26 / 30</div>
+      <div class="ex-formula">y = (x − 1)² + 4</div>
+      <div class="ex-ask">Despeja x. ¿Cuántas soluciones hay?</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y − 4 = (x − 1)² &nbsp;&nbsp;<strong>← restamos 4</strong><br>
+          √(y − 4) = |x − 1| &nbsp;&nbsp;<strong>← raíz cuadrada</strong><br>
+          x − 1 = ±√(y − 4) &nbsp;&nbsp;<strong>← ± porque es cuadrado</strong><br>
+          x = 1 ± √(y − 4)<br><br>
+          ⚠️ <strong>Restricción:</strong> y ≥ 4 (si y &lt; 4 no hay solución real)<br>
+          ⚠️ <strong>Dos soluciones:</strong> x = 1 + √(y−4) y x = 1 − √(y−4)
+        </div>
+        <div class="solution-result">x = 1 ± √(y − 4) &nbsp;&nbsp;con y ≥ 4</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">27 / 30</div>
+      <div class="ex-formula">y = x + 2/x</div>
+      <div class="ex-ask">Despeja x. Necesitas la fórmula cuadrática.</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          xy = x² + 2 &nbsp;&nbsp;<strong>← multiplicamos por x</strong><br>
+          x² − xy + 2 = 0 &nbsp;&nbsp;<strong>← ecuación cuadrática en x</strong><br>
+          x = [y ± √(y² − 8)] / 2 &nbsp;&nbsp;<strong>← fórmula cuadrática</strong><br><br>
+          ⚠️ <strong>Restricción:</strong> y² ≥ 8, es decir |y| ≥ 2√2 ≈ 2.83<br>
+          ⚠️ <strong>Clave:</strong> multiplicar por x introduce la potencia y convierte en cuadrática.
+        </div>
+        <div class="solution-result">x = [y ± √(y² − 8)] / 2</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bloque: Los que parecen difíciles pero no lo son -->
+<div class="section level-easy">
+  <div class="section-header">
+    <span class="level-badge">Parecen difíciles</span>
+    <span class="section-title">Pero tienen un truco simple</span>
+  </div>
+  <div class="ex-grid">
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">28 / 30</div>
+      <div class="ex-formula">y = (1/x) + (1/3)</div>
+      <div class="ex-ask">Despeja x. Más fácil de lo que parece.</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y − 1/3 = 1/x &nbsp;&nbsp;<strong>← pasamos 1/3 al otro lado</strong><br>
+          x = 1 / (y − 1/3) &nbsp;&nbsp;<strong>← invertimos ambos lados</strong><br>
+          x = 3 / (3y − 1) &nbsp;&nbsp;<strong>← multiplicamos por 3/3 para limpiar</strong><br><br>
+          ✅ <strong>Truco:</strong> cuando la x está en el denominador sola, basta con invertir la fracción del otro lado.
+        </div>
+        <div class="solution-result">x = 3 / (3y − 1)</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">29 / 30</div>
+      <div class="ex-formula">y/x = (y + 2) / (x + 5)</div>
+      <div class="ex-ask">Despeja x. Proporciones cruzadas.</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y(x + 5) = x(y + 2) &nbsp;&nbsp;<strong>← productos cruzados</strong><br>
+          xy + 5y = xy + 2x &nbsp;&nbsp;<strong>← distribuimos</strong><br>
+          5y = 2x &nbsp;&nbsp;<strong>← los xy se cancelan</strong><br>
+          x = 5y / 2<br><br>
+          ✅ <strong>Truco:</strong> en proporciones, los productos cruzados suelen cancelar términos y dejan algo muy limpio.
+        </div>
+        <div class="solution-result">x = 5y / 2</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="done-check" onclick="toggleDone(this)">✓</div>
+      <div class="ex-num">30 / 30</div>
+      <div class="ex-formula">y = (x − a)(x + a)</div>
+      <div class="ex-ask">Despeja x. Diferencia de cuadrados.</div>
+      <div class="answer-area"><div class="answer-label">Tu respuesta</div><div class="answer-lines"><div class="answer-line"></div><div class="answer-line"></div></div></div>
+      <div class="sol-toggle"><button class="sol-toggle-btn" onclick="toggleSol(this)">Ver solución</button></div>
+      <div class="solution">
+        <div class="solution-step">
+          y = x² − a² &nbsp;&nbsp;<strong>← diferencia de cuadrados: (x−a)(x+a) = x²−a²</strong><br>
+          x² = y + a²<br>
+          x = ±√(y + a²)<br><br>
+          ✅ <strong>Clave:</strong> reconocer la identidad notable antes de despejar. Si no la ves, multiplicar también funciona pero tarda más.<br>
+          ⚠️ <strong>Restricción:</strong> y + a² ≥ 0, es decir y ≥ −a²
+        </div>
+        <div class="solution-result">x = ±√(y + a²) &nbsp;&nbsp;con y ≥ −a²</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">Practica · No mires la solución sin intentarlo antes · Suerte 🤍</div>
+
+<script>
+  function toggleSol(btn) {
+    const sol = btn.closest('.ex-card').querySelector('.solution');
+    sol.classList.toggle('open');
+    btn.textContent = sol.classList.contains('open') ? 'Ocultar' : 'Ver solución';
+  }
+
+  function toggleDone(el) {
+    el.classList.toggle('checked');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const total = document.querySelectorAll('.done-check').length;
+    const done = document.querySelectorAll('.done-check.checked').length;
+    const pct = (done / total * 100) + '%';
+    document.getElementById('progressBar').style.width = pct;
+    document.getElementById('progressCount').textContent = done + ' / ' + total;
+  }
+</script>
+</body>
+</html>
