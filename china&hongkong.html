@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>China & Hong Kong — Junio–Julio 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1208; --paper: #f7f3ec; --warm: #f0e8d8; --gold: #c8903a;
+  --gold-light: #f0d090; --red: #c13b2a; --teal: #2a6b6e; --teal-light: #e0efee;
+  --stone: #8a7d6a; --muted: #b5a898; --border: #ddd4c4;
+  --hk-color: #c13b2a; --cq-color: #c8903a; --zjj-color: #2a6b6e;
+  --bj-color: #4a3a8a; --sh-color: #1a6a3a; --fen-color: #7a4a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.65; font-size: 15px; }
+.hero { background: var(--ink); color: var(--paper); padding: 80px 40px 60px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 10% 50%, rgba(200,144,58,0.18) 0%, transparent 60%), radial-gradient(ellipse at 90% 20%, rgba(42,107,110,0.15) 0%, transparent 50%); }
+.hero-inner { max-width: 900px; margin: 0 auto; position: relative; }
+.hero-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.hero-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--gold); opacity: 0.5; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(42px, 8vw, 80px); font-weight: 900; line-height: 0.92; margin-bottom: 24px; }
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero-subtitle { font-size: 16px; color: rgba(247,243,236,0.65); max-width: 520px; margin-bottom: 40px; font-weight: 300; }
+.hero-stats { display: flex; gap: 32px; flex-wrap: wrap; }
+.stat { display: flex; flex-direction: column; gap: 3px; }
+.stat-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--gold-light); line-height: 1; }
+.stat-lbl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247,243,236,0.45); font-family: 'DM Mono', monospace; }
+.route-strip { background: var(--warm); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 40px; overflow-x: auto; white-space: nowrap; }
+.route-inner { display: inline-flex; align-items: center; gap: 0; min-width: 100%; justify-content: center; }
+.route-city { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: default; }
+.city-dot { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 2px solid currentColor; transition: transform 0.2s; }
+.route-city:hover .city-dot { transform: scale(1.15); }
+.city-name { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-family: 'DM Mono', monospace; font-weight: 500; }
+.city-days { font-size: 9px; color: var(--stone); font-family: 'DM Mono', monospace; }
+.route-arrow { padding: 0 10px; color: var(--muted); font-size: 18px; align-self: flex-start; margin-top: 8px; }
+.route-arrow.plane::before { content: '✈'; font-size: 14px; }
+.route-arrow.train::before { content: '━'; font-size: 10px; letter-spacing: -1px; }
+.c-hk { color: var(--hk-color); border-color: var(--hk-color); }
+.c-cq { color: var(--cq-color); border-color: var(--cq-color); }
+.c-zjj { color: var(--zjj-color); border-color: var(--zjj-color); }
+.c-bj { color: var(--bj-color); border-color: var(--bj-color); }
+.c-sh { color: var(--sh-color); border-color: var(--sh-color); }
+.c-fen { color: var(--fen-color); border-color: var(--fen-color); }
+.alerts-section { max-width: 900px; margin: 40px auto; padding: 0 40px; }
+.alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.alert { display: flex; gap: 12px; align-items: flex-start; background: #fff8f0; border: 1px solid #f0d090; border-left: 3px solid var(--gold); border-radius: 8px; padding: 12px 14px; font-size: 13px; }
+.alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.alert strong { font-weight: 500; display: block; margin-bottom: 2px; color: var(--ink); }
+.alert span { color: var(--stone); line-height: 1.4; }
+.alert.critical { background: #fff5f5; border-color: #f5c0b0; border-left-color: var(--red); }
+.section-header { max-width: 900px; margin: 60px auto 0; padding: 0 40px; display: flex; align-items: baseline; gap: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+.section-flag { font-size: 24px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; flex: 1; }
+.section-dates { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--stone); letter-spacing: 0.08em; }
+.days-container { max-width: 900px; margin: 0 auto; padding: 20px 40px 0; display: flex; flex-direction: column; gap: 24px; }
+.day-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: box-shadow 0.2s; }
+.day-card:hover { box-shadow: 0 4px 24px rgba(26,18,8,0.08); }
+.day-card.hk { border-top: 3px solid var(--hk-color); }
+.day-card.cq { border-top: 3px solid var(--cq-color); }
+.day-card.zjj { border-top: 3px solid var(--zjj-color); }
+.day-card.bj { border-top: 3px solid var(--bj-color); }
+.day-card.sh { border-top: 3px solid var(--sh-color); }
+.day-card.fen { border-top: 3px solid var(--fen-color); }
+.day-card.transit { border-top: 3px solid var(--stone); }
+.day-header { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: start; padding: 20px 24px 16px; cursor: pointer; user-select: none; }
+.day-header:hover { background: rgba(247,243,236,0.5); }
+.day-num-block { display: flex; flex-direction: column; align-items: center; min-width: 44px; }
+.day-num { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; line-height: 1; color: var(--gold); }
+.day-word { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-top: 2px; }
+.day-meta { flex: 1; }
+.day-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--stone); letter-spacing: 0.06em; margin-bottom: 5px; }
+.day-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
+.day-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag { font-size: 11px; font-family: 'DM Mono', monospace; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.03em; white-space: nowrap; }
+.tag-km { background: #f0ede6; color: #5a4a2a; }
+.tag-diff-easy { background: #e8f5e0; color: #2d6b1a; }
+.tag-diff-moderate { background: #fff3e0; color: #8a5010; }
+.tag-diff-hard { background: #fde8e8; color: #8a1a1a; }
+.tag-diff-rest { background: #e8f0fe; color: #1a3a8a; }
+.tag-warn { background: #fff3e0; color: #8a4a10; border: 1px solid #f5d090; }
+.tag-weather { background: #e8f5f5; color: #1a4a4c; }
+.tag-rain { background: #e8f0fe; color: #1a3a6a; }
+.day-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.chevron { font-size: 18px; color: var(--muted); transition: transform 0.25s; font-weight: 300; line-height: 1; }
+.day-card.open .chevron { transform: rotate(180deg); }
+.day-hotel { font-size: 11px; color: var(--stone); text-align: right; max-width: 160px; line-height: 1.3; }
+.day-hotel strong { font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); display: block; margin-bottom: 2px; font-weight: 400; }
+.day-body { display: none; padding: 0 24px 24px; border-top: 1px solid var(--border); }
+.day-card.open .day-body { display: block; }
+.weather-strip { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 18px; margin-bottom: 4px; padding: 12px 16px; background: var(--warm); border-radius: 10px; }
+.w-temp { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold); line-height: 1; }
+.w-sep { color: var(--muted); font-size: 14px; }
+.w-item { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--stone); display: flex; align-items: center; gap: 4px; }
+.w-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-right: 2px; }
+.w-rain-high { color: #1a4a8a; font-weight: 500; }
+.w-rain-med { color: #8a6a10; font-weight: 500; }
+.w-rain-low { color: #3a6a1a; font-weight: 500; }
+.w-tip { font-size: 12px; color: #1a4a4c; background: var(--teal-light); border-radius: 6px; padding: 3px 10px; margin-left: auto; line-height: 1.4; }
+.timeline { position: relative; padding-left: 24px; margin-top: 20px; }
+.timeline::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 1.5px; background: linear-gradient(to bottom, var(--border), transparent); }
+.tl-event { position: relative; margin-bottom: 16px; display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: start; }
+.tl-event::before { content: ''; position: absolute; left: -17px; top: 7px; width: 8px; height: 8px; border-radius: 50%; background: var(--border); border: 1.5px solid var(--paper); }
+.tl-event.key::before { background: var(--gold); }
+.tl-event.transport::before { background: var(--teal); }
+.tl-event.warn::before { background: var(--red); }
+.tl-event.new::before { background: var(--teal); }
+.tl-event.sleep::before { background: var(--bj-color); }
+.tl-time { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--stone); padding-top: 2px; font-weight: 500; letter-spacing: 0.03em; }
+.tl-title { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.3; margin-bottom: 3px; }
+.tl-event.key .tl-title { font-weight: 600; }
+.tl-event.transport .tl-title { color: var(--teal); font-weight: 500; }
+.tl-event.warn .tl-title { color: var(--red); }
+.tl-desc { font-size: 12.5px; color: var(--stone); line-height: 1.5; margin-bottom: 4px; }
+.tl-note { display: inline-flex; align-items: flex-start; gap: 5px; font-size: 11.5px; background: var(--warm); border-radius: 6px; padding: 4px 10px; color: #6a5a3a; line-height: 1.4; margin-top: 2px; }
+.tl-note.danger { background: #fff3f0; color: #8a2a1a; }
+.tl-note.tip { background: var(--teal-light); color: #1a4a4c; }
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+.info-block { background: var(--warm); border-radius: 10px; padding: 14px 16px; }
+.info-block-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.info-block-content { font-size: 13px; color: var(--ink); line-height: 1.5; }
+.info-block-content strong { font-weight: 500; }
+.diff-meter { display: flex; gap: 3px; margin-top: 4px; }
+.diff-pip { width: 18px; height: 5px; border-radius: 3px; background: var(--border); }
+.diff-pip.active.easy { background: #4a9a2a; }
+.diff-pip.active.hard { background: var(--red); }
+.diff-pip.active.moderate { background: #e09040; }
+.diff-pip.active.rest { background: var(--bj-color); }
+.tickets-box { margin-top: 16px; background: #fffbf3; border: 1px solid #f0d090; border-radius: 10px; padding: 14px 16px; }
+.tickets-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.ticket-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.ticket-row:last-child { border-bottom: none; }
+.ticket-name { color: var(--ink); flex: 1; }
+.ticket-price { font-family: 'DM Mono', monospace; color: var(--gold); font-size: 12px; font-weight: 500; white-space: nowrap; }
+.ticket-status { font-size: 11px; padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
+.ts-pending { background: #fff3e0; color: #8a4a10; }
+.ts-done { background: #e8f5e0; color: #2d6b1a; }
+.ts-info { background: var(--teal-light); color: var(--teal); }
+.city-separator { max-width: 900px; margin: 48px auto 0; padding: 0 40px; display: flex; align-items: center; gap: 16px; }
+.sep-line { flex: 1; height: 1px; background: var(--border); }
+.sep-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); white-space: nowrap; padding: 4px 12px; border: 1px solid var(--border); border-radius: 20px; }
+.tips-section { max-width: 900px; margin: 60px auto 0; padding: 0 40px; }
+.tips-header { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.tip-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+.tip-icon { font-size: 22px; margin-bottom: 10px; }
+.tip-title { font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--ink); }
+.tip-text { font-size: 13px; color: var(--stone); line-height: 1.6; }
+footer { max-width: 900px; margin: 60px auto; padding: 0 40px 40px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 24px; gap: 12px; flex-wrap: wrap; }
+.footer-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; color: var(--stone); }
+.footer-dates { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+.checklist-section { max-width: 900px; margin: 40px auto 0; padding: 0 40px; }
+.ck-header { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.ck-header h2 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; }
+.ck-header-sub { font-size: 12px; color: var(--stone); font-family: 'DM Mono', monospace; }
+.ck-progress { margin-bottom: 20px; }
+.ck-progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.ck-prog-label { font-size: 13px; color: var(--stone); }
+.ck-prog-label strong { color: var(--ink); font-weight: 500; }
+.ck-prog-pct { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--gold); font-weight: 500; }
+.ck-bar-track { height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.ck-bar-fill { height: 4px; background: var(--gold); border-radius: 4px; transition: width 0.4s ease; }
+.ck-badge-urgent { background: #fff3e0; color: #8a4a10; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-left: 8px; border: 1px solid #f5d090; }
+.ck-badge-ok { background: #e8f5e0; color: #2d6b1a; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-left: 8px; }
+.ck-cat { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 16px 0 8px; }
+.ck-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; background: #fff; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 6px; transition: opacity 0.25s, transform 0.25s; }
+.ck-item.ck-urgent { border-left: 3px solid var(--red); }
+.ck-item.ck-done { opacity: 0.5; }
+.ck-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--muted); background: transparent; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--gold); transition: all 0.15s; margin-top: 1px; }
+.ck-item.ck-done .ck-circle { background: var(--teal); border-color: var(--teal); color: white; }
+.ck-body { flex: 1; }
+.ck-text { font-size: 13px; font-weight: 400; color: var(--ink); }
+.ck-item.ck-done .ck-text { text-decoration: line-through; color: var(--muted); }
+.ck-note { font-size: 11.5px; color: var(--stone); margin-top: 2px; font-family: 'DM Mono', monospace; }
+.ck-pill-urgent { font-size: 10px; background: #fde8e8; color: #8a1a1a; padding: 2px 8px; border-radius: 10px; white-space: nowrap; align-self: center; font-family: 'DM Mono', monospace; letter-spacing: 0.05em; }
+.ck-show-done { background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; font-size: 12px; color: var(--stone); cursor: pointer; margin-top: 8px; font-family: 'DM Mono', monospace; letter-spacing: 0.05em; transition: all 0.15s; }
+.ck-show-done:hover { background: var(--warm); }
+.ck-empty { font-size: 14px; color: var(--stone); padding: 20px; text-align: center; background: var(--warm); border-radius: 10px; }
+.shop-section { max-width: 900px; margin: 60px auto 0; padding: 0 40px; }
+.shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 20px; }
+.shop-cat { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.shop-cat-header { padding: 12px 16px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
+.shop-cat-body { padding: 8px 16px 12px; }
+.shop-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.shop-item:last-child { border-bottom: none; }
+.shop-cb { width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid var(--muted); flex-shrink: 0; margin-top: 2px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: all 0.15s; }
+.shop-item.done .shop-cb { background: var(--teal); border-color: var(--teal); color: white; }
+.shop-item.done .shop-name { text-decoration: line-through; color: var(--muted); }
+.shop-name { flex: 1; color: var(--ink); line-height: 1.4; }
+.shop-note { font-size: 11px; color: var(--stone); }
+.shop-urgent { font-size: 10px; background: #fde8e8; color: #8a1a1a; padding: 1px 6px; border-radius: 8px; white-space: nowrap; font-family: 'DM Mono', monospace; }
+@media (max-width: 600px) {
+  .hero { padding: 50px 20px 40px; }
+  .hero h1 { font-size: 42px; }
+  .days-container, .alerts-section, .section-header, .tips-section, .city-separator, .checklist-section, .shop-section, footer { padding-left: 20px; padding-right: 20px; }
+  .route-strip { padding: 16px 20px; }
+  .day-header { padding: 16px 16px 12px; gap: 10px; }
+  .day-body { padding: 0 16px 16px; }
+  .day-hotel { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Itinerario grupal · Junio–Julio 2026</div>
+    <h1>China &amp;<br><em>Hong Kong</em></h1>
+    <p class="hero-subtitle">Guía completa de ruta, horarios exactos, clima por día, vestuario y recomendaciones para todo el grupo.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">12</span><span class="stat-lbl">Días</span></div>
+      <div class="stat"><span class="stat-num">6</span><span class="stat-lbl">Ciudades</span></div>
+      <div class="stat"><span class="stat-num">8</span><span class="stat-lbl">Personas</span></div>
+      <div class="stat"><span class="stat-num">27 Jun</span><span class="stat-lbl">Salida MAD</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ROUTE STRIP -->
+<div class="route-strip">
+  <div class="route-inner">
+    <div class="route-city"><div class="city-dot c-hk">🇭🇰</div><span class="city-name" style="color:var(--hk-color)">Hong Kong</span><span class="city-days">Día 1 mañana</span></div>
+    <span class="route-arrow plane"></span>
+    <div class="route-city"><div class="city-dot c-cq">🇨🇳</div><span class="city-name" style="color:var(--cq-color)">Chongqing</span><span class="city-days">Días 1 tarde – 2</span></div>
+    <span class="route-arrow train"></span>
+    <div class="route-city"><div class="city-dot c-zjj">🇨🇳</div><span class="city-name" style="color:var(--zjj-color)">Zhangjiajie</span><span class="city-days">Días 3–4</span></div>
+    <span class="route-arrow train"></span>
+    <div class="route-city"><div class="city-dot c-fen">🇨🇳</div><span class="city-name" style="color:var(--fen-color)">Fenghuang</span><span class="city-days">Día 5</span></div>
+    <span class="route-arrow train"></span>
+    <div class="route-city"><div class="city-dot c-bj">🇨🇳</div><span class="city-name" style="color:var(--bj-color)">Pekín</span><span class="city-days">Días 6–7–8</span></div>
+    <span class="route-arrow train"></span>
+    <div class="route-city"><div class="city-dot c-sh">🇨🇳</div><span class="city-name" style="color:var(--sh-color)">Shanghái</span><span class="city-days">Días 9–10</span></div>
+    <span class="route-arrow plane"></span>
+    <div class="route-city"><div class="city-dot c-hk">🇭🇰</div><span class="city-name" style="color:var(--hk-color)">Hong Kong</span><span class="city-days">Días 11–12</span></div>
+  </div>
+</div>
+
+<!-- ALERTAS -->
+<div class="alerts-section">
+  <div class="alert-grid">
+    <div class="alert critical"><span class="alert-icon">⛰️</span><div><strong>Tianmen Mountain — teleférico largo en obras</strong><span>El teleférico largo (7.455m) está en mantenimiento. Alternativa: bus por los 99 Curvas + teleférico corto hasta la cima.</span></div></div>
+    <div class="alert critical"><span class="alert-icon">🌐</span><div><strong>VPN — instalar antes de salir de España</strong><span>Sin VPN: sin Google, WhatsApp, Instagram ni Gmail en China. Activar en España — en China puede ser imposible descargarla.</span></div></div>
+    <div class="alert"><span class="alert-icon">💳</span><div><strong>WeChat Pay o Alipay — configurar en España</strong><span>China es casi cashless. Vincular tarjeta europea con antelación o no podrás pagar en muchos sitios.</span></div></div>
+    <div class="alert"><span class="alert-icon">🌀</span><div><strong>Tifones en Hong Kong (julio)</strong><span>Temporada activa. Instalar app Hong Kong Observatory. Señal T8 = todo cierra. Revisar cada mañana en HK.</span></div></div>
+    <div class="alert"><span class="alert-icon">✈️</span><div><strong>Vuelo CKG — aeropuerto SHA</strong><span>El vuelo CX349 SHA→HKG puede salir de Pudong (PVG, 50 min) o Hongqiao (SHA, 30 min). Son aeropuertos distintos.</span></div></div>
+    <div class="alert"><span class="alert-icon">🎂</span><div><strong>Cena de cumpleaños — Día 10, Hong Kong</strong><span>Reservar mesa con antelación. Zona Central o Wan Chai. Llevar look smart-casual en el carry-on.</span></div></div>
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div class="checklist-section">
+  <div class="ck-header"><h2>Reservas &amp; preparativos</h2><span class="ck-header-sub">Se guarda en tu navegador · Marca lo que ya tienes listo</span></div>
+  <div id="checklist-panel"></div>
+</div>
+
+<!-- ═══════ DÍA 0 — VUELO NOCTURNO ═══════ -->
+<div class="section-header">
+  <span class="section-flag">✈️</span>
+  <span class="section-title" style="color:var(--stone)">Vuelo nocturno Madrid → Hong Kong</span>
+  <span class="section-dates">26–27 Junio</span>
+</div>
+<div class="days-container">
+  <div class="day-card transit" id="dia0">
+    <div class="day-header" onclick="toggle('dia0')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--stone)">—</span><span class="day-word">Vuelo</span></div>
+      <div class="day-meta">
+        <div class="day-date">Viernes, 26 de junio — noche</div>
+        <div class="day-title">MAD → HKG · CX372 · Cathay Pacific</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-rest">✈️ 12h30m</span>
+          <span class="tag tag-weather">Sale 12:25 · Llega 06:55+1</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Llegada</strong>HKG · 06:55 sáb 27</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">Vuelo ~12h30m</span>
+        <span class="w-sep">·</span>
+        <span class="w-item">Sale MAD <strong>12:25</strong></span>
+        <span class="w-sep">·</span>
+        <span class="w-item">Llega HKG <strong>06:55</strong> sáb 27</span>
+        <span class="w-tip">🧦 Calcetines compresión · skincare en carry-on</span>
+      </div>
+      <div class="timeline">
+        <div class="tl-event transport"><span class="tl-time">12:25</span><div class="tl-content"><div class="tl-title">✈️ MAD → HKG · CX372 · 12h30m</div><div class="tl-desc">Vuelo directo Cathay Pacific. Llega el sábado 27 a las 06:55.</div><div class="tl-note tip">💡 Calcetines de compresión obligatorios. Crema facial, bruma y SPF en el bolso de mano. Hidratarse mucho.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">06:55</span><div class="tl-content"><div class="tl-title">Llegada HKG · Terminal 1 · Sábado 27 junio</div><div class="tl-desc">Pasar inmigración y recoger equipaje. Salida directa hacia Lantau — el día empieza aquí.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ HK + CKG · DÍA 1 ═══════ -->
+<div class="city-separator"><div class="sep-line"></div><span class="sep-label" style="color:var(--hk-color);border-color:var(--hk-color)">🇭🇰 Hong Kong → 🇨🇳 Chongqing</span><div class="sep-line"></div></div>
+<div class="days-container">
+  <div class="day-card hk" id="dia1">
+    <div class="day-header" onclick="toggle('dia1')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--hk-color)">1</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Sábado, 27 de junio</div>
+        <div class="day-title">Lantau · Big Buddha · Ngong Ping → Chongqing</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-moderate">Moderado · madrugada</span>
+          <span class="tag tag-weather">27–32 °C · HK</span>
+          <span class="tag tag-rain">🌧 Lluvia probable</span>
+          <span class="tag tag-warn">⏰ Vuelo 14:50 a CKG</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Hotel noche</strong>Hongya Cave Hotel · CKG</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">27–32 °C</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Humedad</span>88%</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Lluvia</span><span class="w-rain-high">Probable</span></span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">UV</span>Muy alto</span>
+        <span class="w-tip">👟 Zapato cómodo · paraguas · tiempo justo</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-block">
+          <div class="info-block-label">Dificultad física</div>
+          <div class="info-block-content">Moderada con madrugada de vuelo. Subida al Big Buddha ~400 escalones. Luego paseo suave. El vuelo a CKG a las 14:50 da el ritmo del día.</div>
+          <div class="diff-meter" style="margin-top:8px"><div class="diff-pip active moderate"></div><div class="diff-pip active moderate"></div><div class="diff-pip active moderate"></div><div class="diff-pip"></div><div class="diff-pip"></div></div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">⚠️ Timing crítico</div>
+          <div class="info-block-content"><strong>Hay que estar en HKG antes de las 12:00.</strong> El vuelo CX6130 sale a las 14:50 y el check-in cierra ~12:50. No demorar la salida de Tung Chung.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">Teleférico</div>
+          <div class="info-block-content">El Ngong Ping 360 abre a las 10:00. Llegas antes por eso vas directamente al Big Buddha a pie desde el pueblo. La bajada en teleférico es la recompensa.</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-event transport"><span class="tl-time">07:40</span><div class="tl-content"><div class="tl-title">🚖 Blue Taxi (S11) a Ngong Ping Village · Lantau</div><div class="tl-desc">Taxi desde el aeropuerto directo a Ngong Ping. ~40 min. El teleférico aún no abre — se va a pie al Buddha desde el pueblo.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">08:30</span><div class="tl-content"><div class="tl-title">🪷 Wisdom Path</div><div class="tl-desc">238 columnas de madera dispuestas en forma de ∞ con los 260 caracteres del Sutra del Corazón. Tranquilo a esta hora.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">09:10</span><div class="tl-content"><div class="tl-title">🗿 Big Buddha (Tian Tan) · 34 metros de altura</div><div class="tl-desc">La estatua de bronce de Buda más grande al aire libre en Asia. Las 268 escaleras dan algo de trabajo con el equipaje de mano — dejar mochilas en la base.</div><div class="tl-note tip">📸 Mejor foto desde abajo mirando hacia arriba. Con cielos despejados se ven las montañas de fondo.</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">10:00</span><div class="tl-content"><div class="tl-title">🚡 Teleférico Ngong Ping 360 — bajada a Tung Chung</div><div class="tl-desc">25 min de teleférico sobre el mar y las montañas de Lantau. Opción cabina de cristal (suelo transparente).</div><div class="tl-note danger">⚠ Reservar ticket online previamente. ~280 HKD/p. cabina normal, ~380 HKD/p. cabina cristal.</div></div></div>
+        <div class="tl-event warn"><span class="tl-time">10:45</span><div class="tl-content"><div class="tl-title">🚖 Taxi / MTR al Aeropuerto HKG</div><div class="tl-note danger">⚠ Vuelo 14:50 — check-in cierra ~12:50. Llegar al aeropuerto antes de las 12:00. No demorar la salida de Tung Chung.</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">14:50</span><div class="tl-content"><div class="tl-title">✈️ HKG → CKG · CX6130 · 2h35m</div></div></div>
+        <div class="tl-event"><span class="tl-time">17:05</span><div class="tl-content"><div class="tl-title">Llegada Chongqing · Check-in hotel</div><div class="tl-desc">Taxi al hotel. Recomendado: Hongya Cave Hotel o alrededores para estar en el centro.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">18:30</span><div class="tl-content"><div class="tl-title">🏙️ Jiefangbei Square + Kuixing Building</div><div class="tl-desc">Centro peatonal histórico de Chongqing. El edificio Kuixing es la torre más fotografiada de la ciudad.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">20:30</span><div class="tl-content"><div class="tl-title">🏮 Hongya Cave + Cena</div><div class="tl-desc">Complejo de restaurantes sobre el río Jialing, iluminado de noche. Uno de los lugares más icónicos de Chongqing. Impresionante de noche.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">21:00</span><div class="tl-content"><div class="tl-title">🚁 Drone show sobre el río (si hay)</div><div class="tl-desc">Espectáculo de drones sobre el Jialing — verificar si está activo en la fecha del viaje.</div></div></div>
+      </div>
+      <div class="tickets-box">
+        <div class="tickets-title">🎫 Tickets necesarios</div>
+        <div class="ticket-row"><span class="ticket-name">Teleférico Ngong Ping 360 · bajada (cabina cristal recomendada)</span><span class="ticket-price">~280–380 HKD/p.</span><span class="ticket-status ts-pending">ngongping360.com · Día 1</span></div>
+        <div class="ticket-row"><span class="ticket-name">Vuelo CX6130 HKG–CKG</span><span class="ticket-price">—</span><span class="ticket-status ts-done">Ya en reserva</span></div>
+      </div>
+    </div>
+  </div>
+
+<!-- ═══════ CKG · DÍA 2 ═══════ -->
+  <div class="day-card cq" id="dia2">
+    <div class="day-header" onclick="toggle('dia2')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--cq-color)">2</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Domingo, 28 de junio</div>
+        <div class="day-title">Chongqing · Mañana libre → Tren a Zhangjiajie</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-easy">Suave</span>
+          <span class="tag tag-weather">29–35 °C · Muy caluroso</span>
+          <span class="tag tag-rain">🌧 Posible</span>
+          <span class="tag tag-warn">🚄 Tren 18:55</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Hotel noche</strong>Zhangjiajie Hotel</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">29–35 °C</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Humedad</span>75%</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Lluvia</span><span class="w-rain-med">Posible</span></span>
+        <span class="w-tip">👕 Dry-fit · pañuelo refrescante · chaqueta para el tren</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-block">
+          <div class="info-block-label">Aviso de tráfico</div>
+          <div class="info-block-content">Con tráfico de domingo, salir hacia la estación a las <strong>17:00</strong>, no más tarde. Chongqing East Station queda ~40 min del centro con tráfico.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">Calor</div>
+          <div class="info-block-content">CKG en verano es sofocante. Evitar el sol entre 12h–15h. Shibati al desayuno y Raffles a mediodía (interior con A/C) son buenas opciones.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">El tren</div>
+          <div class="info-block-content">CKG → ZJJ: 1 hora exacta. Reservar <strong>primera clase</strong> si está disponible — vale la pena para el grupo con equipaje.</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-event new"><span class="tl-time">08:30</span><div class="tl-content"><div class="tl-title">🥢 Desayuno en Shibati</div><div class="tl-desc">Barrio antiguo de Chongqing con callejuelas en escalera. Desayuno local: xiaomian (fideos picantes), baozi, soja caliente.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">10:30</span><div class="tl-content"><div class="tl-title">🚇 Liziba Station · El metro dentro del edificio</div><div class="tl-desc">La línea 2 del metro pasa literalmente por dentro de un rascacielos residencial entre los pisos 6 y 8. Foto desde el exterior.</div></div></div>
+        <div class="tl-event"><span class="tl-time">11:30</span><div class="tl-content"><div class="tl-title">Check-out hotel · Dejar maletas en consigna</div></div></div>
+        <div class="tl-event new"><span class="tl-time">12:00</span><div class="tl-content"><div class="tl-title">🏙️ Raffles City Observation Deck</div><div class="tl-desc">La terraza colgante entre las dos torres de Raffles City — 250m de altura, vistas de las confluencias de los ríos Yangtze y Jialing.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">13:30</span><div class="tl-content"><div class="tl-title">🌶️ Almuerzo: Hot pot de Chongqing</div><div class="tl-desc">El más auténtico y picante del país. Pedir nivel "medium" o incluso "mild" — es muy diferente al hotpot de otras ciudades.</div><div class="tl-note">🌡️ Si alguien tiene el estómago delicado, CKG tiene también opciones más suaves.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">15:00</span><div class="tl-content"><div class="tl-title">🚡 Yangtze River Cablecar</div><div class="tl-desc">Teleférico sobre el río Yangtze desde Xinhua Road a Longtou Temple. Solo 5 minutos pero vistas únicas del río.</div></div></div>
+        <div class="tl-event warn"><span class="tl-time">17:00</span><div class="tl-content"><div class="tl-title">🚖 Salida hacia Chongqing East Station</div><div class="tl-note danger">⚠ Salir a las 17:00 — tráfico de domingo puede ser denso. La estación queda a ~40 min.</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">18:55</span><div class="tl-content"><div class="tl-title">🚄 CKG → ZJJ · 1h exacta</div></div></div>
+        <div class="tl-event"><span class="tl-time">20:50</span><div class="tl-content"><div class="tl-title">Llegada Zhangjiajie · Taxi al hotel · ~20 min</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ ZJJ · DÍAS 3–4 ═══════ -->
+<div class="city-separator"><div class="sep-line"></div><span class="sep-label" style="color:var(--zjj-color);border-color:var(--zjj-color)">🇨🇳 Zhangjiajie · Furongzhen</span><div class="sep-line"></div></div>
+<div class="days-container">
+
+  <div class="day-card zjj" id="dia3">
+    <div class="day-header" onclick="toggle('dia3')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--zjj-color)">3</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Lunes, 29 de junio</div>
+        <div class="day-title">Avatar Mountains · Yuanjiajie · Tianzi Mountain</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-moderate">Moderado</span>
+          <span class="tag tag-weather">22–30 °C · Fresco</span>
+          <span class="tag tag-rain">🌫️ Niebla + lluvia</span>
+          <span class="tag tag-warn">🎫 Ticket urgente</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Hotel noche</strong>Zhangjiajie Hotel</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">22–30 °C</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Humedad</span>82–84%</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Lluvia</span><span class="w-rain-high">Frecuente</span></span><span class="w-sep">·</span>
+        <span class="w-item">🌫️ Niebla 7–9am</span>
+        <span class="w-tip">👟 Suela antideslizante · chubasquero · pantalón largo</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-block">
+          <div class="info-block-label">Dificultad física</div>
+          <div class="info-block-content">Moderada. Los teleféricos hacen el trabajo pesado. Las pasarelas son largas pero relativamente llanas. Caminos muy resbaladizos con lluvia.</div>
+          <div class="diff-meter" style="margin-top:8px"><div class="diff-pip active moderate"></div><div class="diff-pip active moderate"></div><div class="diff-pip active moderate"></div><div class="diff-pip"></div><div class="diff-pip"></div></div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">El momento mágico</div>
+          <div class="info-block-content">Niebla matutina entre <strong>7–9am</strong> hace flotar los picos — es la foto icónica de Avatar. Probabilidad alta en junio. Llegar muy temprano.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">Qué NO llevar</div>
+          <div class="info-block-content"><strong>NO falda / vestido</strong> — viento muy fuerte en altura y escaleras abiertas. Suela antideslizante es cuestión de seguridad, no solo de comodidad.</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-event transport"><span class="tl-time">07:00</span><div class="tl-content"><div class="tl-title">🚖 Taxi a Zhangjiajie NF Park · East Gate (东门)</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">07:30</span><div class="tl-content"><div class="tl-title">🚌 Eco-bus interno a la base del Bailong Elevator</div></div></div>
+        <div class="tl-event key"><span class="tl-time">07:50</span><div class="tl-content"><div class="tl-title">⬆ Bailong Elevator · El ascensor al aire libre más alto del mundo</div><div class="tl-desc">326 metros de acantilado en 2 minutos. Cabina de cristal con vista vertical al cañón. Impresionante.</div><div class="tl-note danger">⚠ Llegar antes de las 8:00 — la cola crece rápido. Solo válido el día de reserva.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">08:30</span><div class="tl-content"><div class="tl-title">🏔️ Yuanjiajie Plateau · Avatar Mountains</div><div class="tl-desc">Los pilares de cuarcita flotantes que inspiraron Pandora. Con niebla matutina los picos parecen flotar en el aire.</div><div class="tl-note">📍 Mihun Terrace · First Bridge Under Heaven · Northern Sky Pillar · Back Garden</div></div></div>
+        <div class="tl-event new"><span class="tl-time">09:00</span><div class="tl-content"><div class="tl-title">🌉 First Bridge Under Heaven</div><div class="tl-desc">Puente natural de piedra que se puede cruzar. Cintas rojas de los deseos atadas a la roca. Mirador tranquilo al otro lado.</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">11:30</span><div class="tl-content"><div class="tl-title">🚌 Eco-bus a Tianzi Mountain (天子山)</div></div></div>
+        <div class="tl-event key"><span class="tl-time">12:00</span><div class="tl-content"><div class="tl-title">🏔️ Miradores de Tianzi Mountain · Helong Park</div><div class="tl-desc">Vistas más dramáticas del parque. Con niebla las montañas flotan sobre las nubes. El mirador más alto del área.</div><div class="tl-note">🍜 Los mejores puestos de comida del parque están en la parada de bus. Comer aquí.</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">14:00</span><div class="tl-content"><div class="tl-title">⬇ Tianzishan Cableway — bajada</div></div></div>
+        <div class="tl-event"><span class="tl-time">15:00</span><div class="tl-content"><div class="tl-title">Eco-bus de vuelta a East Gate · Taxi al hotel · Descanso</div></div></div>
+        <div class="tl-event key"><span class="tl-time">19:30</span><div class="tl-content"><div class="tl-title">🏮 72 Qilou Old Street · Cena</div><div class="tl-desc">Calle comercial animada de noche. Comida local Tujia y Miao.</div></div></div>
+      </div>
+      <div class="tickets-box">
+        <div class="tickets-title">🎫 Tickets necesarios</div>
+        <div class="ticket-row"><span class="ticket-name">Entrada NF Park 4 días + Bailong Elevator + Tianzishan Cableway (bajada)</span><span class="ticket-price">~500–537 CNY/p.</span><span class="ticket-status ts-pending">Trip.com o Klook · East Gate Línea B · 29 Jun</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card zjj" id="dia4">
+    <div class="day-header" onclick="toggle('dia4')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--zjj-color)">4</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Martes, 30 de junio</div>
+        <div class="day-title">Tianmen Mountain · 99 Curvas → Furongzhen</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-hard">💪 Exigente</span>
+          <span class="tag tag-weather">22–30 °C</span>
+          <span class="tag tag-rain">🌫️ Niebla + lluvia</span>
+          <span class="tag tag-warn">⚠️ Teleférico parcial</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Hotel noche</strong>Furong Hotel</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">22–30 °C</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Humedad</span>82%</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Lluvia</span><span class="w-rain-high">Frecuente</span></span>
+        <span class="w-tip">👟 Misma zapatilla · chubasquero · capas para la noche</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-block">
+          <div class="info-block-label">Dificultad física</div>
+          <div class="info-block-content"><strong>Alta.</strong> 999 escalones (30–45 min subida a 1.170m). Se nota la altitud. Alternativa: escalera mecánica interior (32 CNY).</div>
+          <div class="diff-meter" style="margin-top:8px"><div class="diff-pip active hard"></div><div class="diff-pip active hard"></div><div class="diff-pip active hard"></div><div class="diff-pip active hard"></div><div class="diff-pip"></div></div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">⚠️ Teleférico en obras 2026</div>
+          <div class="info-block-content">El teleférico largo (7.455m) está en mantenimiento. Alternativa: bus por los 99 Curvas + teleférico corto. La experiencia cambia pero el destino es el mismo.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">Furongzhen de noche</div>
+          <div class="info-block-content">Arquitectura Tujia sobre el río Youshui. La iluminación nocturna con los palafitos sobre el agua es preciosa. Llevar capa extra.</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-event transport"><span class="tl-time">09:00</span><div class="tl-content"><div class="tl-title">🚌 Bus a Tianmen Mountain · Estación Lower Cable</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">09:30</span><div class="tl-content"><div class="tl-title">🚡 Teleférico corto hasta estación intermedia</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">10:00</span><div class="tl-content"><div class="tl-title">🚌 Bus por los 99 Curvas (Línea B)</div><div class="tl-desc">Carretera de montaña con 99 curvas en espiral hasta los 1.300m. Impresionante desde la ventana.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">10:30</span><div class="tl-content"><div class="tl-title">⛩️ Tianmen Cave · Base de los 999 escalones</div><div class="tl-desc">El arco natural más famoso de China: 131m de alto, 57m de ancho. Mejor foto desde abajo antes de subir.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">10:45</span><div class="tl-content"><div class="tl-title">🪜 Subida por los 999 escalones · "Escalera al Cielo"</div><div class="tl-desc">218 metros de desnivel. Tomar el tiempo que sea necesario — hay bancos en cada tramo. El arco se va abriendo según subes.</div><div class="tl-note danger">⚠ Agua obligatoria. Zapatilla con suela firme. Escalera mecánica interior si las rodillas no lo permiten (32 CNY).</div></div></div>
+        <div class="tl-event key"><span class="tl-time">11:45</span><div class="tl-content"><div class="tl-title">🏔️ Plateau de la cima · Glass Skywalk + Guigu Cliffside Path</div><div class="tl-desc">Skywalk de cristal sobre el vacío. Guigu es más tranquilo y las vistas igual de espectaculares — recomendable hacer ambos.</div><div class="tl-note">Las fundas de zapato para el Skywalk se compran en taquilla (5 CNY).</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">13:30</span><div class="tl-content"><div class="tl-title">⬇ Bajada en teleférico Express · Vuelta en bus a la ciudad</div></div></div>
+        <div class="tl-event warn"><span class="tl-time">14:00</span><div class="tl-content"><div class="tl-title">🧳 Recoger maletas en el hotel</div><div class="tl-note danger">⚠ Confirmar con el hotel que guardan maletas después del check-out. Alternativa: consigna de la estación.</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">17:00</span><div class="tl-content"><div class="tl-title">🚄 ZJJ → FUR · 23 minutos</div></div></div>
+        <div class="tl-event key"><span class="tl-time">19:00</span><div class="tl-content"><div class="tl-title">🏘️ Paseo nocturno por Furong Ancient Town</div><div class="tl-desc">Pueblo Tujia sobre el río Youshui. Iluminación nocturna preciosa sobre los palafitos. Cascadas más espectaculares en junio.</div></div></div>
+      </div>
+      <div class="tickets-box">
+        <div class="tickets-title">🎫 Tickets necesarios</div>
+        <div class="ticket-row"><span class="ticket-name">Tianmen Mountain · Línea B alternativa (entrada + teleférico corto + bus 99 Curvas)</span><span class="ticket-price">~288 CNY/p.</span><span class="ticket-status ts-pending">discoverzhangjiajie.com · 30 Jun</span></div>
+        <div class="ticket-row"><span class="ticket-name">Escalera mecánica interior (opcional)</span><span class="ticket-price">32 CNY/p.</span><span class="ticket-status ts-info">En taquilla</span></div>
+        <div class="ticket-row"><span class="ticket-name">Glass Skywalk (fundas zapato)</span><span class="ticket-price">5 CNY/p.</span><span class="ticket-status ts-info">En taquilla</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ FURONG + FENGHUANG · DÍA 5 ═══════ -->
+<div class="city-separator"><div class="sep-line"></div><span class="sep-label" style="color:var(--fen-color);border-color:var(--fen-color)">🇨🇳 Furong · Fenghuang · Tren nocturno</span><div class="sep-line"></div></div>
+<div class="days-container">
+  <div class="day-card fen" id="dia5">
+    <div class="day-header" onclick="toggle('dia5')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--fen-color)">5</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Miércoles, 1 de julio</div>
+        <div class="day-title">Furong · Fenghuang Old Town · Tren nocturno a Pekín</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-easy">Suave</span>
+          <span class="tag tag-weather">22–28 °C</span>
+          <span class="tag tag-rain">🌧 Lluvia frecuente</span>
+          <span class="tag tag-diff-rest">🛏 Tren nocturno 21:35</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Transporte</strong>Tren nocturno ZJJ→PEK</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">22–28 °C</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Humedad</span>88–90%</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Lluvia</span><span class="w-rain-high">Frecuente</span></span>
+        <span class="w-tip">👟 Calzado cerrado · adoquines mojados · chaqueta para el tren</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-block">
+          <div class="info-block-label">Tren nocturno</div>
+          <div class="info-block-content">Reservar <strong>soft sleeper (软卧)</strong> — 4 literas por compartimento, con puerta. El tren sale de ZJJ a las 21:35 y llega mañana a las <strong>15:55</strong> a Pekín.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">Fenghuang</div>
+          <div class="info-block-content">Casas Miao sobre palafitos en el río Tuo. Con lluvia ligera y niebla el pueblo es espectacularmente fotogénico. Mejor foto al atardecer.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">Madrugador (opcional)</div>
+          <div class="info-block-content">Levantarse a las 07:00 para ver Furong sin turistas al amanecer. Solo 1 hora, pero muy especial — el pueblo con luz dorada sobre los palafitos.</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-event new"><span class="tl-time">07:00</span><div class="tl-content"><div class="tl-title">🌅 Furong al amanecer (opcional)</div><div class="tl-desc">El pueblo sin turistas. Luz dorada sobre los palafitos. Solo los locales pescando en el río.</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">11:45</span><div class="tl-content"><div class="tl-title">🚄 FUR → FEN · 34 minutos</div></div></div>
+        <div class="tl-event"><span class="tl-time">12:19</span><div class="tl-content"><div class="tl-title">Llegada Fenghuang · Maletas en consigna estación</div></div></div>
+        <div class="tl-event key"><span class="tl-time">12:45</span><div class="tl-content"><div class="tl-title">🏘️ Fenghuang Ancient Town · Pueblo Miao</div><div class="tl-desc">Casas sobre palafitos a lo largo del río Tuo, puente de piedra, muralla antigua. Muy pintoresco especialmente al atardecer.</div><div class="tl-note">🍜 Comida Miao local: pato seco, tofu fermentado, arroz glutinoso.</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">17:30</span><div class="tl-content"><div class="tl-title">Taxi a la estación de Fenghuang</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">19:18</span><div class="tl-content"><div class="tl-title">🚄 FEN → ZJJ · 59 minutos</div></div></div>
+        <div class="tl-event"><span class="tl-time">20:17</span><div class="tl-content"><div class="tl-title">Llegada ZJJ · Cena en la estación o alrededores</div></div></div>
+        <div class="tl-event sleep"><span class="tl-time">21:35</span><div class="tl-content"><div class="tl-title">🚄🛏 ZJJ → PEK · Tren nocturno · 18h20m</div><div class="tl-desc">Soft sleeper (软卧) — compartimento de 4 literas. Llega mañana a las 15:55 a Pekín.</div><div class="tl-note tip">💡 Llevar snacks, auriculares y antifaz. El vagón restaurante sirve desayuno por la mañana. Chaqueta — el A/C va muy fuerte.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ PEKÍN · DÍAS 6–8 ═══════ -->
+<div class="city-separator"><div class="sep-line"></div><span class="sep-label" style="color:var(--bj-color);border-color:var(--bj-color)">🇨🇳 Pekín</span><div class="sep-line"></div></div>
+<div class="days-container">
+
+  <div class="day-card bj" id="dia6">
+    <div class="day-header" onclick="toggle('dia6')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--bj-color)">6</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Jueves, 2 de julio</div>
+        <div class="day-title">Llegada Pekín · Hutongs · Pato Pekín</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-rest">🚄 Tren hasta las 16h</span>
+          <span class="tag tag-weather">22–33 °C · Calor</span>
+          <span class="tag tag-rain">⛅ Variable</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Hotel noche</strong>Hotel Pekín</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">22–33 °C</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Humedad</span>70%</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">UV</span>Muy alto</span>
+        <span class="w-tip">🧴 Sérum vitamina C + SPF 50 · gorra imprescindible</span>
+      </div>
+      <div class="timeline">
+        <div class="tl-event"><span class="tl-time">—</span><div class="tl-content"><div class="tl-title">🚄 En tren · Mañana de descanso</div><div class="tl-desc">Aprovechar el vagón restaurante para desayunar tranquilamente. Paisajes de Hunan camino a Pekín.</div></div></div>
+        <div class="tl-event"><span class="tl-time">15:55</span><div class="tl-content"><div class="tl-title">Llegada Pekín · Check-in hotel</div><div class="tl-desc">Verificar a qué estación llega el tren (Beijing West o Beijing South).</div></div></div>
+        <div class="tl-event key"><span class="tl-time">18:00</span><div class="tl-content"><div class="tl-title">🏮 Paseo por los Hutongs</div><div class="tl-desc">Nanluoguxiang o Beixinqiao — callejuelas históricas con bares, cafeterías y tiendas locales. Ambiente muy relajado de tarde.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">20:30</span><div class="tl-content"><div class="tl-title">🦆 Cena: Pato Pekín (烤鸭)</div><div class="tl-desc">El plato icónico. Da Dong o Quanjude — reservar con antelación.</div><div class="tl-note tip">💡 El pato se sirve en 3 fases: con pancakes y hoisin, luego salteado, luego en sopa. Pedir todas las fases.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card bj" id="dia7">
+    <div class="day-header" onclick="toggle('dia7')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--bj-color)">7</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Viernes, 3 de julio</div>
+        <div class="day-title">Muralla China · Palacio de Verano</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-moderate">Moderado</span>
+          <span class="tag tag-km">~8 km entre ambos</span>
+          <span class="tag tag-weather">23–34 °C · ☀️ Calor intenso</span>
+          <span class="tag tag-warn">🌡️ UV extremo</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Hotel noche</strong>Hotel Pekín</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">23–34 °C</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Humedad</span>70%</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Lluvia</span><span class="w-rain-med">Tormentas tarde</span></span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">UV</span>Extremo 🔴</span>
+        <span class="w-tip">⛑️ Llegar 8am · parar 12–15h · gorra + SPF obligatorio</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-block">
+          <div class="info-block-label">Dificultad física</div>
+          <div class="info-block-content">Moderada. Tramos inclinados en la Muralla pero Mutianyu es la sección más fácil. El Palacio de Verano es llano. El calor extremo es el mayor reto.</div>
+          <div class="diff-meter" style="margin-top:8px"><div class="diff-pip active moderate"></div><div class="diff-pip active moderate"></div><div class="diff-pip active moderate"></div><div class="diff-pip"></div><div class="diff-pip"></div></div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">Mutianyu vs Badaling</div>
+          <div class="info-block-content">Mutianyu está a 1h30 pero tiene el 30% de turistas de Badaling. Vale la pena el viaje. Tobogán de bajada muy divertido (~100 CNY). Reservar entrada online.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">⚠️ Calor en la Muralla</div>
+          <div class="info-block-content">Sin sombra en tramos largos. Para los mayores del grupo: paradas frecuentes, NUNCA entre 12–15h. Llevar agua suficiente desde abajo — arriba todo es 3x más caro.</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-event transport"><span class="tl-time">07:00</span><div class="tl-content"><div class="tl-title">🚖 Salida hacia Mutianyu · Taxi o minibús turístico</div><div class="tl-desc">1h30 desde Pekín. Tour organizado desde el hotel más sencillo que ir por libre.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">09:00</span><div class="tl-content"><div class="tl-title">🏯 Muralla China · Sección Mutianyu</div><div class="tl-desc">Restaurada y accesible. Teleférico de subida incluido. Las mejores vistas en las torres 6 y 14.</div><div class="tl-note tip">📸 Las mejores fotos: torres 6 y 14, con la muralla serpenteando en ambas direcciones.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">12:30</span><div class="tl-content"><div class="tl-title">🛷 Tobogán de bajada (opcional)</div><div class="tl-desc">Bajada en tobogán de acero por la ladera. Divertidísimo. ~100 CNY.</div></div></div>
+        <div class="tl-event"><span class="tl-time">13:00</span><div class="tl-content"><div class="tl-title">Vuelta a Pekín · Almuerzo en ruta</div></div></div>
+        <div class="tl-event key"><span class="tl-time">15:00</span><div class="tl-content"><div class="tl-title">🏛️ Palacio de Verano (颐和园)</div><div class="tl-desc">Jardín imperial con lago Kunming, Pabellón de la Torre del Olor del Buda y galería cubierta decorada. Cierra a las 18:00.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">19:00</span><div class="tl-content"><div class="tl-title">🎨 Noche: 798 Art District o Sanlitun</div><div class="tl-desc">798: fábricas reconvertidas en galerías y bares. Sanlitun: zona de vida nocturna más internacional.</div></div></div>
+      </div>
+      <div class="tickets-box">
+        <div class="tickets-title">🎫 Tickets necesarios</div>
+        <div class="ticket-row"><span class="ticket-name">Muralla Mutianyu · entrada + teleférico subida + tobogán/teleférico bajada</span><span class="ticket-price">~180 CNY/p.</span><span class="ticket-status ts-pending">mutianyugreatwall.com · 3 Jul</span></div>
+        <div class="ticket-row"><span class="ticket-name">Palacio de Verano (颐和园)</span><span class="ticket-price">30 CNY/p.</span><span class="ticket-status ts-info">En taquilla o Trip.com</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card bj" id="dia8">
+    <div class="day-header" onclick="toggle('dia8')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--bj-color)">8</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Sábado, 4 de julio</div>
+        <div class="day-title">Ciudad Prohibida · Tiananmen → Tren a Shanghái</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-moderate">Moderado</span>
+          <span class="tag tag-warn">🎫 Reserva obligatoria CP</span>
+          <span class="tag tag-km">~6 km a pie</span>
+          <span class="tag tag-diff-rest">🚄 Tren 15:00</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Hotel noche</strong>Hotel Shanghái</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">23–34 °C · PEK</span><span class="w-sep">→</span>
+        <span class="w-temp">25–32 °C · SHA</span>
+        <span class="w-tip">🧳 Taxi a Beijing South · salir a las 13:15 como máximo</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-block">
+          <div class="info-block-label">Aviso crítico</div>
+          <div class="info-block-content"><strong>Reserva online obligatoria</strong> en guugong.com.cn. El cupo se agota días antes en julio. Sin reserva no se entra. Llevar pasaporte.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">Ruta recomendada CP</div>
+          <div class="info-block-content">Meridian Gate (南门) → Hall of Supreme Harmony → Inner Court → Imperial Garden → salida norte hacia Parque Jingshan para vistas desde arriba.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">Tren a Shanghái</div>
+          <div class="info-block-content">Sale de <strong>Beijing South Station</strong> a las 15:00. Sábado = tráfico denso. Salir como máximo a las 13:15. Llega a Shanghai Hongqiao a las 17:34.</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-event warn"><span class="tl-time">08:30</span><div class="tl-content"><div class="tl-title">🏯 Ciudad Prohibida (故宫 Gùgōng)</div><div class="tl-desc">Mayor complejo de palacios del mundo: 72 hectáreas, 980 edificios. Entrar a las 8:30 cuando abre.</div><div class="tl-note danger">⚠ Reserva online imprescindible. Llevar pasaporte. ~3 horas de visita.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">11:30</span><div class="tl-content"><div class="tl-title">🚩 Plaza de Tiananmen</div><div class="tl-desc">La plaza más grande del mundo, frente a la Ciudad Prohibida. 20–30 min es suficiente.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">12:00</span><div class="tl-content"><div class="tl-title">🍜 Almuerzo rápido zona Beijing South</div><div class="tl-desc">Food courts en centros comerciales cerca de la estación. No arriesgar con restaurantes con lista de espera.</div></div></div>
+        <div class="tl-event warn"><span class="tl-time">13:15</span><div class="tl-content"><div class="tl-title">🚖 Taxi a Beijing South Station</div><div class="tl-note danger">⚠ Sábado = tráfico. Salir como máximo a las 13:15. El tren no espera.</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">15:00</span><div class="tl-content"><div class="tl-title">🚄 PEK → SHA · Tren Fuxing · 2h34m</div></div></div>
+        <div class="tl-event"><span class="tl-time">17:34</span><div class="tl-content"><div class="tl-title">Llegada Shanghai Hongqiao · Check-in hotel</div></div></div>
+        <div class="tl-event key"><span class="tl-time">21:00</span><div class="tl-content"><div class="tl-title">🌆 El Bund de noche + Cena</div><div class="tl-desc">Paseo frente al skyline de Pudong. De noche las torres iluminadas forman uno de los panoramas más espectaculares del mundo.</div></div></div>
+      </div>
+      <div class="tickets-box">
+        <div class="tickets-title">🎫 Tickets necesarios</div>
+        <div class="ticket-row"><span class="ticket-name">Ciudad Prohibida (guugong.com.cn)</span><span class="ticket-price">60 CNY/p.</span><span class="ticket-status ts-pending">Reservar urgente · Llevar pasaporte</span></div>
+        <div class="ticket-row"><span class="ticket-name">Tren AVE PEK→SHA · Fuxing · Beijing South</span><span class="ticket-price">~553 CNY/p.</span><span class="ticket-status ts-pending">Trip.com · Reservar con antelación</span></div>
+        <div class="ticket-row"><span class="ticket-name">Parque Jingshan (opcional · vistas desde arriba)</span><span class="ticket-price">2 CNY/p.</span><span class="ticket-status ts-info">En taquilla</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SHANGHÁI · DÍAS 9–10 ═══════ -->
+<div class="city-separator"><div class="sep-line"></div><span class="sep-label" style="color:var(--sh-color);border-color:var(--sh-color)">🇨🇳 Shanghái</span><div class="sep-line"></div></div>
+<div class="days-container">
+
+  <div class="day-card sh" id="dia9">
+    <div class="day-header" onclick="toggle('dia9')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--sh-color)">9</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Domingo, 5 de julio</div>
+        <div class="day-title">Shanghái · Yu Garden · French Concession · Bund</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-easy">Suave</span>
+          <span class="tag tag-km">~9 km a pie</span>
+          <span class="tag tag-weather">25–32 °C · Húmedo</span>
+          <span class="tag tag-rain">🌧 Lluvia frecuente</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Hotel noche</strong>Hotel Shanghái</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">25–32 °C</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Humedad</span>83–85%</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Lluvia</span><span class="w-rain-high">Frecuente</span></span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">UV</span>Extremo 🔴</span>
+        <span class="w-tip">⏰ Outdoor antes 11h y después 17h · museos al mediodía</span>
+      </div>
+      <div class="timeline">
+        <div class="tl-event new"><span class="tl-time">09:00</span><div class="tl-content"><div class="tl-title">🌿 Yu Garden (豫园) + Ciudad Antigua</div><div class="tl-desc">Jardín clásico Ming del siglo XVI, con rocallas, estanques y pabellones. Rodeado de mercadillo tradicional con xiaolongbao.</div><div class="tl-note">⏰ Ir temprano — a las 10 ya se llena completamente.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">11:30</span><div class="tl-content"><div class="tl-title">🏘️ Xintiandi · Brunch</div><div class="tl-desc">Barrio histórico de casas shikumen restauradas con cafeterías y restaurantes modernos.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">13:30</span><div class="tl-content"><div class="tl-title">🌳 French Concession (Frenchtown)</div><div class="tl-desc">El barrio más bonito de Shanghái: plátanos centenarios, cafeterías de especialidad, boutiques y arquitectura colonial francesa.</div><div class="tl-note tip">📍 Calle imprescindible: Wukang Road — la foto clásica con el boulevard de plátanos.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">16:00</span><div class="tl-content"><div class="tl-title">🌆 Shanghai Tower · Observatorio piso 118 · 580m</div><div class="tl-desc">El edificio más alto de China. Las vistas al Bund y a la ciudad son alucinantes desde esa altura.</div><div class="tl-note tip">💡 Reservar online. Al atardecer (17:30–18:30) es la mejor hora.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">18:00</span><div class="tl-content"><div class="tl-title">🌇 El Bund al atardecer · Mejores fotos del viaje</div><div class="tl-desc">El skyline de Pudong encendiéndose al caer el sol desde el paseo del Bund. 20 minutos que valen la pena.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">20:00</span><div class="tl-content"><div class="tl-title">🥟 Cena de despedida de China</div><div class="tl-desc">Xiaolongbao (dumplings de sopa) — el plato más típico de Shanghái. Crystal Jade o Din Tai Fung.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card sh" id="dia10">
+    <div class="day-header" onclick="toggle('dia10')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--sh-color)">10</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Lunes, 6 de julio</div>
+        <div class="day-title">Shanghái → Hong Kong · 🎂 Cena de cumpleaños</div>
+        <div class="day-tags">
+          <span class="tag tag-warn">⚠ Verificar aeropuerto SHA</span>
+          <span class="tag tag-weather">SHA: 30°C | HK: 27–32°C</span>
+          <span class="tag tag-warn">🎂 Noche especial</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Hotel noche</strong>Hotel Hong Kong</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">30 °C · SHA</span><span class="w-sep">→</span>
+        <span class="w-temp">27–32 °C · HK</span>
+        <span class="w-tip">👗 Look smart-casual en el carry-on para la cena de cumpleaños</span>
+      </div>
+      <div class="timeline">
+        <div class="tl-event warn"><span class="tl-time">09:30</span><div class="tl-content"><div class="tl-title">Check-out · Taxi al aeropuerto</div><div class="tl-note danger">⚠ CX349 puede salir de Pudong (PVG, 45–60 min) o Hongqiao (SHA, 30 min). Aeropuertos distintos. Verificar antes de pedir el taxi.</div></div></div>
+        <div class="tl-event transport"><span class="tl-time">13:20</span><div class="tl-content"><div class="tl-title">✈️ SHA → HKG · CX349 · 2h45m</div></div></div>
+        <div class="tl-event"><span class="tl-time">16:05</span><div class="tl-content"><div class="tl-title">Llegada Hong Kong · Check-in hotel</div></div></div>
+        <div class="tl-event new"><span class="tl-time">17:30</span><div class="tl-content"><div class="tl-title">🌆 Victoria Peak al atardecer</div><div class="tl-desc">Peak Tram desde Central. Las mejores vistas del skyline de HK justo al caer el sol.</div><div class="tl-note tip">💡 Reservar Peak Tram online. Bajar caminando por el sendero: 45 min.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">21:00</span><div class="tl-content"><div class="tl-title">🎂 Cena de cumpleaños</div><div class="tl-desc">Zona Central o Wan Chai para las mejores opciones de restaurante. Reservar mesa con antelación.</div><div class="tl-note tip">💡 HK tiene A/C glacial en restaurantes — llevar cárdigan para cenar cómoda.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ HONG KONG FINAL · DÍAS 11–12 ═══════ -->
+<div class="city-separator"><div class="sep-line"></div><span class="sep-label" style="color:var(--hk-color);border-color:var(--hk-color)">🇭🇰 Hong Kong · Despedida</span><div class="sep-line"></div></div>
+<div class="days-container">
+
+  <div class="day-card hk" id="dia11">
+    <div class="day-header" onclick="toggle('dia11')">
+      <div class="day-num-block"><span class="day-num" style="color:var(--hk-color)">11</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Martes, 7 de julio</div>
+        <div class="day-title">Último día HK · Dos despedidas, dos vuelos ✈️✈️</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-easy">Suave</span>
+          <span class="tag tag-weather">27–32 °C · Húmedo</span>
+          <span class="tag tag-warn">✈️ Vuelos escalonados</span>
+          <span class="tag tag-warn">🌀 Tifones activos</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Noche</strong>Aeropuerto HKG</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">27–32 °C</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Humedad</span>88%</span><span class="w-sep">·</span>
+        <span class="w-item"><span class="w-label">Lluvia</span><span class="w-rain-high">Probable</span></span><span class="w-sep">·</span>
+        <span class="w-item">🌀 Tifones activos</span>
+        <span class="w-tip">📱 App HK Observatory · revisar alertas cada mañana</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-block">
+          <div class="info-block-label">Dos opciones para el grupo</div>
+          <div class="info-block-content"><strong>Opción A:</strong> Acompañar a María Angélica al aeropuerto a las 18:00 y quedarse todos allí — cena en terminal y esperar el vuelo de las 00:45.<br><strong>Opción B:</strong> El grupo sigue en la ciudad hasta las 21:00 y María Angélica va antes con quienes quieran acompañarla.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">🧳 Maletas</div>
+          <div class="info-block-content"><strong>Opción A:</strong> Luggage storage del hotel (pedir aunque sea check-out).<br><strong>Opción B:</strong> Consigna del aeropuerto HKG — excelente, abierta 24h, bien señalizada en llegadas T1.<br><strong>María Angélica:</strong> lleva su maleta al aeropuerto directamente a las 18:00.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">⚠️ Tifones</div>
+          <div class="info-block-content">Señal T8 = transportes y atracciones cierran. No salir del hotel. Revisar Hong Kong Observatory cada mañana. Si hay T8: plan de contingencia en el aeropuerto.</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-event new"><span class="tl-time">Mañana</span><div class="tl-content"><div class="tl-title">🛍️ Temple Street · Ladies Market · Dim Sum</div><div class="tl-desc">Compras de última hora y souvenirs. Dim Sum final — Tim Ho Wan o Lin Heung Kui. Disfrutar HK sin prisas por la mañana.</div></div></div>
+        <div class="tl-event warn"><span class="tl-time">~Tarde</span><div class="tl-content"><div class="tl-title">🧳 Resolver logística de maletas · Decidir opción A o B</div><div class="tl-note danger">⚠ Coordinar antes del mediodía quién va con María Angélica y quién se queda. Guardar maletas del grupo en el hotel o en consigna HKG.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">~Tarde</span><div class="tl-content"><div class="tl-title">⛴️ Star Ferry + Avenue of Stars</div><div class="tl-desc">Si el tiempo lo permite — ferry de Tsim Sha Tsui a Central (10 min). El paseo frente al skyline de HK Island. Última foto de grupo del viaje.</div></div></div>
+
+        <div style="margin: 16px 0 8px; padding: 8px 12px; background: #fff3e0; border-left: 3px solid var(--red); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a4a10;">✈️ Vuelo 1 — María Angélica</div>
+        <div class="tl-event transport"><span class="tl-time">18:00</span><div class="tl-content"><div class="tl-title">🚂 María Angélica → Aeropuerto HKG</div><div class="tl-desc">Airport Express desde Hong Kong Station o Kowloon Station (~45 min). Llegar 2h30 antes del vuelo como mínimo.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">20:55</span><div class="tl-content"><div class="tl-title">✈️ HKG → CKG → MAD · Vuelo María Angélica</div><div class="tl-desc">Despedida en el aeropuerto. Buen viaje de vuelta 🥰</div></div></div>
+
+        <div style="margin: 16px 0 8px; padding: 8px 12px; background: #e8f0fe; border-left: 3px solid var(--bj-color); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bj-color);">✈️ Vuelo 2 — Resto del grupo</div>
+        <div class="tl-event transport"><span class="tl-time">21:00</span><div class="tl-content"><div class="tl-title">🚂 Resto del grupo → Aeropuerto HKG</div><div class="tl-desc">Airport Express. Llegar 2h30 antes del vuelo como mínimo. Si se fue a la ciudad: salir a las 21:00 como muy tarde.</div></div></div>
+        <div class="tl-event new"><span class="tl-time">22:30</span><div class="tl-content"><div class="tl-title">🍽️ Cena en el aeropuerto · Terminal 1</div><div class="tl-desc">Zona internacional T1 tiene buenas opciones: dim sum, noodles, o algo más internacional. Última cena del viaje.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card transit" id="dia12">
+    <div class="day-header" onclick="toggle('dia12')">
+      <div class="day-num-block"><span class="day-num">12</span><span class="day-word">Día</span></div>
+      <div class="day-meta">
+        <div class="day-date">Miércoles, 8 de julio</div>
+        <div class="day-title">HKG → Madrid · CX315 · Bienvenidos a casa 🏠</div>
+        <div class="day-tags">
+          <span class="tag tag-diff-rest">✈️ CX315 · Sale 00:45</span>
+          <span class="tag tag-diff-rest">🛬 MAD · Llega 09:15</span>
+        </div>
+      </div>
+      <div class="day-right"><span class="chevron">↓</span><div class="day-hotel"><strong>Llegada</strong>Madrid · 09:15</div></div>
+    </div>
+    <div class="day-body">
+      <div class="weather-strip">
+        <span class="w-temp">CX315 · 14h30m</span>
+        <span class="w-sep">·</span>
+        <span class="w-item">HKG <strong>00:45</strong> → MAD <strong>09:15</strong></span>
+        <span class="w-tip">🧦 Calcetines compresión obligatorios · dormir desde el principio</span>
+      </div>
+      <div class="timeline">
+        <div class="tl-event transport"><span class="tl-time">00:45</span><div class="tl-content"><div class="tl-title">✈️ HKG → MAD · CX315 · 14h30m</div><div class="tl-desc">Cathay Pacific directo a Madrid. Calcetines de compresión imprescindibles — las piernas acumulan mucho después de 12 días de viaje.</div><div class="tl-note tip">💡 Dormir desde el principio — 14h30m da para dormir bien y llegar descansada a Madrid.</div></div></div>
+        <div class="tl-event key"><span class="tl-time">09:15</span><div class="tl-content"><div class="tl-title">🎉 Llegada Madrid · T4 Barajas</div><div class="tl-desc">Bienvenidos a casa. 12 días, 6 ciudades, 8 personas — ¡qué viaje! 🥂</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LISTA DE COMPRAS -->
+<div class="shop-section">
+  <div class="tips-header">Lista de compras — antes del viaje</div>
+  <div id="shop-panel"></div>
+</div>
+
+<!-- TIPS GENERALES -->
+<div class="tips-section">
+  <div class="tips-header">Consejos generales del viaje</div>
+  <div class="tips-grid">
+    <div class="tip-card"><div class="tip-icon">🌐</div><div class="tip-title">VPN — antes de salir de España</div><div class="tip-text">Sin VPN en China continental: sin Google Maps, WhatsApp, Instagram ni Gmail. Instalar y activar ANTES de salir (ExpressVPN o NordVPN). En Hong Kong no hay restricciones.</div></div>
+    <div class="tip-card"><div class="tip-icon">📱</div><div class="tip-title">Apps imprescindibles</div><div class="tip-text">WeChat Pay o Alipay (pagar). DiDi (taxis). Baidu Maps (offline). Trip.com (trenes). Hong Kong MTR. Octopus Card para transporte en HK.</div></div>
+    <div class="tip-card"><div class="tip-icon">💴</div><div class="tip-title">Dinero</div><div class="tip-text">Cambiar CNY al llegar a Chongqing. HKD es distinto al CNY. Tarjeta sin comisiones (Revolut/Wise). WeChat Pay es lo más cómodo para el día a día.</div></div>
+    <div class="tip-card"><div class="tip-icon">🌧️</div><div class="tip-title">Clima en junio–julio</div><div class="tip-text">Caluroso y húmedo en toda la ruta (22–35°C). ZJJ es 5°C más fresco. Chubasquero plegable siempre en el bolso. Repelente de mosquitos para ZJJ y Fenghuang.</div></div>
+    <div class="tip-card"><div class="tip-icon">👟</div><div class="tip-title">Calzado en Zhangjiajie</div><div class="tip-text">Suela antideslizante OBLIGATORIA. Los caminos mojados son peligrosos. Sin falda ni vestido (viento fuerte + escaleras). Chubasquero mejor que paraguas en el monte.</div></div>
+    <div class="tip-card"><div class="tip-icon">🚌</div><div class="tip-title">Transporte en los parques</div><div class="tip-text">En ZJJ NF Park los eco-buses internos son gratuitos con el ticket de entrada. No es necesario caminar entre zonas — paradas bien señalizadas por todo el parque.</div></div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-logo">China &amp; Hong Kong, 2026</span>
+  <span class="footer-dates">27 Jun — 8 Jul · 12 días · 6 ciudades · 8 personas</span>
+</footer>
+
+<script>
+function toggle(id) { document.getElementById(id).classList.toggle('open'); }
+
+// ── CHECKLIST ──
+const STORE_KEY = 'china_hk_2026_v2';
+function loadState() { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch { return {}; } }
+function saveState(s) { localStorage.setItem(STORE_KEY, JSON.stringify(s)); }
+
+const TASKS = [
+  { id:'vpn',         urgent:true,  icon:'🌐', cat:'Urgente — antes de salir',  text:'Contratar VPN y activar en España',                    note:'ExpressVPN o NordVPN · Sin VPN: sin Google/WhatsApp en China' },
+  { id:'wechat',      urgent:true,  icon:'💳', cat:'Urgente — antes de salir',  text:'Configurar WeChat Pay o Alipay',                        note:'Vincular tarjeta europea antes de llegar a China' },
+  { id:'ngong',       urgent:true,  icon:'🚡', cat:'Tickets · Hong Kong',       text:'Teleférico Ngong Ping 360 · bajada (cabina cristal)',    note:'ngongping360.com · Día 1 · ~280–380 HKD/p.' },
+  { id:'bailong',     urgent:true,  icon:'⬆️', cat:'Tickets · Zhangjiajie',     text:'Bailong Elevator + NF Park 4 días + Tianzishan Cableway',note:'Trip.com o Klook · East Gate Línea B · 29 Jun · ~500–537 CNY/p.' },
+  { id:'tianmen',     urgent:true,  icon:'⛰️', cat:'Tickets · Zhangjiajie',     text:'Tianmen Mountain Línea B (alternativa teleférico)',      note:'discoverzhangjiajie.com · 30 Jun · ~288 CNY/p.' },
+  { id:'muralla',     urgent:true,  icon:'🏯', cat:'Tickets · Pekín',           text:'Muralla China Mutianyu · reservar online',               note:'mutianyugreatwall.com · 3 Jul · ~180 CNY/p.' },
+  { id:'forbidden',   urgent:true,  icon:'🏯', cat:'Tickets · Pekín',           text:'Ciudad Prohibida — reserva online nominal',              note:'guugong.com.cn · 4 Jul · 60 CNY/p. · Llevar pasaporte' },
+  { id:'tren_noc',    urgent:true,  icon:'🛏️', cat:'Trenes',                    text:'Tren nocturno ZJJ → PEK · Soft Sleeper 软卧',            note:'Noche 1 Jul · 21:35 ZJJ · 18h20m · Llega 15:55 PEK' },
+  { id:'tren_peksha', urgent:true,  icon:'🚄', cat:'Trenes',                    text:'Tren AVE PEK → SHA · Fuxing · Beijing South',            note:'4 Jul · Sale 15:00 · Llega 17:34 SHA Hongqiao · ~553 CNY/p.' },
+  { id:'tren_ckgzjj', urgent:false, icon:'🚄', cat:'Trenes',                    text:'Tren CKG → ZJJ',                                         note:'28 Jun · Sale 18:55 · 1h exacta' },
+  { id:'tren_zjjfur', urgent:false, icon:'🚄', cat:'Trenes',                    text:'Tren ZJJ → FUR',                                         note:'30 Jun · Sale 17:00 · 23 min' },
+  { id:'tren_furfen', urgent:false, icon:'🚄', cat:'Trenes',                    text:'Tren FUR → FEN',                                         note:'1 Jul · Sale 11:45 · 34 min · Llega 12:19' },
+  { id:'tren_fenzjj', urgent:false, icon:'🚄', cat:'Trenes',                    text:'Tren FEN → ZJJ (para tomar el nocturno)',                 note:'1 Jul · Sale 19:18 · 59 min · Llega ZJJ 20:17' },
+  { id:'peak_tram',   urgent:false, icon:'🚡', cat:'Tickets · Hong Kong',       text:'Peak Tram + Sky Terrace 428 · reservar online',          note:'thepeak.com.hk · Día 10 · 6 Jul · ~188 HKD/p.' },
+  { id:'cumple',      urgent:false, icon:'🎂', cat:'Reservas',                  text:'Cena de cumpleaños HK · reservar mesa',                  note:'Noche Día 10 · 6 Jul · Central o Wan Chai' },
+  { id:'pato_pekin',  urgent:false, icon:'🦆', cat:'Reservas',                  text:'Pato Pekín · Da Dong o Quanjude · reservar',             note:'Noche 2 Jul · Con 1 semana de antelación' },
+  { id:'octopus',     urgent:false, icon:'🎫', cat:'Tecnología',                text:'Octopus Card HK (o comprar al llegar)',                   note:'Transporte en HK · recomendable comprar en aeropuerto' },
+  { id:'didi',        urgent:false, icon:'🚖', cat:'Tecnología',                text:'Instalar DiDi (taxis China)',                             note:'Funciona con tarjeta extranjera · más fácil que parar taxis' },
+  { id:'revolut',     urgent:false, icon:'💳', cat:'Tecnología',                text:'Tarjeta sin comisiones (Revolut / Wise)',                 note:'Para sacar efectivo y pagar en HK' },
+  { id:'esim',        urgent:false, icon:'📡', cat:'Tecnología',                text:'SIM china o eSIM con datos para el grupo',               note:'Contratar antes de salir o en el aeropuerto HK' },
+  { id:'yuan',        urgent:false, icon:'💴', cat:'Logística',                 text:'Cambiar Yuan chino (CNY) en efectivo',                   note:'Mín. 500–800 CNY/persona · En aeropuerto CKG al llegar' },
+  { id:'maletas_zjj', urgent:false, icon:'🧳', cat:'Logística',                 text:'Confirmar consigna maletas hotel ZJJ — Día 4',            note:'Tras check-out, antes de ir a Tianmen' },
+];
+const CATS = [...new Set(TASKS.map(t=>t.cat))];
+function buildChecklist() {
+  const s=loadState(), pending=TASKS.filter(t=>!s[t.id]), done=TASKS.filter(t=>s[t.id]);
+  const urgentLeft=pending.filter(t=>t.urgent).length, pct=Math.round((done.length/TASKS.length)*100);
+  let html=`<div class="ck-progress"><div class="ck-progress-top"><span class="ck-prog-label">${pending.length===0?'🎉 <strong>¡Todo listo!</strong>':`<strong>${pending.length}</strong> tareas pendientes`}${urgentLeft>0?`<span class="ck-badge-urgent">⚠ ${urgentLeft} urgentes</span>`:''}${urgentLeft===0&&pending.length>0?'<span class="ck-badge-ok">✓ Nada urgente pendiente</span>':''}</span><span class="ck-prog-pct">${pct}%</span></div><div class="ck-bar-track"><div class="ck-bar-fill" style="width:${pct}%"></div></div></div>`;
+  if(pending.length>0){CATS.forEach(cat=>{const cp=pending.filter(t=>t.cat===cat);if(!cp.length)return;html+=`<div class="ck-cat">${cat}</div>`;cp.forEach(t=>{html+=taskHTML(t,false);});});}
+  else html+='<div class="ck-empty">No quedan tareas pendientes 🥳</div>';
+  if(done.length>0){html+=`<button class="ck-show-done" onclick="toggleDone(this)">Ver completadas (${done.length}) ↓</button><div class="ck-done-list" style="display:none">`;done.forEach(t=>{html+=taskHTML(t,true);});html+='</div>';}
+  document.getElementById('checklist-panel').innerHTML=html;
+}
+function taskHTML(t,isDone){return `<div class="ck-item ${isDone?'ck-done':''} ${t.urgent&&!isDone?'ck-urgent':''}" id="item_${t.id}"><button class="ck-circle" onclick="markTask('${t.id}',${!isDone})">${isDone?'✓':''}</button><div class="ck-body"><div class="ck-text">${t.icon} ${t.text}</div><div class="ck-note">${t.note}</div></div>${t.urgent&&!isDone?'<span class="ck-pill-urgent">URGENTE</span>':''}</div>`;}
+function markTask(id,checked){const el=document.getElementById('item_'+id);if(el){el.style.transition='opacity .25s,transform .25s';el.style.opacity='0';el.style.transform='translateX(12px)';}setTimeout(()=>{const s=loadState();s[id]=checked;saveState(s);buildChecklist();},240);}
+function toggleDone(btn){const list=btn.nextElementSibling;const open=list.style.display!=='none';list.style.display=open?'none':'block';const n=list.querySelectorAll('.ck-item').length;btn.textContent=open?`Ver completadas (${n}) ↓`:'Ocultar completadas ↑';}
+
+// ── SHOP LIST ──
+const SHOP_KEY = 'china_shop_2026';
+const SHOP = [
+  { cat:'Farmacia · salud', color:'#c13b2a', items:[
+    {id:'spf50',    u:true,  n:'Protector solar SPF 50+ (cara y cuerpo)',           note:'Mín. 2 botes. UV extremo en Pekín, SHA y Muralla. Renovar cada 2h.'},
+    {id:'deet',     u:true,  n:'Repelente mosquitos con DEET 30–40%',              note:'ZJJ y Fenghuang: mosquitos agresivos en verano'},
+    {id:'diarr',    u:true,  n:'Antidiarreico (Fortasec / Loperamida)',             note:'Cambio radical de alimentación — imprescindible'},
+    {id:'sales',    u:true,  n:'Sales de rehidratación oral',                       note:'Calor extremo en PEK y SHA — sobres fáciles de llevar'},
+    {id:'tiritas',  u:false, n:'Tiritas y esparadrapo',                             note:'Ampollas de tanto caminar'},
+    {id:'antihist', u:false, n:'Antihistamínico (Cetirizina o Loratadina)',          note:'Humedad, plantas, picaduras'},
+    {id:'ffp2',     u:false, n:'Mascarillas FFP2 (×5)',                             note:'Polución PEK + aviones'},
+    {id:'spray_anti',u:false,n:'Spray antiinflamatorio tópico',                     note:'Para quiste de Baker — vuelos largos y mucho caminar'},
+    {id:'omepra',   u:false, n:'Omeprazol o protector gástrico',                   note:'Cambio de dieta + picante de Chongqing'},
+  ]},
+  { cat:'Calzado y ropa', color:'#2a6b6e', items:[
+    {id:'tenis_grip',u:true, n:'Tenis con suela antideslizante',                    note:'OBLIGATORIO para ZJJ y Tianmen. La suela lisa es peligrosa.'},
+    {id:'calc_comp', u:true, n:'Calcetines de compresión (×2 pares)',               note:'Vuelos largos (MAD→HKG y vuelta) + quiste de Baker'},
+    {id:'chubasc',   u:true, n:'Chubasquero ultraligero plegable',                  note:'Mejor que paraguas en el monte. Lluvia frecuente toda la ruta.'},
+    {id:'dryfits',   u:false, n:'Camisetas dry-fit transpirables (×5–6)',           note:'Secado rápido. El calor es extremo — las camisetas normales empapan.'},
+    {id:'smartcas',  u:false, n:'Look smart-casual (cena cumpleaños HK)',           note:'Algo que no se arrugue: lino, jersey fino'},
+    {id:'pijama',    u:false, n:'Ropa cómoda para el tren nocturno',               note:'Pijama o chándal. El A/C va muy fuerte.'},
+  ]},
+  { cat:'Tecnología', color:'#4a3a8a', items:[
+    {id:'adaptador', u:true, n:'Adaptador de enchufes tipo A (China)',              note:'China usa tipo A (plano). Imprescindible para cargar todo.'},
+    {id:'powerbank', u:true, n:'Power bank 20.000 mAh',                            note:'Días muy largos sin enchufes — el más grande que permita el avión'},
+    {id:'auriculares',u:false,n:'Auriculares con cancelación de ruido',             note:'Tren nocturno + vuelos'},
+    {id:'antifaz',   u:false, n:'Antifaz para dormir',                             note:'Tren nocturno y vuelo de vuelta'},
+    {id:'tapones',   u:false, n:'Tapones de oído',                                 note:'Backup para el tren nocturno'},
+    {id:'ladron_usb',u:false, n:'Ladrón USB múltiple o regleta',                   note:'Para cargar todo el grupo a la vez en el hotel'},
+  ]},
+  { cat:'Accesorios de viaje', color:'#1a6a3a', items:[
+    {id:'paraguas',  u:true, n:'Paraguas ultracompacto plegable',                   note:'Siempre en el bolso. Lluvia en todas las ciudades.'},
+    {id:'gorra',     u:true, n:'Gorra o sombrero de ala ancha',                    note:'Sol intenso en Pekín, SHA y la Muralla. UV índice 11.'},
+    {id:'botellin',  u:true, n:'Botellín reutilizable 750ml',                      note:'Hidratación extrema cada día — rellenar en hoteles'},
+    {id:'gafas_sol', u:false, n:'Gafas de sol (UV400)',                            note:'UV extremo en verano chino'},
+    {id:'rinionera', u:false, n:'Riñonera o bolso antirrobo',                      note:'Mercados concurridos HK, SHA y PEK'},
+    {id:'bolsas_zip',u:false, n:'Bolsas Ziploc grandes (×5)',                      note:'Ropa mojada, zapatos sucios, snacks'},
+    {id:'toalla_micro',u:false,n:'Toalla de microfibra',                           note:'Secado rápido, ligera, polivalente'},
+    {id:'snacks',    u:false, n:'Snacks de viaje (barritas, frutos secos)',         note:'Para el tren CKG→ZJJ, el nocturno y los días en el parque'},
+  ]},
+  { cat:'Skincare (clima húmedo)', color:'#7a4a1a', items:[
+    {id:'serum_vitc',u:true, n:'Sérum vitamina C (mañana)',                        note:'Oxidación del viaje + UV extremo. Aplicar bajo el SPF.'},
+    {id:'hidrat_gel',u:true, n:'Hidratante ligera (gel, no crema densa)',           note:'Clima muy húmedo — evitar cremas pesadas'},
+    {id:'desod_extra',u:true,n:'Desodorante extra (×2)',                            note:'El calor extremo los agota rápido'},
+    {id:'bruma',     u:false, n:'Bruma facial refrescante',                        note:'Ideal para el calor de PEK, SHA y los días al sol'},
+    {id:'toallitas', u:false, n:'Toallitas húmedas faciales',                      note:'Refrescante en el tren y el avión'},
+    {id:'maquillaje_wp',u:false,n:'Maquillaje mínimo waterproof',                  note:'El calor y la humedad no perdonan los productos normales'},
+  ]},
+];
+function loadShop(){try{return JSON.parse(localStorage.getItem(SHOP_KEY))||{};}catch{return{};}}
+function saveShop(s){localStorage.setItem(SHOP_KEY,JSON.stringify(s));}
+function buildShop(){
+  const s=loadShop();
+  const total=SHOP.reduce((a,c)=>a+c.items.length,0);
+  const checked=SHOP.reduce((a,c)=>a+c.items.filter(i=>s[i.id]).length,0);
+  const pct=Math.round((checked/total)*100);
+  let html=`<div class="ck-progress"><div class="ck-progress-top"><span class="ck-prog-label">${checked===total?'🛍️ <strong>¡Lista completa!</strong>':`<strong>${total-checked}</strong> artículos pendientes de comprar`}</span><span class="ck-prog-pct">${pct}%</span></div><div class="ck-bar-track"><div class="ck-bar-fill" style="width:${pct}%"></div></div></div>`;
+  html+='<div class="shop-grid">';
+  SHOP.forEach(cat=>{
+    html+=`<div class="shop-cat"><div class="shop-cat-header" style="background:${cat.color}18;color:${cat.color}">${cat.cat}</div><div class="shop-cat-body">`;
+    cat.items.forEach(item=>{
+      const done=!!s[item.id];
+      html+=`<div class="shop-item ${done?'done':''}" id="shop_${item.id}"><div class="shop-cb" onclick="markShop('${item.id}',${!done})">${done?'✓':''}</div><div><div class="shop-name">${item.n}</div><div class="shop-note">${item.note}</div></div>${item.u&&!done?'<span class="shop-urgent">CLAVE</span>':''}</div>`;
+    });
+    html+='</div></div>';
+  });
+  html+='</div>';
+  document.getElementById('shop-panel').innerHTML=html;
+}
+function markShop(id,checked){const el=document.getElementById('shop_'+id);if(el){el.style.transition='opacity .2s';el.style.opacity='0';}setTimeout(()=>{const s=loadShop();s[id]=checked;saveShop(s);buildShop();},180);}
+
+document.addEventListener('DOMContentLoaded',()=>{buildChecklist();buildShop();});
+</script>
+</body>
+</html>
