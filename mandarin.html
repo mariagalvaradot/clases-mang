@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中文 · Guía de Viaje</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap');
+
+  :root {
+    --ink: #1a1014;
+    --rice: #f7f3ee;
+    --red: #c0392b;
+    --red-soft: #e8d5d2;
+    --gold: #b8962e;
+    --gold-pale: #f5edda;
+    --mist: #dde4e8;
+    --stone: #6b7280;
+    --jade: #2d6a5a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--rice);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--ink);
+    color: var(--rice);
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '中';
+    position: absolute;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 280px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.04);
+    top: -40px; right: -20px;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .hero-label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 6vw, 48px);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 13px;
+    color: rgba(247,243,238,0.55);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  /* SEARCH */
+  .search-wrap {
+    padding: 20px 16px 0;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .search-input {
+    width: 100%;
+    padding: 13px 18px;
+    border: 1.5px solid var(--mist);
+    border-radius: 40px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: var(--gold); }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 6px;
+    padding: 16px 16px 0;
+    max-width: 680px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--mist);
+    background: white;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+  }
+  .tab.active {
+    background: var(--ink);
+    color: var(--rice);
+    border-color: var(--ink);
+  }
+  .tab:hover:not(.active) {
+    border-color: var(--stone);
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+
+  /* SECTION */
+  .section {
+    display: none;
+  }
+  .section.visible { display: block; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--mist);
+  }
+  .section-icon {
+    font-size: 22px;
+    width: 42px; height: 42px;
+    background: var(--ink);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .section-desc {
+    font-size: 12px;
+    color: var(--stone);
+    margin-top: 2px;
+  }
+
+  /* PHRASE CARD */
+  .phrase-card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    border: 1px solid #ede8e2;
+    cursor: pointer;
+    transition: all 0.18s;
+    position: relative;
+  }
+  .phrase-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  }
+  .phrase-card.urgent {
+    border-left: 3px solid var(--red);
+  }
+  .phrase-card.tip {
+    border-left: 3px solid var(--jade);
+  }
+
+  .phrase-spanish {
+    font-size: 13px;
+    color: var(--stone);
+    margin-bottom: 5px;
+    font-weight: 400;
+  }
+  .phrase-chinese {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .phrase-pinyin {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 500;
+    font-style: italic;
+  }
+  .phrase-note {
+    font-size: 11px;
+    color: var(--stone);
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--mist);
+    line-height: 1.5;
+  }
+
+  /* BADGE */
+  .badge {
+    position: absolute;
+    top: 12px; right: 14px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 10px;
+  }
+  .badge.sos { background: var(--red-soft); color: var(--red); }
+  .badge.tip { background: #d4e8e2; color: var(--jade); }
+  .badge.pay { background: var(--gold-pale); color: var(--gold); }
+  .badge.pro { background: #e8e4f0; color: #5b4fa0; }
+
+  /* NUMBER GRID */
+  .number-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .num-card {
+    background: white;
+    border: 1px solid #ede8e2;
+    border-radius: 10px;
+    padding: 12px 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .num-card:hover { border-color: var(--gold); background: var(--gold-pale); }
+  .num-arabic { font-size: 16px; font-weight: 600; }
+  .num-chinese { font-family: 'Noto Sans SC', sans-serif; font-size: 20px; font-weight: 700; }
+  .num-pinyin { font-size: 10px; color: var(--gold); font-style: italic; }
+
+  /* TIPS BOX */
+  .tips-box {
+    background: var(--ink);
+    color: var(--rice);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+  }
+  .tips-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: var(--gold);
+  }
+  .tips-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .tips-box li {
+    font-size: 13px;
+    line-height: 1.5;
+    padding-left: 16px;
+    position: relative;
+    color: rgba(247,243,238,0.85);
+  }
+  .tips-box li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 11px; top: 2px; }
+
+  /* SEARCH RESULTS */
+  .search-results-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--ink);
+    color: var(--rice);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+    z-index: 999;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* COPY hint */
+  .copy-hint {
+    font-size: 10px;
+    color: var(--mist);
+    text-align: right;
+    margin-top: -4px;
+    margin-bottom: 14px;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--mist);
+    margin: 18px 0;
+  }
+
+  .subsection-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin: 18px 0 10px;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">Guía de Comunicación · China 2026</div>
+  <h1>Lo que <em>realmente</em><br>necesitas decir</h1>
+  <div class="hero-sub">Toca cualquier frase para copiarla en chino · 中文实用手册</div>
+</div>
+
+<div class="search-wrap">
+  <input class="search-input" type="text" placeholder="Buscar frase... (ej: baño, hotel, precio)" id="searchInput" oninput="handleSearch(this.value)">
+</div>
+
+<div class="tabs" id="tabsContainer">
+  <div class="tab active" onclick="showSection('all', this)">Todo</div>
+  <div class="tab" onclick="showSection('basics', this)">Básico</div>
+  <div class="tab" onclick="showSection('transport', this)">Transporte</div>
+  <div class="tab" onclick="showSection('food', this)">Comida</div>
+  <div class="tab" onclick="showSection('hotel', this)">Hotel</div>
+  <div class="tab" onclick="showSection('shopping', this)">Compras</div>
+  <div class="tab" onclick="showSection('emergency', this)">🆘 Urgente</div>
+  <div class="tab" onclick="showSection('numbers', this)">Números</div>
+</div>
+
+<div class="content" id="mainContent">
+  <!-- SEARCH RESULTS -->
+  <div class="section visible" id="section-search" style="display:none">
+    <div class="search-results-label">Resultados de búsqueda</div>
+    <div id="searchResults"></div>
+  </div>
+
+  <!-- ALL -->
+  <div class="section visible" id="section-all"></div>
+
+  <!-- BASICS -->
+  <div class="section" id="section-basics">
+    <div class="section-header">
+      <div class="section-icon">👋</div>
+      <div>
+        <div class="section-title">Frases Básicas</div>
+        <div class="section-desc">Cortesía, saludos y respuestas esenciales</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRANSPORT -->
+  <div class="section" id="section-transport">
+    <div class="section-header">
+      <div class="section-icon">🚇</div>
+      <div>
+        <div class="section-title">Transporte</div>
+        <div class="section-desc">Metro, taxi, tren de alta velocidad, aeropuerto</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOD -->
+  <div class="section" id="section-food">
+    <div class="section-header">
+      <div class="section-icon">🥢</div>
+      <div>
+        <div class="section-title">Comida y Restaurantes</div>
+        <div class="section-desc">Pedir, alergias, pagar, recomendar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOTEL -->
+  <div class="section" id="section-hotel">
+    <div class="section-header">
+      <div class="section-icon">🏨</div>
+      <div>
+        <div class="section-title">Hotel y Alojamiento</div>
+        <div class="section-desc">Check-in, WiFi, problemas, peticiones</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOPPING -->
+  <div class="section" id="section-shopping">
+    <div class="section-header">
+      <div class="section-icon">🛍️</div>
+      <div>
+        <div class="section-title">Compras y Pagos</div>
+        <div class="section-desc">Precios, regatear, pago, recibo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMERGENCY -->
+  <div class="section" id="section-emergency">
+    <div class="section-header">
+      <div class="section-icon">🆘</div>
+      <div>
+        <div class="section-title">Urgencias</div>
+        <div class="section-desc">Situaciones críticas · muéstralo directamente al pantalla</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NUMBERS -->
+  <div class="section" id="section-numbers">
+    <div class="section-header">
+      <div class="section-icon">🔢</div>
+      <div>
+        <div class="section-title">Números</div>
+        <div class="section-desc">Del 0 al 100 + cantidades útiles</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">¡Copiado al portapapeles 📋</div>
+
+<script>
+const phrases = [
+  // === BASICS ===
+  { id:'b1', cat:'basics', spanish:'Hola / Buenos días', chinese:'你好', pinyin:'Nǐ hǎo', note:'Úsalo a cualquier hora. "早上好" (Zǎoshang hǎo) es específico para mañana.' },
+  { id:'b2', cat:'basics', spanish:'Gracias', chinese:'谢谢', pinyin:'Xièxie', note:'Doble xie. Los chinos no lo usan tanto entre conocidos, pero sí contigo.' },
+  { id:'b3', cat:'basics', spanish:'De nada', chinese:'不客气', pinyin:'Bú kèqì', note:'Literalmente: "no seas formal".' },
+  { id:'b4', cat:'basics', spanish:'Por favor', chinese:'请', pinyin:'Qǐng', note:'Ponlo al inicio de la frase o señala mientras lo dices.' },
+  { id:'b5', cat:'basics', spanish:'Perdón / Disculpe', chinese:'对不起', pinyin:'Duìbuqǐ', note:'Para pedir perdón real. Para pasar entre gente: 借过 (Jiè guò).' },
+  { id:'b6', cat:'basics', spanish:'Sí / No', chinese:'是 / 不是', pinyin:'Shì / Bú shì', note:'Para negaciones también: 没有 (Méiyǒu) = no hay / no tengo.' },
+  { id:'b7', cat:'basics', spanish:'No entiendo', chinese:'我听不懂', pinyin:'Wǒ tīng bù dǒng', note:'Muy útil. Puedes añadir señas apuntando a tu oído.' },
+  { id:'b8', cat:'basics', spanish:'¿Habla inglés?', chinese:'你会说英语吗？', pinyin:'Nǐ huì shuō Yīngyǔ ma?', note:'En ciudades grandes hay más probabilidad. En pueblos como Fenghuang, poca.' },
+  { id:'b9', cat:'basics', spanish:'¿Puede escribirlo?', chinese:'可以写下来吗？', pinyin:'Kěyǐ xiě xiàlái ma?', note:'Ideal para nombres de lugares o precios que no entiendes al oído.' },
+  { id:'b10', cat:'basics', spanish:'Un momento, por favor', chinese:'等一下', pinyin:'Děng yīxià', note:'También sirve para decir "espera" de forma amable.' },
+  { id:'b11', cat:'basics', spanish:'¿Dónde está el baño?', chinese:'洗手间在哪里？', pinyin:'Xǐshǒujiān zài nǎlǐ?', flag:'pro', note:'Aprende esta de memoria. Los baños públicos en China son libres y frecuentes.' },
+
+  // === TRANSPORT ===
+  { id:'t1', cat:'transport', spanish:'Quiero ir a [destino]', chinese:'我要去___', pinyin:'Wǒ yào qù ___', note:'Muestra el nombre del lugar en chino en el teléfono.' },
+  { id:'t2', cat:'transport', spanish:'¿Cuánto cuesta el taxi a [destino]?', chinese:'到___打车多少钱？', pinyin:'Dào ___ dǎchē duōshǎo qián?', note:'Siempre confirma el precio antes o asegúrate de que use taxímetro.' },
+  { id:'t3', cat:'transport', spanish:'Llévame aquí (mostrando dirección)', chinese:'请带我去这里', pinyin:'Qǐng dài wǒ qù zhèlǐ', note:'Muestra la pantalla del mapa o texto con la dirección.' },
+  { id:'t4', cat:'transport', spanish:'¿Dónde está la estación de metro?', chinese:'地铁站在哪里？', pinyin:'Dìtiě zhàn zài nǎlǐ?', flag:'pro', note:'Metro en chino: 地铁 (dìtiě). Muy eficiente en Hong Kong, Shanghai y Beijing.' },
+  { id:'t5', cat:'transport', spanish:'¿Dónde está la estación de tren?', chinese:'火车站在哪里？', pinyin:'Huǒchē zhàn zài nǎlǐ?', note:'El tren de alta velocidad (高铁, gāotiě) es diferente de tren normal.' },
+  { id:'t6', cat:'transport', spanish:'¿Cuánto tiempo tarda?', chinese:'需要多长时间？', pinyin:'Xūyào duō cháng shíjiān?', note:'Para transporte, distancias o esperas.' },
+  { id:'t7', cat:'transport', spanish:'Para aquí, por favor', chinese:'在这里停', pinyin:'Zài zhèlǐ tíng', note:'Para el taxi. Señala el lugar mientras lo dices.' },
+  { id:'t8', cat:'transport', spanish:'El aeropuerto', chinese:'机场', pinyin:'Jīchǎng', note:'Hay apps como Didi (el Uber chino) que funcionan con tarjeta extranjera.' },
+  { id:'t9', cat:'transport', spanish:'¿Cuál línea tomo?', chinese:'我应该坐哪条线？', pinyin:'Wǒ yīnggāi zuò nǎ tiáo xiàn?', note:'En metros, los carteles suelen tener inglés también.' },
+  { id:'t10', cat:'transport', spanish:'Necesito un recibo', chinese:'我需要发票', pinyin:'Wǒ xūyào fāpiào', note:'Importante en taxis. El recibo tiene el número del vehículo por si hay problema.' },
+
+  // === FOOD ===
+  { id:'f1', cat:'food', spanish:'Una mesa para [número] personas', chinese:'___个人的桌子', pinyin:'___ gè rén de zhuōzi', note:'Pon el número delante o muestra dedos.' },
+  { id:'f2', cat:'food', spanish:'La carta / el menú', chinese:'菜单', pinyin:'Càidān', note:'Muchos restaurantes tienen menús con foto o tienen QR code.' },
+  { id:'f3', cat:'food', spanish:'¿Qué recomienda?', chinese:'你推荐什么？', pinyin:'Nǐ tuījiàn shénme?', note:'Siempre funciona. Los locales saben qué es el plato estrella.' },
+  { id:'f4', cat:'food', spanish:'Esto, por favor (señalando)', chinese:'这个，谢谢', pinyin:'Zhège, xièxie', note:'El método más efectivo con menús de foto.' },
+  { id:'f5', cat:'food', spanish:'No picante, por favor', chinese:'不辣，谢谢', pinyin:'Bù là, xièxie', flag:'pro', note:'¡ESENCIAL! El picante en Chongqing es brutal. Dilo siempre primero.' },
+  { id:'f6', cat:'food', spanish:'Poco picante', chinese:'微辣', pinyin:'Wēi là', note:'Si quieres probar pero con precaución. En Chongqing incluso esto puede picar.' },
+  { id:'f7', cat:'food', spanish:'Sin mariscos / sin cerdo', chinese:'不要海鲜 / 不要猪肉', pinyin:'Bú yào hǎixiān / Bú yào zhūròu', note:'Útil si hay alergias o restricciones. El cerdo es ingrediente base en China.' },
+  { id:'f8', cat:'food', spanish:'Soy vegetariano/a', chinese:'我是素食者', pinyin:'Wǒ shì sùshí zhě', note:'Difícil en China. Muchos platos "vegetarianos" llevan caldo de carne. Confirma siempre.' },
+  { id:'f9', cat:'food', spanish:'¡Está delicioso!', chinese:'很好吃！', pinyin:'Hěn hào chī!', note:'A los locales les encanta escuchar esto. Ganarás sonrisas al instante.' },
+  { id:'f10', cat:'food', spanish:'La cuenta, por favor', chinese:'买单，谢谢', pinyin:'Mǎidān, xièxie', note:'O escanea el QR de la mesa con WeChat/Alipay directamente.' },
+  { id:'f11', cat:'food', spanish:'Agua sin gas', chinese:'常温水', pinyin:'Cháng wēn shuǐ', note:'El agua con gas es rara. El té suele ser gratis en muchos restaurantes.' },
+  { id:'f12', cat:'food', spanish:'Una cerveza, por favor', chinese:'一杯啤酒，谢谢', pinyin:'Yī bēi píjiǔ, xièxie', note:'La Tsingtao y Snow son las marcas locales más comunes.' },
+
+  // === HOTEL ===
+  { id:'h1', cat:'hotel', spanish:'Tengo una reserva', chinese:'我有预订', pinyin:'Wǒ yǒu yùdìng', note:'Muestra el email de confirmación con el QR si lo tienes.' },
+  { id:'h2', cat:'hotel', spanish:'¿A qué hora es el check-out?', chinese:'退房时间是几点？', pinyin:'Tuìfáng shíjiān shì jǐ diǎn?', note:'Generalmente 12:00. Puedes pedir late check-out (晚退房, wǎn tuìfáng).' },
+  { id:'h3', cat:'hotel', spanish:'¿Cuál es la contraseña del WiFi?', chinese:'WiFi密码是什么？', pinyin:'WiFi mìmǎ shì shénme?', flag:'pay', note:'O apunta a la pegatina con la clave. La mayoría tiene WiFi en recepción.' },
+  { id:'h4', cat:'hotel', spanish:'El aire acondicionado no funciona', chinese:'空调坏了', pinyin:'Kōngtiáo huài le', note:'También: 热水器坏了 (rèshuǐqì huài le) = el calentador de agua está roto.' },
+  { id:'h5', cat:'hotel', spanish:'Necesito más toallas', chinese:'我需要更多毛巾', pinyin:'Wǒ xūyào gèng duō máojīn', note:'También: 枕头 (zhěntóu) = almohada, 毯子 (tǎnzi) = manta.' },
+  { id:'h6', cat:'hotel', spanish:'¿Puede guardar mi equipaje?', chinese:'可以帮我保管行李吗？', pinyin:'Kěyǐ bāng wǒ bǎoguǎn xíngli ma?', note:'Muy útil el último día o cuando llegas antes del check-in.' },
+  { id:'h7', cat:'hotel', spanish:'Necesito que me despierten a las [hora]', chinese:'请___点叫醒我', pinyin:'Qǐng ___ diǎn jiàoxǐng wǒ', note:'O pon la alarma en el teléfono y muestra la hora.' },
+  { id:'h8', cat:'hotel', spanish:'¿Dónde está el desayuno?', chinese:'早餐在哪里？', pinyin:'Zǎocān zài nǎlǐ?', note:'En China el desayuno suele ser bufé con opciones occidentales y chinas.' },
+
+  // === SHOPPING ===
+  { id:'s1', cat:'shopping', spanish:'¿Cuánto cuesta esto?', chinese:'这个多少钱？', pinyin:'Zhège duōshǎo qián?', flag:'pay', note:'La pregunta más usada del viaje.' },
+  { id:'s2', cat:'shopping', spanish:'Es muy caro', chinese:'太贵了', pinyin:'Tài guì le', note:'Dicho con cara, abre la negociación. En mercados tradicionales, regatea siempre.' },
+  { id:'s3', cat:'shopping', spanish:'¿Puede hacerme un descuento?', chinese:'可以便宜一点吗？', pinyin:'Kěyǐ piányí yīdiǎn ma?', flag:'pay', note:'En tiendas oficiales no hay regateo. En mercados de souvenirs, sí.' },
+  { id:'s4', cat:'shopping', spanish:'¿Acepta WeChat Pay / Alipay?', chinese:'可以用微信支付或支付宝吗？', pinyin:'Kěyǐ yòng Wēixìn zhīfù huò Zhīfùbǎo ma?', flag:'pay', note:'En China el efectivo casi no se usa. WeChat Pay o Alipay son imprescindibles.' },
+  { id:'s5', cat:'shopping', spanish:'¿Tiene talla más grande / pequeña?', chinese:'有大一号的吗？/ 有小一号的吗？', pinyin:'Yǒu dà yī hào de ma? / Yǒu xiǎo yī hào de ma?', note:'Las tallas chinas suelen ser más pequeñas. Pruébate siempre.' },
+  { id:'s6', cat:'shopping', spanish:'Me lo llevo', chinese:'我买这个', pinyin:'Wǒ mǎi zhège', note:'Cierra la compra.' },
+  { id:'s7', cat:'shopping', spanish:'Solo estoy mirando', chinese:'我只是看看', pinyin:'Wǒ zhǐ shì kànkàn', note:'Para que los vendedores no te persigan.' },
+  { id:'s8', cat:'shopping', spanish:'¿Tiene bolsa?', chinese:'有袋子吗？', pinyin:'Yǒu dàizi ma?', note:'En muchos sitios cobran la bolsa o no la dan.' },
+
+  // === EMERGENCY ===
+  { id:'e1', cat:'emergency', spanish:'¡Llame a la policía!', chinese:'快叫警察！', pinyin:'Kuài jiào jǐngchá!', flag:'sos', note:'Policía: 110 | Emergencias médicas: 120 | Bomberos: 119' },
+  { id:'e2', cat:'emergency', spanish:'¡Necesito un médico!', chinese:'我需要看医生！', pinyin:'Wǒ xūyào kàn yīshēng!', flag:'sos', note:'Hospital: 医院 (yīyuàn). En emergencias, muestra esta frase.' },
+  { id:'e3', cat:'emergency', spanish:'Me han robado', chinese:'我被偷了', pinyin:'Wǒ bèi tōu le', flag:'sos', note:'Cartera: 钱包 (qiánbāo). Pasaporte: 护照 (hùzhào). Teléfono: 手机 (shǒujī).' },
+  { id:'e4', cat:'emergency', spanish:'Estoy perdido/a', chinese:'我迷路了', pinyin:'Wǒ mílù le', flag:'sos', note:'Muestra la pantalla del hotel o destino mientras lo dices.' },
+  { id:'e5', cat:'emergency', spanish:'Soy alérgico/a a [alimento]', chinese:'我对___过敏', pinyin:'Wǒ duì ___ guòmǐn', flag:'sos', note:'Cacahuetes: 花生. Marisco: 海鲜. Gluten: 麸质. Lácteos: 乳制品.' },
+  { id:'e6', cat:'emergency', spanish:'Necesito ir al hospital', chinese:'我需要去医院', pinyin:'Wǒ xūyào qù yīyuàn', flag:'sos', note:'Muéstralo al taxista con el mapa del hospital más cercano.' },
+  { id:'e7', cat:'emergency', spanish:'No me encuentro bien', chinese:'我不舒服', pinyin:'Wǒ bù shūfu', flag:'sos', note:'Cabeza: 头 (tóu). Estómago: 肚子 (dùzi). Fiebre: 发烧 (fāshāo).' },
+  { id:'e8', cat:'emergency', spanish:'¿Dónde está la embajada española?', chinese:'西班牙大使馆在哪里？', pinyin:'Xībānyá dàshǐguǎn zài nǎlǐ?', flag:'sos', note:'Beijing: +86 10 6532 1986. Hong Kong: +852 2525 3041.' },
+
+  // === TRANSPORT TIPS ===
+  { id:'tt1', cat:'transport', spanish:'Zhangjiajie / Salida Este', chinese:'张家界 / 东门', pinyin:'Zhāngjiājiè / Dōngmén', note:'Vuestra entrada principal al parque.' },
+  { id:'tt2', cat:'transport', spanish:'Elevador Bailong', chinese:'百龙天梯', pinyin:'Bǎilóng Tiāntī', note:'El elevador más alto del mundo. Ir temprano para evitar colas.' },
+  { id:'tt3', cat:'transport', spanish:'¿Dónde compro los tickets?', chinese:'在哪里买票？', pinyin:'Zài nǎlǐ mǎi piào?', note:'En Zhangjiajie y atracciones, conviene tener los tickets ya comprados en Trip.com.' },
+];
+
+const numbers = [
+  {n:0, c:'零', p:'líng'}, {n:1, c:'一', p:'yī'}, {n:2, c:'二', p:'èr'},
+  {n:3, c:'三', p:'sān'}, {n:4, c:'四', p:'sì'}, {n:5, c:'五', p:'wǔ'},
+  {n:6, c:'六', p:'liù'}, {n:7, c:'七', p:'qī'}, {n:8, c:'八', p:'bā'},
+  {n:9, c:'九', p:'jiǔ'}, {n:10, c:'十', p:'shí'}, {n:11, c:'十一', p:'shíyī'},
+  {n:12, c:'十二', p:'shíèr'}, {n:15, c:'十五', p:'shíwǔ'}, {n:20, c:'二十', p:'èrshí'},
+  {n:25, c:'二十五', p:'èrshíwǔ'}, {n:30, c:'三十', p:'sānshí'}, {n:50, c:'五十', p:'wǔshí'},
+  {n:100, c:'一百', p:'yībǎi'}, {n:200, c:'二百', p:'èrbǎi'}
+];
+
+function buildCard(phrase, showCat = false) {
+  const flagMap = { sos:'🆘 Urgente', tip:'Consejo', pay:'💳 Pago', pro:'⭐ Esencial' };
+  const badge = phrase.flag ? `<span class="badge ${phrase.flag}">${flagMap[phrase.flag]}</span>` : '';
+  const catLabels = { basics:'Básico', transport:'Transporte', food:'Comida', hotel:'Hotel', shopping:'Compras', emergency:'Urgencias' };
+  const catBadge = showCat ? `<div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:6px;font-weight:600;">${catLabels[phrase.cat]||''}</div>` : '';
+  return `
+    <div class="phrase-card ${phrase.flag==='sos'?'urgent':''} ${phrase.flag==='tip'?'tip':''}" onclick="copyPhrase('${phrase.chinese}', '${phrase.spanish}')">
+      ${badge}
+      ${catBadge}
+      <div class="phrase-spanish">${phrase.spanish}</div>
+      <div class="phrase-chinese">${phrase.chinese}</div>
+      <div class="phrase-pinyin">${phrase.pinyin}</div>
+      ${phrase.note ? `<div class="phrase-note">💡 ${phrase.note}</div>` : ''}
+    </div>`;
+}
+
+function buildNumbers() {
+  let html = '<div class="number-grid">';
+  numbers.forEach(n => {
+    html += `<div class="num-card" onclick="copyPhrase('${n.c}', '${n.n}')">
+      <div class="num-arabic">${n.n}</div>
+      <div class="num-chinese">${n.c}</div>
+      <div class="num-pinyin">${n.p}</div>
+    </div>`;
+  });
+  html += '</div>';
+
+  html += `
+  <div class="tips-box">
+    <h3>Cómo funcionan los números chinos</h3>
+    <ul>
+      <li>21 = 二十一 (èrshíyī) · literalmente "dos-diez-uno"</li>
+      <li>35 = 三十五 (sānshíwǔ) · "tres-diez-cinco"</li>
+      <li>100 = 一百 (yībǎi) · 1000 = 一千 (yīqiān)</li>
+      <li>El 8 (八, bā) es de muy buena suerte. El 4 (四, sì) suena como "muerte" — evítalo.</li>
+      <li>Para precios, muestra los dedos o escribe en tu teléfono y pásaselo.</li>
+    </ul>
+  </div>`;
+  return html;
+}
+
+function buildTips() {
+  return `
+  <div class="tips-box">
+    <h3>📱 Apps imprescindibles antes de salir</h3>
+    <ul>
+      <li><strong>WeChat Pay / Alipay:</strong> Configura antes de llegar. Sin esto, pagar será difícil.</li>
+      <li><strong>VPN activa:</strong> Google, WhatsApp e Instagram están bloqueados en China continental.</li>
+      <li><strong>Google Translate offline:</strong> Descarga el paquete chino para usar sin internet.</li>
+      <li><strong>Pleco:</strong> Diccionario chino offline con reconocimiento de caracteres por cámara.</li>
+      <li><strong>Didi:</strong> Taxi en China. Acepta tarjeta extranjera con configuración previa.</li>
+      <li><strong>Maps.me offline:</strong> En Hong Kong funciona Google Maps normal.</li>
+    </ul>
+  </div>
+  <div class="tips-box" style="margin-top:12px;">
+    <h3>🗣️ Cómo comunicarte sin hablar</h3>
+    <ul>
+      <li>Muestra el texto chino directamente en la pantalla — funciona siempre mejor que hablar.</li>
+      <li>Google Translate cámara: apunta al texto y te lo traduce en tiempo real.</li>
+      <li>Para precios: usa calculadora o escribe en tu teléfono y pásaselo.</li>
+      <li>Los jóvenes en ciudades suelen entender algo de inglés. En pueblos, casi nada.</li>
+      <li>Señas + sonrisa + paciencia = combo ganador en cualquier situación.</li>
+    </ul>
+  </div>`;
+}
+
+function buildSection(catId) {
+  const filtered = catId === 'all' ? phrases : phrases.filter(p => p.cat === catId);
+  const showCat = catId === 'all';
+
+  if (catId === 'numbers') {
+    return buildNumbers();
+  }
+
+  let html = '';
+
+  if (catId === 'all') {
+    html += buildTips();
+    html += '<hr class="divider">';
+    html += '<div class="copy-hint">Toca cualquier tarjeta para copiar en chino 📋</div>';
+    html += '<div class="section-header" style="margin-top:0"><div class="section-icon">🗂️</div><div><div class="section-title">Todas las frases</div><div class="section-desc">Usa el buscador o las pestañas para filtrar</div></div></div>';
+  }
+
+  if (catId === 'emergency') {
+    html += `<div class="tips-box" style="margin-bottom:16px;border:2px solid var(--red);">
+      <h3 style="color:var(--red)">📞 Números de emergencia China</h3>
+      <ul>
+        <li><strong>Policía:</strong> 110</li>
+        <li><strong>Ambulancia / Médico:</strong> 120</li>
+        <li><strong>Bomberos:</strong> 119</li>
+        <li><strong>Embajada España Beijing:</strong> +86 10 6532 1986</li>
+        <li><strong>Embajada España HK:</strong> +852 2525 3041</li>
+        <li>Muestra la pantalla directamente a cualquier persona de ayuda</li>
+      </ul>
+    </div>`;
+  }
+
+  const catOrder = ['basics','transport','food','hotel','shopping','emergency'];
+  
+  if (showCat) {
+    catOrder.forEach(cat => {
+      const catPhrases = phrases.filter(p => p.cat === cat);
+      catPhrases.forEach(p => { html += buildCard(p, true); });
+    });
+  } else {
+    filtered.forEach(p => { html += buildCard(p, false); });
+  }
+
+  return html;
+}
+
+function showSection(catId, tabEl) {
+  // hide search
+  document.getElementById('section-search').style.display = 'none';
+  document.getElementById('searchInput').value = '';
+
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  if (tabEl) tabEl.classList.add('active');
+
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+  const target = document.getElementById('section-' + catId);
+  if (target) {
+    if (!target.dataset.built) {
+      target.innerHTML = (catId !== 'all' && catId !== 'numbers') 
+        ? target.innerHTML + buildSection(catId) 
+        : target.innerHTML + buildSection(catId);
+      target.dataset.built = '1';
+    }
+    target.classList.add('visible');
+  }
+}
+
+function handleSearch(val) {
+  const q = val.toLowerCase().trim();
+  const searchSec = document.getElementById('section-search');
+  const allSec = document.getElementById('section-all');
+
+  if (!q) {
+    searchSec.style.display = 'none';
+    allSec.classList.add('visible');
+    return;
+  }
+
+  document.querySelectorAll('.section').forEach(s => { s.classList.remove('visible'); s.style.display = ''; });
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+  const matches = phrases.filter(p =>
+    p.spanish.toLowerCase().includes(q) ||
+    p.chinese.includes(q) ||
+    p.pinyin.toLowerCase().includes(q) ||
+    (p.note && p.note.toLowerCase().includes(q))
+  );
+
+  let html = '';
+  if (matches.length === 0) {
+    html = '<div style="text-align:center;color:var(--stone);padding:32px;font-size:14px;">No encontré frases con esa búsqueda.<br><span style="font-size:12px;">Prueba con: baño, taxi, precio, médico...</span></div>';
+  } else {
+    html = `<div class="search-results-label">${matches.length} resultado${matches.length>1?'s':''}</div>`;
+    matches.forEach(p => { html += buildCard(p, true); });
+  }
+
+  searchSec.innerHTML = html;
+  searchSec.style.display = 'block';
+}
+
+function copyPhrase(chinese, spanish) {
+  navigator.clipboard.writeText(chinese).then(() => {
+    const t = document.getElementById('toast');
+    t.textContent = `"${chinese}" copiado 📋`;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }).catch(() => {
+    const t = document.getElementById('toast');
+    t.textContent = `${chinese}`;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  });
+}
+
+// Build initial "all" section
+document.getElementById('section-all').innerHTML += buildSection('all');
+document.getElementById('section-all').dataset.built = '1';
+</script>
+</body>
+</html>
