@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rutina — María</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6EFE4;
+    --paper-dim:#EFE6D6;
+    --ink:#26201B;
+    --ink-soft:#5B5148;
+    --amber:#9C6B2E;
+    --amber-deep:#7A5322;
+    --clay:#A34B3D;
+    --clay-deep:#833A2F;
+    --moss:#3E5945;
+    --moss-deep:#2F4535;
+    --sand:#EAE0CC;
+    --line: rgba(38,32,27,0.14);
+    --shadow: 0 1px 2px rgba(38,32,27,0.06), 0 6px 20px rgba(38,32,27,0.05);
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:2.5rem 1.4rem 4rem;
+  }
+
+  /* ---------- Header ---------- */
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 0.6rem;
+  }
+
+  h1.name{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(2.6rem, 9vw, 3.6rem);
+    line-height:0.98;
+    margin:0 0 0.5rem;
+    letter-spacing:-0.01em;
+  }
+
+  h1.name em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--amber-deep);
+  }
+
+  .subtitle{
+    font-size:0.98rem;
+    color:var(--ink-soft);
+    max-width:38ch;
+    margin:0 0 1.1rem;
+  }
+
+  .tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.45rem;
+    margin-bottom:2.1rem;
+  }
+
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:0.32rem 0.62rem;
+    border:1px solid var(--line);
+    border-radius:100px;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,0.4);
+  }
+
+  /* ---------- Weekly strip (signature element) ---------- */
+  .week-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:1.3rem 1.3rem 1.4rem;
+    box-shadow:var(--shadow);
+    margin-bottom:2.2rem;
+  }
+
+  .week-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:1rem;
+    gap:0.6rem;
+    flex-wrap:wrap;
+  }
+
+  .week-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  #today-banner{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1rem;
+    font-weight:500;
+  }
+
+  #today-banner.is-activa{ color:var(--clay-deep); }
+  #today-banner.is-calma{ color:var(--moss-deep); }
+
+  .days{
+    display:flex;
+    justify-content:space-between;
+    gap:0.4rem;
+  }
+
+  .day{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.4rem;
+  }
+
+  .day .dot{
+    width:2.1rem;
+    height:2.1rem;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    font-weight:500;
+    color:#fff;
+    position:relative;
+    transition:transform 0.15s ease;
+  }
+
+  .day.activa .dot{ background:var(--clay); }
+  .day.calma .dot{ background:var(--moss); }
+
+  .day.is-today .dot{
+    transform:scale(1.14);
+    box-shadow:0 0 0 3px var(--paper), 0 0 0 4.5px var(--ink);
+  }
+
+  .day .lab{
+    font-size:0.62rem;
+    color:var(--ink-soft);
+    letter-spacing:0.03em;
+  }
+
+  .week-legend{
+    display:flex;
+    gap:1.2rem;
+    margin-top:1rem;
+    padding-top:0.9rem;
+    border-top:1px solid var(--line);
+  }
+
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:0.4rem;
+    font-size:0.76rem;
+    color:var(--ink-soft);
+  }
+
+  .legend-dot{
+    width:0.6rem;
+    height:0.6rem;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+
+  .legend-dot.activa{ background:var(--clay); }
+  .legend-dot.calma{ background:var(--moss); }
+
+  /* ---------- Section cards ---------- */
+  .section{
+    margin-bottom:2rem;
+  }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:0.6rem;
+    margin-bottom:0.9rem;
+  }
+
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.5rem;
+    margin:0;
+  }
+
+  .section-head .sub{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  .steps{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+
+  .step{
+    display:flex;
+    gap:0.9rem;
+    padding:0.85rem 1.1rem;
+    border-bottom:1px solid var(--line);
+  }
+
+  .step:last-child{ border-bottom:none; }
+
+  .step .n{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--amber-deep);
+    flex-shrink:0;
+    width:1.3rem;
+    padding-top:0.1rem;
+  }
+
+  .step .txt strong{
+    font-weight:600;
+    display:block;
+  }
+
+  .step .txt span{
+    font-size:0.88rem;
+    color:var(--ink-soft);
+  }
+
+  /* Night split */
+  .night-split{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1rem;
+  }
+
+  @media (min-width:640px){
+    .night-split{ grid-template-columns:1fr 1fr; }
+  }
+
+  .night-card{
+    border-radius:16px;
+    padding:1.1rem 1.1rem 1.2rem;
+    box-shadow:var(--shadow);
+    position:relative;
+    border:1px solid var(--line);
+  }
+
+  .night-card.activa{ background:linear-gradient(180deg,#fff,#FBF1EE); }
+  .night-card.calma{ background:linear-gradient(180deg,#fff,#F0F4F1); }
+
+  .night-card .nc-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:0.7rem;
+  }
+
+  .night-card h3{
+    font-family:'Fraunces', serif;
+    font-size:1.05rem;
+    font-weight:600;
+    margin:0;
+  }
+
+  .night-card.activa h3{ color:var(--clay-deep); }
+  .night-card.calma h3{ color:var(--moss-deep); }
+
+  .hoy-pill{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:0.2rem 0.5rem;
+    border-radius:100px;
+    color:#fff;
+    display:none;
+  }
+
+  .night-card.activa .hoy-pill{ background:var(--clay); }
+  .night-card.calma .hoy-pill{ background:var(--moss); }
+  .night-card.is-today-card .hoy-pill{ display:inline-block; }
+  .night-card.is-today-card{ box-shadow:0 0 0 2px var(--ink), var(--shadow); }
+
+  .night-card ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+
+  .night-card li{
+    font-size:0.88rem;
+    padding:0.4rem 0;
+    border-bottom:1px dashed var(--line);
+  }
+
+  .night-card li:last-child{ border-bottom:none; }
+
+  .night-card li strong{ font-weight:600; }
+
+  /* ---------- Callout: ajuste hormonal ---------- */
+  .callout{
+    background:var(--sand);
+    border-radius:16px;
+    padding:1.1rem 1.2rem;
+    margin-bottom:2rem;
+  }
+
+  .callout .eyebrow{ margin-bottom:0.4rem; }
+
+  .callout p{
+    margin:0;
+    font-size:0.92rem;
+  }
+
+  /* ---------- Rules ---------- */
+  .rules{
+    display:flex;
+    flex-direction:column;
+    gap:0.55rem;
+  }
+
+  .rule{
+    display:flex;
+    gap:0.7rem;
+    align-items:flex-start;
+    font-size:0.9rem;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:0.65rem 0.9rem;
+  }
+
+  .rule .x{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--clay-deep);
+    font-weight:500;
+    flex-shrink:0;
+  }
+
+  /* ---------- Two-col lists ---------- */
+  .two-col{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1.2rem;
+  }
+
+  @media (min-width:640px){
+    .two-col{ grid-template-columns:1fr 1fr; }
+  }
+
+  .mini-list h3{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 0.6rem;
+    font-weight:500;
+  }
+
+  .mini-list ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+
+  .mini-list li{
+    font-size:0.88rem;
+    padding:0.5rem 0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .mini-list li:last-child{ border-bottom:none; }
+
+  .mini-list li span{
+    display:block;
+    color:var(--ink-soft);
+    font-size:0.8rem;
+    margin-top:0.1rem;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    margin-top:2.6rem;
+    padding-top:1.2rem;
+    border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    color:var(--ink-soft);
+    letter-spacing:0.02em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .day .dot{ transition:none; }
+  }
+
+  @media print{
+    body{ background:#fff; }
+    .week-card, .steps, .night-card, .rule{ box-shadow:none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Rutina diaria · AM / PM</p>
+  <h1 class="name">Tu rutina, <em>ordenada</em></h1>
+  <p class="subtitle">Piel seca, con textura y poros marcados — más ojeras y algún granito puntual con la regla.</p>
+  <div class="tags">
+    <span class="tag">Seca</span>
+    <span class="tag">Textura</span>
+    <span class="tag">Poros marcados</span>
+    <span class="tag">Ojeras</span>
+    <span class="tag">Acné hormonal puntual</span>
+  </div>
+
+  <!-- WEEKLY STRIP -->
+  <div class="week-card">
+    <div class="week-top">
+      <span class="week-label">Esta semana</span>
+      <span id="today-banner"></span>
+    </div>
+    <div class="days" id="days-row">
+      <div class="day activa" data-day="1"><div class="dot">L</div><div class="lab">Activa</div></div>
+      <div class="day calma"  data-day="2"><div class="dot">M</div><div class="lab">Calma</div></div>
+      <div class="day activa" data-day="3"><div class="dot">X</div><div class="lab">Activa</div></div>
+      <div class="day calma"  data-day="4"><div class="dot">J</div><div class="lab">Calma</div></div>
+      <div class="day activa" data-day="5"><div class="dot">V</div><div class="lab">Activa</div></div>
+      <div class="day calma"  data-day="6"><div class="dot">S</div><div class="lab">Calma</div></div>
+      <div class="day calma"  data-day="0"><div class="dot">D</div><div class="lab">Calma</div></div>
+    </div>
+    <div class="week-legend">
+      <span class="legend-item"><span class="legend-dot activa"></span>Noche activa — retinol</span>
+      <span class="legend-item"><span class="legend-dot calma"></span>Noche calma — hidratación</span>
+    </div>
+  </div>
+
+  <!-- MAÑANA -->
+  <div class="section">
+    <div class="section-head">
+      <h2>Mañana</h2>
+      <span class="sub">Todos los días</span>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><div class="txt"><strong>Limpieza</strong><span>Neutrogena Hydro Boost Gel</span></div></div>
+      <div class="step"><div class="n">02</div><div class="txt"><strong>Tónico</strong><span>Hada Labo Gokujyun — en capas, con palmaditas</span></div></div>
+      <div class="step"><div class="n">03</div><div class="txt"><strong>Contorno de ojos</strong><span>The Ordinary Caffeine Solution 5% + EGCG — toquecitos, no frotar</span></div></div>
+      <div class="step"><div class="n">04</div><div class="txt"><strong>Vitamina C</strong><span>Melano CC</span></div></div>
+      <div class="step"><div class="n">05</div><div class="txt"><strong>Hidratante</strong><span>CeraVe</span></div></div>
+      <div class="step"><div class="n">06</div><div class="txt"><strong>SPF</strong><span>Beauty of Joseon Relief Sun Aqua Fresh — innegociable, más aún con retinol</span></div></div>
+    </div>
+  </div>
+
+  <!-- NOCHE -->
+  <div class="section">
+    <div class="section-head">
+      <h2>Noche</h2>
+      <span class="sub">Doble limpieza siempre</span>
+    </div>
+    <div class="steps" style="margin-bottom:1rem;">
+      <div class="step"><div class="n">01</div><div class="txt"><strong>Desmaquillante</strong><span>Cosmia (leche) — quita protector y restos del día</span></div></div>
+      <div class="step"><div class="n">02</div><div class="txt"><strong>Limpieza real</strong><span>Neutrogena Hydro Boost Gel</span></div></div>
+      <div class="step"><div class="n">03</div><div class="txt"><strong>Contorno de ojos</strong><span>The Ordinary Caffeine Solution 5% + EGCG</span></div></div>
+    </div>
+
+    <div class="night-split">
+      <div class="night-card activa" id="card-activa">
+        <div class="nc-head">
+          <h3>Noche activa</h3>
+          <span class="hoy-pill">Hoy</span>
+        </div>
+        <ul>
+          <li><strong>Retinol Boost</strong> de Neutrogena</li>
+          <li><strong>Cicaplast</strong> si notas tirantez o picor — antes o después, como colchón</li>
+          <li><strong>CeraVe</strong> para sellar</li>
+        </ul>
+      </div>
+      <div class="night-card calma" id="card-calma">
+        <div class="nc-head">
+          <h3>Noche calma</h3>
+          <span class="hoy-pill">Hoy</span>
+        </div>
+        <ul>
+          <li><strong>Glow Serum</strong> Beauty of Joseon — propolis + niacinamida</li>
+          <li><strong>PDRN Toner Pad</strong> Medicube</li>
+          <li><strong>CeraVe</strong> para sellar</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- AJUSTE HORMONAL -->
+  <div class="callout">
+    <p class="eyebrow">Con la regla</p>
+    <p>Cuando salgan los granitos hormonales: pausa el retinol esos días. Quédate solo con CeraVe + Cicaplast + SPF hasta que baje la inflamación.</p>
+  </div>
+
+  <!-- REGLAS DE ORO -->
+  <div class="section">
+    <div class="section-head"><h2>Reglas de oro</h2></div>
+    <div class="rules">
+      <div class="rule"><span class="x">NO</span><span>Retinol/retinal + ácidos exfoliantes el mismo día</span></div>
+      <div class="rule"><span class="x">NO</span><span>Melano CC + Minuyu Vitamin C Yuzu el mismo día — elige uno</span></div>
+      <div class="rule"><span class="x">NO</span><span>Minuyu Retinol Blueberry la misma noche que el Retinol Boost</span></div>
+      <div class="rule"><span class="x">SÍ</span><span>SPF por la mañana sin excepción — el retinol aumenta la sensibilidad al sol</span></div>
+    </div>
+  </div>
+
+  <!-- EXTRAS Y PENDIENTES -->
+  <div class="two-col">
+    <div class="mini-list">
+      <h3>Extras · de reserva</h3>
+      <ul>
+        <li>Minuyu Vitamin C Yuzu<span>Reserva para cuando se acabe el Melano CC</span></li>
+        <li>Minuyu Collagen Watermelon<span>Capa extra de hidratación, opcional</span></li>
+        <li>Minuyu Retinol Blueberry<span>Muy ocasional — nunca junto al Retinol Boost</span></li>
+      </ul>
+    </div>
+    <div class="mini-list">
+      <h3>Pendientes por comprar</h3>
+      <ul>
+        <li>Exfoliante suave (PHA/BHA)<span>1–2x/semana — la pieza que falta para textura y poros</span></li>
+        <li>Relief Sun de repuesto<span>Se acaba rápido con uso diario</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    Si el Retinol Boost deja de dar resultados visibles en unos meses, el siguiente paso es Avène RetrinAL 0.1 — ya tienes tolerancia comprobada, puedes saltarte la versión suave.
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var today = new Date().getDay(); // 0 = domingo ... 6 = sábado
+    var activaDays = [1,3,5];
+    var isActiva = activaDays.indexOf(today) !== -1;
+
+    var days = document.querySelectorAll('.day');
+    days.forEach(function(d){
+      if(parseInt(d.getAttribute('data-day'),10) === today){
+        d.classList.add('is-today');
+      }
+    });
+
+    var banner = document.getElementById('today-banner');
+    banner.textContent = isActiva ? 'Hoy toca noche activa' : 'Hoy toca noche calma';
+    banner.classList.add(isActiva ? 'is-activa' : 'is-calma');
+
+    document.getElementById(isActiva ? 'card-activa' : 'card-calma').classList.add('is-today-card');
+  })();
+</script>
+</body>
+</html>
