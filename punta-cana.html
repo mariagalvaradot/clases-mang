@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Punta Cana 🌺 Mi viaje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFF4F7;
+    --fucsia:#F2467E;
+    --coral:#FF8A6B;
+    --rosa:#FFD7E3;
+    --rosa-line:#FFDFE9;
+    --oro:#D9A24E;
+    --palma:#2E7D64;
+    --ink:#4A3540;
+    --card:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;padding-bottom:86px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px}
+
+  /* ---------- HERO ---------- */
+  .hero{background:linear-gradient(135deg,#F2467E 0%,#FF6E85 55%,#FFA36B 100%);color:#fff;padding:34px 0 46px;position:relative;overflow:hidden;border-radius:0 0 32px 32px}
+  .hero .palms{position:absolute;right:-8px;bottom:-14px;font-size:6rem;opacity:.22;transform:rotate(-8deg)}
+  .hero .sun{position:absolute;left:-40px;top:-40px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.35),transparent 70%)}
+  .eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#FFE3B8;margin-bottom:8px;font-weight:600}
+  .hero h1{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:2.1rem;line-height:1.1}
+  .route{display:flex;align-items:center;gap:12px;font-family:'Fraunces',serif;margin-top:10px}
+  .route .code{font-size:1.5rem;font-weight:600}
+  .route .plane{color:#FFE3B8}
+  .dates{margin-top:12px;font-size:.86rem;display:grid;gap:2px;opacity:.95}
+  .dates b{color:#FFE3B8;font-weight:600}
+
+  .count{margin-top:18px;background:rgba(255,255,255,.16);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:16px 18px}
+  .count-label{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:#FFE3B8;margin-bottom:6px;font-weight:600}
+  .count-nums{display:flex;gap:16px;font-family:'Fraunces',serif}
+  .cn{text-align:center}
+  .cn b{display:block;font-size:2rem;font-weight:600;line-height:1}
+  .cn span{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+
+  /* ---------- progreso ---------- */
+  .progress-card{background:var(--card);border:1px solid var(--rosa-line);border-radius:18px;padding:16px 18px;margin:-26px auto 22px;position:relative;z-index:2;box-shadow:0 10px 26px rgba(242,70,126,.14)}
+  .progress-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .progress-top h2{font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;font-weight:600;color:var(--fucsia)}
+  .progress-top span{font-size:.85rem;font-weight:700;color:var(--fucsia)}
+  .bar{height:9px;border-radius:99px;background:var(--rosa);overflow:hidden}
+  .bar i{display:block;height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--fucsia),var(--coral),var(--oro));transition:width .35s ease}
+
+  /* ---------- quick cards inicio ---------- */
+  .quick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+  .qcard{background:var(--card);border:1px solid var(--rosa-line);border-radius:18px;padding:16px 14px;text-align:center;cursor:pointer;box-shadow:0 4px 14px rgba(242,70,126,.07);transition:transform .15s}
+  .qcard:active{transform:scale(.97)}
+  .qcard .qi{font-size:1.7rem}
+  .qcard h3{font-family:'Fraunces',serif;font-size:.98rem;font-weight:600;color:var(--ink);margin-top:4px}
+  .qcard p{font-size:.76rem;color:#A9899A;margin-top:2px}
+
+  /* ---------- secciones/checklists ---------- */
+  section{margin-bottom:28px}
+  .sec-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+  .sec-head h2{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:600;color:var(--ink)}
+  .sec-head .cnt{margin-left:auto;font-size:.76rem;font-weight:700;color:var(--fucsia);background:var(--rosa);border-radius:99px;padding:2px 10px}
+  .sec-note{font-size:.84rem;color:#A9899A;margin:-4px 0 12px 24px}
+  .items{background:var(--card);border:1px solid var(--rosa-line);border-radius:18px;overflow:hidden;box-shadow:0 4px 14px rgba(242,70,126,.06)}
+  .item{display:flex;align-items:flex-start;gap:12px;padding:11px 16px;border-bottom:1px solid #FFF0F5;cursor:pointer;user-select:none}
+  .item:last-child{border-bottom:none}
+  .box{width:22px;height:22px;border-radius:50%;border:2px solid #F3C4D6;flex-shrink:0;margin-top:2px;display:grid;place-items:center;transition:all .15s}
+  .item.done .box{background:var(--fucsia);border-color:var(--fucsia)}
+  .item.done .box::after{content:"♥";color:#fff;font-size:.72rem}
+  .item.done .txt{opacity:.42;text-decoration:line-through}
+  .txt{font-size:.94rem}
+  .txt small{display:block;font-size:.78rem;color:#B294A4;text-decoration:none}
+  .tag{display:inline-block;font-size:.64rem;font-weight:700;letter-spacing:.05em;padding:1px 8px;border-radius:99px;vertical-align:2px;margin-left:6px}
+  .tag.buy{background:#FFE9C7;color:#9A6A12}
+  .tag.new{background:var(--rosa);color:var(--fucsia)}
+  .tag.hand{background:#DFF2EA;color:var(--palma)}
+
+  .page-title{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:1.6rem;color:var(--fucsia);margin:24px 0 4px}
+  .page-sub{font-size:.86rem;color:#A9899A;margin-bottom:18px}
+
+  /* ---------- outfits ---------- */
+  .outfit{background:var(--card);border:1px solid var(--rosa-line);border-radius:18px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 14px rgba(242,70,126,.06)}
+  .outfit h3{font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;font-weight:600;color:var(--ink)}
+  .outfit .when{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:2px}
+  .outfit p{font-size:.9rem;margin-top:6px}
+  .outfit .tip{font-size:.83rem;background:var(--rosa);border-radius:12px;padding:8px 12px;margin-top:10px;color:#A02B58}
+
+  /* ---------- plan cuenta atrás ---------- */
+  .day{display:flex;gap:14px}
+  .day-num{width:54px;flex-shrink:0;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .day-circle{width:46px;height:46px;border-radius:50%;background:var(--card);border:2px solid var(--rosa);display:grid;place-items:center;font-family:'Fraunces',serif}
+  .day-circle b{font-size:1.15rem;color:var(--fucsia);line-height:1}
+  .day-num span{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#B294A4;margin-top:3px;font-weight:600}
+  .day-line{width:2px;background:var(--rosa);margin:6px auto 0;flex:1;min-height:12px}
+  .day-body{flex:1;padding-bottom:18px}
+
+  /* ---------- tab bar ---------- */
+  nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--rosa-line);box-shadow:0 -6px 20px rgba(242,70,126,.1);z-index:10}
+  .tabs{max-width:680px;margin:0 auto;display:flex}
+  .tab{flex:1;text-align:center;padding:9px 2px 10px;cursor:pointer;color:#C9A6B6;font-size:.62rem;font-weight:600;letter-spacing:.02em}
+  .tab .ti{display:block;font-size:1.3rem;line-height:1.25;filter:grayscale(.9);opacity:.75;transition:all .15s}
+  .tab.active{color:var(--fucsia)}
+  .tab.active .ti{filter:none;opacity:1;transform:translateY(-2px)}
+  .view{display:none;animation:fade .25s ease}
+  .view.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  footer{margin-top:30px;text-align:center;font-size:.8rem;color:#C9A6B6;padding-bottom:16px}
+  footer b{color:var(--fucsia)}
+</style>
+</head>
+<body>
+
+<!-- ============ VISTA INICIO ============ -->
+<div class="view active" id="view-inicio">
+  <div class="hero">
+    <div class="sun"></div><div class="palms">🌴</div>
+    <div class="wrap">
+      <div class="eyebrow">31 jul — 8 ago · 2026</div>
+      <h1>Punta Cana, allá voy 🌺</h1>
+      <div class="route"><span class="code">MAD</span><span class="plane">✈</span><span class="code">PUJ</span></div>
+      <div class="dates">
+        <div><b>Ida:</b> jue 31 jul · 17:00 → 19:30 (hora local)</div>
+        <div><b>Vuelta:</b> vie 7 ago · 21:20 → sáb 8 ago · 11:45</div>
+        <div><b>Traslados:</b> la compañía te recoge en ambos aeropuertos</div>
+      </div>
+      <div class="count">
+        <div class="count-label">Cuenta atrás para despegar</div>
+        <div class="count-nums">
+          <div class="cn"><b id="cd-d">–</b><span>días</span></div>
+          <div class="cn"><b id="cd-h">–</b><span>horas</span></div>
+          <div class="cn"><b id="cd-m">–</b><span>min</span></div>
+          <div class="cn"><b id="cd-s">–</b><span>seg</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="progress-card">
+      <div class="progress-top"><h2>Todo bajo control…</h2><span id="prog-txt">0 / 0</span></div>
+      <div class="bar"><i id="prog-bar"></i></div>
+    </div>
+    <div class="quick">
+      <div class="qcard" data-go="maletas"><span class="qi">👜</span><h3>Maletas</h3><p id="q-maletas">0 cosas listas</p></div>
+      <div class="qcard" data-go="compras"><span class="qi">🛍️</span><h3>Por comprar y hacer</h3><p id="q-compras">0 pendientes</p></div>
+      <div class="qcard" data-go="outfits"><span class="qi">👗</span><h3>Outfits</h3><p>7 planes con look</p></div>
+      <div class="qcard" data-go="plan"><span class="qi">📅</span><h3>Cuenta atrás</h3><p id="q-plan">día a día</p></div>
+    </div>
+    <div class="outfit" style="border-color:#FFE3B8;background:#FFFBF3">
+      <div class="when" style="color:var(--oro)">Recuerda siempre</div>
+      <p>💍 Joyas, botiquín, documentos y tech van <b>en el equipaje de mano</b>, nunca facturados.<br>🔌 RD usa enchufe americano (tipo A/B) y 110V: adaptador sí o sí.<br>🧴 Líquidos grandes (protector solar de cuerpo) → maleta facturada.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VISTA MALETAS ============ -->
+<div class="view" id="view-maletas">
+  <div class="wrap">
+    <h2 class="page-title">Organización de maletas 👜</h2>
+    <p class="page-sub">Tus 4 neceseres + maleta + equipaje de mano. Marca cada cosa al guardarla.</p>
+    <div id="sections"></div>
+  </div>
+</div>
+
+<!-- ============ VISTA COMPRAS/PENDIENTES ============ -->
+<div class="view" id="view-compras">
+  <div class="wrap">
+    <h2 class="page-title">Por comprar & por hacer 🛍️</h2>
+    <p class="page-sub">Si lo marcas aquí, se marca solo en las demás hojas (y al revés).</p>
+    <div id="shopping"></div>
+  </div>
+</div>
+
+<!-- ============ VISTA OUTFITS ============ -->
+<div class="view" id="view-outfits">
+  <div class="wrap">
+    <h2 class="page-title">Outfits por día 👗</h2>
+    <p class="page-sub">Tu estilo: sexy chic con toque flowy de verano.</p>
+
+    <div class="outfit">
+      <div class="when">Jue 31 jul · Vuelo de ida</div>
+      <h3>Comfy pero chic ✈️</h3>
+      <p>Pantalón fluido o conjunto de punto + top básico + zapatillas blancas + chaqueta o sudadera ligera (el avión enfría). Joyas mínimas doradas.</p>
+    </div>
+
+    <div class="outfit">
+      <div class="when">Excursión · Isla Saona</div>
+      <h3>Sirena de catálogo 🐚</h3>
+      <p>Tu bikini favorito (el que mejor foto da) + pareo anudado + vestido playero corto encima. Pamela o gorra, gafas de sol, chanclas y bolso de playa.</p>
+      <div class="tip">💊 Biodramina 30 min antes del barco · funda impermeable para el móvil · efectivo pequeño para propinas · repelente y protector solar en el bolso.</div>
+    </div>
+
+    <div class="outfit">
+      <div class="when">Noche · Coco Bongo</div>
+      <h3>Sexy total 💃</h3>
+      <p>Vestido negro o satinado ceñido (cut-out o escote espalda) + tacón de bloque o plataforma cómoda + clutch pequeño. Labio marcado y ondas sueltas.</p>
+      <div class="tip">👠 Mejor tacón ancho que stiletto: vas a bailar horas. En el clutch solo lo imprescindible.</div>
+    </div>
+
+    <div class="outfit">
+      <div class="when">Día completo · Santo Domingo</div>
+      <h3>Flowy colonial 🌸</h3>
+      <p>Vestido flowy midi en tono claro o estampado + sandalias planas MUY cómodas (la Zona Colonial es de adoquines) + sombrero + bolso cruzado pegado al cuerpo.</p>
+      <div class="tip">⛪ Si entras a la Catedral: hombros cubiertos. Un pañuelo o pareo fino en el bolso lo soluciona.</div>
+    </div>
+
+    <div class="outfit">
+      <div class="when">7 noches · Cenas en el resort</div>
+      <h3>Sexy chic en rotación ✨</h3>
+      <p>4 vestidos de noche que combinen entre sí: uno satinado, uno de lino ajustado, uno con aberturas y tu comodín. Alterna joyas (dorado una noche, minimal otra) y peinado para multiplicar looks.</p>
+      <div class="tip">🍸 Los restaurantes à la carte del todo incluido suelen pedir elegante-casual de noche: con estos vestidos vas sobrada.</div>
+    </div>
+
+    <div class="outfit">
+      <div class="when">Días de resort y playa</div>
+      <h3>Bikini rotation 👙</h3>
+      <p>5 bikinis/bañadores + 3 pareos + 2 salidas de baño tipo kimono o crochet. Para comer: vestido playero corto o short + top. Chanclas de día, sandalias por la tarde.</p>
+    </div>
+
+    <div class="outfit">
+      <div class="when">Vie 7 ago · Vuelo nocturno de vuelta</div>
+      <h3>Modo dormir 😴</h3>
+      <p>Tu conjunto más cómodo + sudadera + calcetines. Antifaz y coleta baja = llegas a Madrid humana.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VISTA PLAN ============ -->
+<div class="view" id="view-plan">
+  <div class="wrap">
+    <h2 class="page-title">Plan cuenta atrás 📅</h2>
+    <p class="page-sub">Del 23 al 31 de julio, para llegar al vuelo sin estrés.</p>
+    <div id="plan"></div>
+  </div>
+</div>
+
+<footer class="wrap">Tus checks se guardan solos 💗 <b>¡Punta Cana te espera!</b></footer>
+
+<nav>
+  <div class="tabs">
+    <div class="tab active" data-view="inicio"><span class="ti">🌺</span>Inicio</div>
+    <div class="tab" data-view="maletas"><span class="ti">👜</span>Maletas</div>
+    <div class="tab" data-view="compras"><span class="ti">🛍️</span>Pendientes</div>
+    <div class="tab" data-view="outfits"><span class="ti">👗</span>Outfits</div>
+    <div class="tab" data-view="plan"><span class="ti">📅</span>Cuenta atrás</div>
+  </div>
+</nav>
+
+<script>
+/* IDs idénticos a la versión anterior para conservar lo ya marcado */
+const SECTIONS = [
+  { id:"rosada", name:"Neceser rosada grande · Aseo y baño", color:"#F48FB1",
+    note:"Todo lo de ducha, pelo y cuerpo.",
+    items:[
+      ["Shampoo"],["Acondicionador"],["Aceite corporal"],["Crema corporal"],["Desodorante"],
+      ["Cepillo de dientes","métel el jueves por la mañana, lo usas antes"],
+      ["Crema dental"],["Cuchilla"],["Pinzas"],["Cepillo de pelo"],["Splash para el pelo"],
+      ["Espuma para ondas"],["Gomas de pelo y horquillas"],
+      ["After Sun","imprescindible, úsalo cada noche"],
+      ["Toallitas húmedas","",'buy'],
+      ["Mascarilla capilar o leave-in","el sol + sal + cloro castigan el pelo",'new'],
+      ["Champú en seco","salva peinados entre playa y cena",'new']
+    ]},
+  { id:"mediana", name:"Neceser mediana · Maquillaje", color:"#EC6A9C",
+    note:"Base ligera: con el calor, menos es más.",
+    items:[
+      ["Base o BB cream ligera"],["Corrector"],["Bronzer y blush"],["Iluminador"],
+      ["Máscara de pestañas","waterproof si tienes",'new'],
+      ["Delineador"],["Paleta de sombras"],
+      ["Labiales","uno nude día + uno intenso noche"],
+      ["Perfume"],["Brochas y esponja","",'new'],["Espejito de mano","",'new'],
+      ["Polvos matificantes o sellador","el maquillaje se derrite con la humedad",'new']
+    ]},
+  { id:"pequena", name:"Neceser pequeña · Skincare", color:"#F7B7CE",
+    note:"Tu rutina completa + extras de sol.",
+    items:[
+      ["Limpiador de cara"],["Tónico"],["Hidratante"],["Niacinamida"],
+      ["Protector solar de cara","reaplica cada 2-3 h"],
+      ["Agua micelar"],["Algodón"],
+      ["Bálsamo labial","si tiene SPF, mejor"],
+      ["Parches para los ojos"],["Colirio / lágrimas artificiales"]
+    ]},
+  { id:"beige", name:"Neceser beige · Botiquín", color:"#D9B98C",
+    note:"Va en el equipaje de mano por si acaso.",
+    items:[
+      ["Polaramine"],["Paracetamol"],["Ibuprofeno"],["Tiritas"],["Antiséptico pequeño"],
+      ["Repelente de mosquitos","clave al atardecer en el Caribe"],
+      ["Crema para picaduras"],
+      ["Pastillas de lactosa","",'buy'],
+      ["Compresas y tampones"],
+      ["Biodramina","para el barco a Isla Saona",'new'],
+      ["Antidiarreico (tipo Fortasec)","el clásico salvavidas de viaje",'new'],
+      ["Suero oral / sales de rehidratación","calor + cócteles + sol",'new'],
+      ["Protector de estómago (omeprazol)","",'new'],
+      ["Apósitos para ampollas (Compeed)","por Santo Domingo caminando",'new']
+    ]},
+  { id:"maleta", name:"Maleta · Ropa y calzado", color:"#2E7D64",
+    note:"Contabilizado para 8 días / 7 noches.",
+    items:[
+      ["Protector solar de cuerpo","formato grande, va en maleta facturada"],
+      ["5 bikinis / vestidos de baño"],["3 pareos"],
+      ["2 salidas de baño (kimono / crochet)"],
+      ["4 vestidos de noche sexy chic","satinado · lino · cut-out · comodín"],
+      ["2 vestidos flowy de día"],["3 vestidos playeros cortos"],
+      ["2 shorts + 3 tops"],["Conjunto cómodo para los vuelos"],
+      ["Sudadera o chaqueta ligera","para el avión"],
+      ["Ropa interior (10)"],["2 pijamas ligeros"],
+      ["Calcetines para el vuelo nocturno"],
+      ["Chanclas"],["Sandalias planas cómodas","Santo Domingo las agradece"],
+      ["Tacón de bloque / plataforma","Coco Bongo + cenas"],
+      ["Zapatillas blancas"],
+      ["Escarpines para snorkel","opcional, protege de corales y rocas",'new'],
+      ["Set de uñas","",'buy'],
+      ["Bolsa para ropa sucia","",'new'],
+      ["Bolsas zip","para líquidos y bikinis mojados a la vuelta",'new']
+    ]},
+  { id:"mano", name:"Equipaje de mano · Joyas, docs y tech", color:"#D9A24E",
+    note:"Lo valioso SIEMPRE contigo, nunca facturado.",
+    items:[
+      ["Anillos","",'hand'],["Pulseras","",'hand'],["Aretes","",'hand'],["Cadenas","",'hand'],
+      ["Organizador de joyas","para que no se enreden",'new'],
+      ["Pasaporte","comprueba vigencia mínima 6 meses",'hand'],
+      ["E-Ticket de República Dominicana","formulario online gratis, entrada Y salida",'new'],
+      ["Tarjetas + algo de efectivo en USD","billetes pequeños para propinas",'new'],
+      ["Copia del pasaporte","foto en el móvil + una impresa",'new'],
+      ["Seguro de viaje","revisa que lo tengas contratado",'new'],
+      ["Adaptador de enchufe tipo A/B","RD usa clavija americana y 110V",'new'],
+      ["Power bank","",'new'],["Cargadores + auriculares","",'new'],
+      ["Gafas de sol"],["Pamela o gorra"],["Gafas de snorkel"],
+      ["Bolso de playa"],["Clutch de noche"],
+      ["Bolso cruzado","para Santo Domingo",'new'],
+      ["Funda impermeable para el móvil","fotos en el agua sin sustos",'new'],
+      ["Antifaz para dormir en el vuelo","",'new']
+    ]}
+];
+
+const PLAN = [
+  {d:"23", w:"Jue", tasks:[["Repasar esta lista y anotar qué falta"],["Comprobar vigencia del pasaporte (mín. 6 meses)"]]},
+  {d:"24", w:"Vie", tasks:[["Compras: set de uñas, pastillas de lactosa, toallitas"],["Compras farmacia: Biodramina, Fortasec, suero oral, Compeed"],["Comprar adaptador tipo A/B si no tienes"]]},
+  {d:"25", w:"Sáb", tasks:[["Cambiar euros a dólares (billetes pequeños)"],["Revisar / contratar seguro de viaje"]]},
+  {d:"26", w:"Dom", tasks:[["Probarte outfits y elegir los 4 vestidos de noche"],["Foto de cada combo para no dudar allí"]]},
+  {d:"27", w:"Lun", tasks:[["Lavar toda la ropa elegida"],["Revisar que la plancha/rizador sea de doble voltaje (110-240V)"]]},
+  {d:"28", w:"Mar", tasks:[["Manicura + pedicura"],["Depilación"]]},
+  {d:"29", w:"Mié", tasks:[["Rellenar el E-Ticket de RD online"],["Descargar series, música y mapas offline"],["Empacar neceseres (menos lo de uso diario)"]]},
+  {d:"30", w:"Jue", tasks:[["Empacar la maleta completa y pesarla"],["Check-in online en cuanto abra"],["Cargar power bank y todos los dispositivos"],["Confirmar hora de recogida del traslado"]]},
+  {d:"31", w:"VIE ✈", tasks:[["Por la mañana: cepillo de dientes y últimos básicos al neceser"],["Salir hacia el aeropuerto sobre las 13:30–14:00 (3 h antes)"],["Pasaporte + móvil + cartera: triple check en la puerta"]]}
+];
+
+/* Hoja de pendientes: referencia los MISMOS ids, así se sincroniza todo */
+const SHOP = [
+  { title:"Por comprar 🛒", color:"#F2467E", ids:[
+      "rosada-14","beige-7","maleta-18",                      // toallitas, lactosa, set uñas
+      "beige-9","beige-10","beige-11","beige-12","beige-13",  // farmacia añadida
+      "mano-10","mano-7"                                       // adaptador, USD
+  ]},
+  { title:"Por hacer ✔️", color:"#D9A24E", ids:[
+      "plan-0-1","plan-2-1","plan-4-1","plan-5-0","plan-5-1",
+      "plan-6-0","plan-7-1","plan-7-3","mano-6","mano-8"
+  ]}
+];
+
+/* ---------- registro central ---------- */
+const REG = {};
+SECTIONS.forEach(sec=>sec.items.forEach((it,i)=>REG[sec.id+"-"+i]={label:it[0],sub:it[1]||"",tag:it[2]||""}));
+PLAN.forEach((day,di)=>day.tasks.forEach((t,ti)=>REG["plan-"+di+"-"+ti]={label:t[0],sub:"",tag:""}));
+
+const KEY="puntacana-2026-checklist";
+let state={};
+async function loadState(){
+  try{ const r=await window.storage.get(KEY); if(r&&r.value) state=JSON.parse(r.value); }catch(e){ state={}; }
+}
+let saveTimer=null;
+function saveState(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(async()=>{ try{ await window.storage.set(KEY,JSON.stringify(state)); }catch(e){} },400);
+}
+
+const tags={buy:'<span class="tag buy">POR COMPRAR</span>',new:'<span class="tag new">AÑADIDO ♥</span>',hand:'<span class="tag hand">A MANO</span>'};
+function itemHTML(id){
+  const it=REG[id]; if(!it) return "";
+  return `<label class="item ${state[id]?'done':''}" data-id="${id}">
+    <span class="box"></span>
+    <span class="txt">${it.label}${it.tag?tags[it.tag]:''}${it.sub?`<small>${it.sub}</small>`:''}</span>
+  </label>`;
+}
+
+function render(){
+  document.getElementById("sections").innerHTML = SECTIONS.map(sec=>`
+    <section>
+      <div class="sec-head"><span class="dot" style="background:${sec.color}"></span>
+        <h2>${sec.name}</h2><span class="cnt" data-cnt="${sec.id}">0/0</span></div>
+      <p class="sec-note">${sec.note}</p>
+      <div class="items">${sec.items.map((it,i)=>itemHTML(sec.id+"-"+i)).join("")}</div>
+    </section>`).join("");
+
+  document.getElementById("shopping").innerHTML = SHOP.map(g=>`
+    <section>
+      <div class="sec-head"><span class="dot" style="background:${g.color}"></span>
+        <h2>${g.title}</h2><span class="cnt" data-cntshop="${g.title}">0/0</span></div>
+      <div class="items">${g.ids.map(id=>itemHTML(id)).join("")}</div>
+    </section>`).join("");
+
+  document.getElementById("plan").innerHTML = PLAN.map((day,di)=>`
+    <div class="day">
+      <div class="day-num"><div class="day-circle"><b>${day.d}</b></div><span>${day.w}</span><div class="day-line"></div></div>
+      <div class="day-body"><div class="items">
+        ${day.tasks.map((t,ti)=>itemHTML("plan-"+di+"-"+ti)).join("")}
+      </div></div>
+    </div>`).join("");
+
+  document.querySelectorAll(".item").forEach(el=>{
+    el.addEventListener("click",e=>{
+      e.preventDefault();
+      const id=el.dataset.id;
+      state[id]=!state[id];
+      if(!state[id]) delete state[id];
+      document.querySelectorAll(`.item[data-id="${id}"]`).forEach(n=>n.classList.toggle("done",!!state[id]));
+      updateCounts(); saveState();
+    });
+  });
+  updateCounts();
+}
+
+function updateCounts(){
+  let total=0,done=0;
+  Object.keys(REG).forEach(id=>{ total++; if(state[id])done++; });
+  document.getElementById("prog-txt").textContent=done+" / "+total;
+  document.getElementById("prog-bar").style.width=(total?Math.round(done/total*100):0)+"%";
+
+  SECTIONS.forEach(sec=>{
+    let sd=0; sec.items.forEach((it,i)=>{ if(state[sec.id+"-"+i])sd++; });
+    const c=document.querySelector(`[data-cnt="${sec.id}"]`);
+    if(c)c.textContent=sd+"/"+sec.items.length;
+  });
+  SHOP.forEach(g=>{
+    const sd=g.ids.filter(id=>state[id]).length;
+    const c=document.querySelector(`[data-cntshop="${g.title}"]`);
+    if(c)c.textContent=sd+"/"+g.ids.length;
+  });
+
+  /* mini resumen inicio */
+  let mt=0,md=0;
+  SECTIONS.forEach(sec=>sec.items.forEach((it,i)=>{mt++;if(state[sec.id+"-"+i])md++;}));
+  document.getElementById("q-maletas").textContent=md+" de "+mt+" listas";
+  const allShop=[...new Set(SHOP.flatMap(g=>g.ids))];
+  const pend=allShop.filter(id=>!state[id]).length;
+  document.getElementById("q-compras").textContent=pend+" pendientes";
+  let pt=0,pd=0;
+  PLAN.forEach((day,di)=>day.tasks.forEach((t,ti)=>{pt++;if(state["plan-"+di+"-"+ti])pd++;}));
+  document.getElementById("q-plan").textContent=pd+" de "+pt+" hechas";
+}
+
+/* ---------- tabs ---------- */
+function goTo(name){
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id==="view-"+name));
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===name));
+  window.scrollTo({top:0});
+}
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>goTo(t.dataset.view)));
+document.querySelectorAll(".qcard").forEach(q=>q.addEventListener("click",()=>goTo(q.dataset.go)));
+
+/* ---------- countdown ---------- */
+const target=new Date("2026-07-31T17:00:00+02:00").getTime();
+function tick(){
+  let diff=target-Date.now(); if(diff<0)diff=0;
+  const d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5), m=Math.floor(diff%36e5/6e4), s=Math.floor(diff%6e4/1e3);
+  document.getElementById("cd-d").textContent=d;
+  document.getElementById("cd-h").textContent=String(h).padStart(2,"0");
+  document.getElementById("cd-m").textContent=String(m).padStart(2,"0");
+  document.getElementById("cd-s").textContent=String(s).padStart(2,"0");
+}
+setInterval(tick,1000); tick();
+
+loadState().then(render);
+</script>
+</body>
+</html>
